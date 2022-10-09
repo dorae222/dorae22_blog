@@ -9,8 +9,8 @@ baseurl: "/dorae22_blog"
 # Github and twitter are optional:
 minima:
   social_links:
-    twitter: fastdotai
-    github: fastai
+    twitter: 
+    github: dorae222
 
 # Set this to true to get LaTeX math equation support
 use_math: 
