@@ -7,7 +7,7 @@
 # https://learnxinyminutes.com/docs/yaml/
 
 title: Dorae222's BLOG
-description: An easy to use blogging platform with support for Jupyter Notebooks.
+description: 경영대생의 Data 탐방기
 github_username: dorae222
 # you can comment the below line out if your repo name is not different than your baseurl
 github_repo: "dorae22_blog"
