@@ -66,11 +66,6 @@ plugins:
   - jekyll-sitemap
   - jemoji
 
-# root_dir: http://localhost:4000
-category_dir: categories/
-tag_dir: tag/
-categories: [Python, ML, Project]
-
 # See https://jekyllrb.com/docs/pagination/
 # For pagination to work, you cannot have index.md at the root of your repo, instead you must rename this file to index.html
 paginate: 15
