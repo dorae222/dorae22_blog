@@ -10,7 +10,7 @@ baseurl: "/dorae22_blog"
 minima:
   social_links:
     twitter: 
-    github: dorae222/dorae22_blog
+    github: dorae222
 
 # Set this to true to get LaTeX math equation support
 use_math: 
