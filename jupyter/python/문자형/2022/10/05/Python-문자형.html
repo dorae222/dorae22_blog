@@ -1,0 +1,2779 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>[Python] 문자형 | Dorae222’s BLOG</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="[Python] 문자형" />
+<meta name="author" content="도형준" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="HYU BIZ &amp; BIG DATA" />
+<meta property="og:description" content="HYU BIZ &amp; BIG DATA" />
+<meta property="og:site_name" content="Dorae222’s BLOG" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-10-05T00:00:00-05:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="[Python] 문자형" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"도형준"},"dateModified":"2022-10-05T00:00:00-05:00","datePublished":"2022-10-05T00:00:00-05:00","description":"HYU BIZ &amp; BIG DATA","headline":"[Python] 문자형","mainEntityOfPage":{"@type":"WebPage","@id":"/dorae222/jupyter/python/%EB%AC%B8%EC%9E%90%ED%98%95/2022/10/05/Python-%EB%AC%B8%EC%9E%90%ED%98%95.html"},"url":"/dorae222/jupyter/python/%EB%AC%B8%EC%9E%90%ED%98%95/2022/10/05/Python-%EB%AC%B8%EC%9E%90%ED%98%95.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/dorae222/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="/dorae222/feed.xml" title="Dorae222's BLOG" /><link rel="shortcut icon" type="image/x-icon" href="/dorae222/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/dorae222/">Dorae222&#39;s BLOG</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/dorae222/about/">About Me</a><a class="page-link" href="/dorae222/gitInfo/">gitInfo</a><a class="page-link" href="/dorae222/search/">Search</a><a class="page-link" href="/dorae222/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">[Python] 문자형</h1><p class="page-description"> </p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2022-10-05T00:00:00-05:00" itemprop="datePublished">
+        Oct 5, 2022
+      </time>• 
+          <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+            <span class="p-author h-card" itemprop="name">도형준</span></span>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      6 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="dorae222/categories/#jupyter">jupyter</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="dorae222/categories/#python">python</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="dorae222/categories/#문자형">문자형</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-justify-center">
+          <div class="px-2">
+
+    <a href="https://github.com/dorae222/dorae22_blog/tree/master/_notebooks/2022-10-05-[Python] 문자형.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/dorae222/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/dorae222/dorae22_blog/master?filepath=_notebooks%2F2022-10-05-%5BPython%5D+%EB%AC%B8%EC%9E%90%ED%98%95.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/dorae222/assets/badges/binder.svg" alt="Open In Binder"/>
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/dorae222/dorae22_blog/blob/master/_notebooks/2022-10-05-[Python] 문자형.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/dorae222/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+          <div class="px-2">
+  <a href="https://deepnote.com/launch?url=https%3A%2F%2Fgithub.com%2Fdorae222%2Fdorae22_blog%2Fblob%2Fmaster%2F_notebooks%2F2022-10-05-%5BPython%5D+%EB%AC%B8%EC%9E%90%ED%98%95.ipynb" target="_blank">
+      <img class="notebook-badge-image" src="/dorae222/assets/badges/deepnote.svg" alt="Launch in Deepnote"/>
+  </a>
+</div>
+
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h1"><a href="#데이터-타입(문자)">데이터 타입(문자) </a></li>
+<li class="toc-entry toc-h1"><a href="#생성하기">생성하기 </a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#1)-한-줄-문자열-:-'-,-"">1) 한 줄 문자열 : &#39; , &quot; </a></li>
+<li class="toc-entry toc-h2"><a href="#2)-여러-줄-문자열:-\n,-'''-''',-"""-"""">2) 여러 줄 문자열: \n, &#39;&#39;&#39; &#39;&#39;&#39;, &quot;&quot;&quot; &quot;&quot;&quot; </a></li>
+<li class="toc-entry toc-h2"><a href="#3)-문자-속에-문자열-기호-사용하기">3) 문자 속에 문자열 기호 사용하기 </a></li>
+<li class="toc-entry toc-h2"><a href="#연습문제">연습문제 </a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#아래와-같은-여러-줄의-문장을-문자열로-만들어서-lines라는-변수에-할당하세요">아래와 같은 여러 줄의 문장을 문자열로 만들어서 lines라는 변수에 할당하세요 </a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#연산하기">연산하기 </a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#1)-산술연산자:-문자,-숫자를-함께-연산하기">1) 산술연산자: 문자, 숫자를 함께 연산하기 </a></li>
+<li class="toc-entry toc-h3"><a href="#2)-비교연산자:-문자의-크기를-비교하기-위한-문법-기호">2) 비교연산자: 문자의 크기를 비교하기 위한 문법 기호 </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#인덱스">인덱스 </a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#1)-인덱싱(indexing):-특정-위치의-하나의-아이템에-접근하기">1) 인덱싱(indexing): 특정 위치의 하나의 아이템에 접근하기 </a></li>
+<li class="toc-entry toc-h3"><a href="#2)-슬라이싱:-연속된-범위의-여러-아이템에-접근">2) 슬라이싱: 연속된 범위의 여러 아이템에 접근 </a></li>
+<li class="toc-entry toc-h2"><a href="#연습문제">연습문제 </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#포매팅(Formatting)">포매팅(Formatting) </a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#%-포메팅">% 포메팅 </a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#숫자-값-대입">숫자 값 대입 </a></li>
+<li class="toc-entry toc-h3"><a href="#문자-대입">문자 대입 </a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#문자열-내장함수*-=-문자열-메서드">문자열 내장함수* = 문자열 메서드 </a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#.count()">.count() </a></li>
+<li class="toc-entry toc-h2"><a href="#.find():-특정-값의-인덱스-번호를-반환">.find(): 특정 값의 인덱스 번호를 반환 </a></li>
+<li class="toc-entry toc-h2"><a href="#.upper()">.upper() </a></li>
+<li class="toc-entry toc-h2"><a href="#.lower()">.lower() </a></li>
+<li class="toc-entry toc-h2"><a href="#.strip()">.strip() </a></li>
+<li class="toc-entry toc-h2"><a href="#replace(old,-new)">replace(old, new) </a></li>
+<li class="toc-entry toc-h2"><a href="#.split("기준")">.split(&quot;기준&quot;) </a></li>
+<li class="toc-entry toc-h2"><a href="#.join()">.join() </a></li>
+</ul>
+</li>
+</ul><!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2022-10-05-[Python] 문자형.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="데이터-타입(문자)">
+<a class="anchor" href="#%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85(%EB%AC%B8%EC%9E%90)" aria-hidden="true"><span class="octicon octicon-link"></span></a>데이터 타입(문자)<a class="anchor-link" href="#%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85(%EB%AC%B8%EC%9E%90)"> </a>
+</h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>전화번호를 끊어서 읽는 것처럼, 파이썬도 문자와 숫자를 구분한다</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="mi">1373</span><span class="o">-</span><span class="mi">2000</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>-627</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="생성하기">
+<a class="anchor" href="#%EC%83%9D%EC%84%B1%ED%95%98%EA%B8%B0" aria-hidden="true"><span class="octicon octicon-link"></span></a>생성하기<a class="anchor-link" href="#%EC%83%9D%EC%84%B1%ED%95%98%EA%B8%B0"> </a>
+</h1>
+<ul>
+<li>여닫는 따옴표는 반드시 문자의 앞 뒤에서 한 쌍으로 완성해야 한다.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="1)-한-줄-문자열-:-'-,-&quot;">
+<a class="anchor" href="#1)-%ED%95%9C-%EC%A4%84-%EB%AC%B8%EC%9E%90%EC%97%B4-:-'-,-" aria-hidden="true"><span class="octicon octicon-link"></span></a>1) 한 줄 문자열 : ' , "<a class="anchor-link" href="#1)-%ED%95%9C-%EC%A4%84-%EB%AC%B8%EC%9E%90%EC%97%B4-:-'-,-%22"> </a>
+</h2>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="s2">"123"</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>'123'</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="s1">'안녕 </span><span class="se">\n</span><span class="s1">반가워'</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>안녕 
+반가워
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="2)-여러-줄-문자열:-\n,-'''-''',-&quot;&quot;&quot;-&quot;&quot;&quot;">
+<a class="anchor" href="#2)-%EC%97%AC%EB%9F%AC-%EC%A4%84-%EB%AC%B8%EC%9E%90%EC%97%B4:-%5Cn,-'''-''',-" aria-hidden="true"><span class="octicon octicon-link"></span></a>2) 여러 줄 문자열: \n, ''' ''', """ """<a class="anchor-link" href="#2)-%EC%97%AC%EB%9F%AC-%EC%A4%84-%EB%AC%B8%EC%9E%90%EC%97%B4:-%5Cn,-'''-''',-%22%22%22-%22%22%22"> </a>
+</h2>
+<ul>
+<li>print() 했을 때 enter(줄바꿈)이 그대로 반영되는 문자열로 처리 가능.</li>
+<li>단 화면에서 보기를 화면(print 없이 주피터 노트북 결과로 보면)</li>
+<li>줄바꿈이 바로 나타나지 않고 \n 처리 된다</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span><span class="o">=</span><span class="s2">"""안녕</span>
+<span class="s2">반가워"""</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>안녕
+반가워
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>'안녕\n반가워'</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="3)-문자-속에-문자열-기호-사용하기">
+<a class="anchor" href="#3)-%EB%AC%B8%EC%9E%90-%EC%86%8D%EC%97%90-%EB%AC%B8%EC%9E%90%EC%97%B4-%EA%B8%B0%ED%98%B8-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0" aria-hidden="true"><span class="octicon octicon-link"></span></a>3) 문자 속에 문자열 기호 사용하기<a class="anchor-link" href="#3)-%EB%AC%B8%EC%9E%90-%EC%86%8D%EC%97%90-%EB%AC%B8%EC%9E%90%EC%97%B4-%EA%B8%B0%ED%98%B8-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0"> </a>
+</h2>
+<ul>
+<li>문자열에서 자주 쓰는 기호: ', "</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># a = 'She's happy'</span>
+<span class="n">a</span> <span class="o">=</span> <span class="s2">"She's happy"</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>She's happy
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">title</span> <span class="o">=</span> <span class="s1">'오늘은 "미세먼지" 좋음.'</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>오늘은 "미세먼지" 좋음.
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 따옴표 왼쪽에 \를 붙여 해당 따옴표가 여닫는 용도로 쓰이지 않았음을 보여줘도 된다.</span>
+<span class="n">b</span><span class="o">=</span><span class="s2">"</span><span class="se">\"</span><span class="s2">He's sad.</span><span class="se">\"</span><span class="s2">"</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>"He's sad."
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 표기상으로는 두 줄이지만 실제 개념적으로는 한줄로 인식되는 문자열이 됩니다.</span>
+<span class="n">c</span><span class="o">=</span><span class="s1">'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">c</span><span class="o">=</span><span class="s1">'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</span><span class="se">\</span>
+<span class="s1">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</span><span class="se">\</span>
+<span class="s1">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="연습문제">
+<a class="anchor" href="#%EC%97%B0%EC%8A%B5%EB%AC%B8%EC%A0%9C" aria-hidden="true"><span class="octicon octicon-link"></span></a>연습문제<a class="anchor-link" href="#%EC%97%B0%EC%8A%B5%EB%AC%B8%EC%A0%9C"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="아래와-같은-여러-줄의-문장을-문자열로-만들어서-lines라는-변수에-할당하세요">
+<a class="anchor" href="#%EC%95%84%EB%9E%98%EC%99%80-%EA%B0%99%EC%9D%80-%EC%97%AC%EB%9F%AC-%EC%A4%84%EC%9D%98-%EB%AC%B8%EC%9E%A5%EC%9D%84-%EB%AC%B8%EC%9E%90%EC%97%B4%EB%A1%9C-%EB%A7%8C%EB%93%A4%EC%96%B4%EC%84%9C-lines%EB%9D%BC%EB%8A%94-%EB%B3%80%EC%88%98%EC%97%90-%ED%95%A0%EB%8B%B9%ED%95%98%EC%84%B8%EC%9A%94" aria-hidden="true"><span class="octicon octicon-link"></span></a>아래와 같은 여러 줄의 문장을 문자열로 만들어서 lines라는 변수에 할당하세요<a class="anchor-link" href="#%EC%95%84%EB%9E%98%EC%99%80-%EA%B0%99%EC%9D%80-%EC%97%AC%EB%9F%AC-%EC%A4%84%EC%9D%98-%EB%AC%B8%EC%9E%A5%EC%9D%84-%EB%AC%B8%EC%9E%90%EC%97%B4%EB%A1%9C-%EB%A7%8C%EB%93%A4%EC%96%B4%EC%84%9C-lines%EB%9D%BC%EB%8A%94-%EB%B3%80%EC%88%98%EC%97%90-%ED%95%A0%EB%8B%B9%ED%95%98%EC%84%B8%EC%9A%94"> </a>
+</h3>
+<ul>
+<li>파이썬도 배우고</li>
+<li>장고도 배우고</li>
+<li>할게 너무 많아<ul>
+<li>방법1) 여러 줄 문자열 활용하기 (lines 변수에 할당)</li>
+<li>방법2) 한 줄 문자열 내부에서 \n 사이사이에 활용하기. (line 변수에 할당)</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">lines</span> <span class="o">=</span> <span class="s2">"""파이썬도 배우고</span>
+<span class="s2">장고도 배우고</span>
+<span class="s2">할게 너무 많아"""</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>파이썬도 배우고
+장고도 배우고
+할게 너무 많아
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">line</span> <span class="o">=</span> <span class="s2">"""파이썬도 배우고</span><span class="se">\n</span><span class="s2">장고도 배우고</span><span class="se">\n</span><span class="s2">할게 너무 많아"""</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>파이썬도 배우고
+장고도 배우고
+할게 너무 많아
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="연산하기">
+<a class="anchor" href="#%EC%97%B0%EC%82%B0%ED%95%98%EA%B8%B0" aria-hidden="true"><span class="octicon octicon-link"></span></a>연산하기<a class="anchor-link" href="#%EC%97%B0%EC%82%B0%ED%95%98%EA%B8%B0"> </a>
+</h1>
+<h3 id="1)-산술연산자:-문자,-숫자를-함께-연산하기">
+<a class="anchor" href="#1)-%EC%82%B0%EC%88%A0%EC%97%B0%EC%82%B0%EC%9E%90:-%EB%AC%B8%EC%9E%90,-%EC%88%AB%EC%9E%90%EB%A5%BC-%ED%95%A8%EA%BB%98-%EC%97%B0%EC%82%B0%ED%95%98%EA%B8%B0" aria-hidden="true"><span class="octicon octicon-link"></span></a>1) 산술연산자: 문자, 숫자를 함께 연산하기<a class="anchor-link" href="#1)-%EC%82%B0%EC%88%A0%EC%97%B0%EC%82%B0%EC%9E%90:-%EB%AC%B8%EC%9E%90,-%EC%88%AB%EC%9E%90%EB%A5%BC-%ED%95%A8%EA%BB%98-%EC%97%B0%EC%82%B0%ED%95%98%EA%B8%B0"> </a>
+</h3>
+<ul>
+<li>문자와 문자를 연결</li>
+<li>동일한 문자를 반복해서 연결</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="s2">"가"</span> <span class="o">+</span> <span class="s2">"나"</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>'가나'</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">"가"</span> <span class="o">+</span> <span class="s2">" 나"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"가"</span> <span class="o">+</span> <span class="s2">" "</span><span class="o">+</span><span class="s2">"나"</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>가 나
+가 나
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 2. 문자 + 숫자 = Error</span>
+<span class="s1">'가'</span> <span class="o">+</span> <span class="mi">1</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">TypeError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-intense-fg ansi-bold">~\AppData\Local\Temp\ipykernel_2740\3496203294.py</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">      1</span> <span class="ansi-red-intense-fg ansi-bold"># 파이썬의 더하기는 양변 자료가 같거나 논리적으로 비슷하다고 인정되어야 함</span>
+<span class="ansi-green-fg">      2</span> <span class="ansi-red-intense-fg ansi-bold"># 2. 문자 + 숫자 = Error</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 3</span><span class="ansi-yellow-intense-fg ansi-bold"> </span><span class="ansi-blue-intense-fg ansi-bold">'가'</span> <span class="ansi-yellow-intense-fg ansi-bold">+</span> <span class="ansi-cyan-intense-fg ansi-bold">1</span>
+
+<span class="ansi-red-intense-fg ansi-bold">TypeError</span>: can only concatenate str (not "int") to str</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 동일한 문자열을 여러 번 반복 연결시켜줌</span>
+<span class="s1">'abc'</span><span class="o">*</span><span class="mi">3</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>'abcabcabc'</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="s1">'abc'</span> <span class="o">*</span> <span class="s1">'a'</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">TypeError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-intense-fg ansi-bold">~\AppData\Local\Temp\ipykernel_2740\2640704479.py</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">      1</span> <span class="ansi-red-intense-fg ansi-bold"># 문자 * 문자 = Error</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 2</span><span class="ansi-yellow-intense-fg ansi-bold"> </span><span class="ansi-blue-intense-fg ansi-bold">'abc'</span> <span class="ansi-yellow-intense-fg ansi-bold">*</span> <span class="ansi-blue-intense-fg ansi-bold">'a'</span>
+
+<span class="ansi-red-intense-fg ansi-bold">TypeError</span>: can't multiply sequence by non-int of type 'str'</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="2)-비교연산자:-문자의-크기를-비교하기-위한-문법-기호">
+<a class="anchor" href="#2)-%EB%B9%84%EA%B5%90%EC%97%B0%EC%82%B0%EC%9E%90:-%EB%AC%B8%EC%9E%90%EC%9D%98-%ED%81%AC%EA%B8%B0%EB%A5%BC-%EB%B9%84%EA%B5%90%ED%95%98%EA%B8%B0-%EC%9C%84%ED%95%9C-%EB%AC%B8%EB%B2%95-%EA%B8%B0%ED%98%B8" aria-hidden="true"><span class="octicon octicon-link"></span></a>2) 비교연산자: 문자의 크기를 비교하기 위한 문법 기호<a class="anchor-link" href="#2)-%EB%B9%84%EA%B5%90%EC%97%B0%EC%82%B0%EC%9E%90:-%EB%AC%B8%EC%9E%90%EC%9D%98-%ED%81%AC%EA%B8%B0%EB%A5%BC-%EB%B9%84%EA%B5%90%ED%95%98%EA%B8%B0-%EC%9C%84%ED%95%9C-%EB%AC%B8%EB%B2%95-%EA%B8%B0%ED%98%B8"> </a>
+</h3>
+<ul>
+<li>문자의비교<ul>
+<li>대문자 vs 소문자: 대문자 &lt; 소문자 크기가 더 크다</li>
+<li>알파벳: 알파벳 순서가 뒤에 있을수록 크기가 더 크다</li>
+<li>문자 길이: 문자열의 길이가 길 수록 크기가 더 크다<ul>
+<li>ASCII코드 =&gt; 문자마다 숫자를 부여</li>
+<li>A = 65, a = 97 [소문자 값이 더 크다]</li>
+<li>'0' = 48 ...</li>
+<li>'띄워쓰기' = 32, NULL = 0</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="s1">'A'</span> <span class="o">&lt;</span> <span class="s1">'a'</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>True</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 문자열의 길이는 실제 크기 비교에 영향을 미치지 않늗다.</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'b'</span> <span class="o">&lt;</span> <span class="s1">'BUS'</span><span class="p">)</span> <span class="c1"># 98 &lt; 66+7~+8~ 일까?</span>
+<span class="c1"># 맨 앞글자가 같을시 두 번째 글자 비교</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'b'</span> <span class="o">&lt;</span> <span class="s1">'bUS'</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>False
+True
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># ascii코드 vs unicode</span>
+<span class="s1">'B'</span> <span class="o">&lt;</span> <span class="s1">'가'</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>True</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">ord</span><span class="p">(</span><span class="s1">'가'</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>44032</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="s1">'나는 배가 고파'</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>8</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="인덱스">
+<a class="anchor" href="#%EC%9D%B8%EB%8D%B1%EC%8A%A4" aria-hidden="true"><span class="octicon octicon-link"></span></a>인덱스<a class="anchor-link" href="#%EC%9D%B8%EB%8D%B1%EC%8A%A4"> </a>
+</h1>
+<ul>
+<li>아이템(대상이 가지고 있는 최소 단위의 값)의 위치를 나타내는 고유한 번호</li>
+<li>첫번째 위치는 0부터 시작</li>
+<li>마지막 위치는 -1부터 시작</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="1)-인덱싱(indexing):-특정-위치의-하나의-아이템에-접근하기">
+<a class="anchor" href="#1)-%EC%9D%B8%EB%8D%B1%EC%8B%B1(indexing):-%ED%8A%B9%EC%A0%95-%EC%9C%84%EC%B9%98%EC%9D%98-%ED%95%98%EB%82%98%EC%9D%98-%EC%95%84%EC%9D%B4%ED%85%9C%EC%97%90-%EC%A0%91%EA%B7%BC%ED%95%98%EA%B8%B0" aria-hidden="true"><span class="octicon octicon-link"></span></a>1) 인덱싱(indexing): 특정 위치의 하나의 아이템에 접근하기<a class="anchor-link" href="#1)-%EC%9D%B8%EB%8D%B1%EC%8B%B1(indexing):-%ED%8A%B9%EC%A0%95-%EC%9C%84%EC%B9%98%EC%9D%98-%ED%95%98%EB%82%98%EC%9D%98-%EC%95%84%EC%9D%B4%ED%85%9C%EC%97%90-%EC%A0%91%EA%B7%BC%ED%95%98%EA%B8%B0"> </a>
+</h3>
+<ul>
+<li>인덱싱 문법기호: 객체[인덱스 번호]</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 인덱싱 문법: 객체(대상: 값, 자료형)[인덱스 번호]</span>
+<span class="n">a</span><span class="o">=</span><span class="s1">'banana'</span>
+<span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>'b'</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>'a'</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="2)-슬라이싱:-연속된-범위의-여러-아이템에-접근">
+<a class="anchor" href="#2)-%EC%8A%AC%EB%9D%BC%EC%9D%B4%EC%8B%B1:-%EC%97%B0%EC%86%8D%EB%90%9C-%EB%B2%94%EC%9C%84%EC%9D%98-%EC%97%AC%EB%9F%AC-%EC%95%84%EC%9D%B4%ED%85%9C%EC%97%90-%EC%A0%91%EA%B7%BC" aria-hidden="true"><span class="octicon octicon-link"></span></a>2) 슬라이싱: 연속된 범위의 여러 아이템에 접근<a class="anchor-link" href="#2)-%EC%8A%AC%EB%9D%BC%EC%9D%B4%EC%8B%B1:-%EC%97%B0%EC%86%8D%EB%90%9C-%EB%B2%94%EC%9C%84%EC%9D%98-%EC%97%AC%EB%9F%AC-%EC%95%84%EC%9D%B4%ED%85%9C%EC%97%90-%EC%A0%91%EA%B7%BC"> </a>
+</h3>
+<ul>
+<li>대상객체[처음인덱스:마지막인덱스(:간격)]</li>
+<li>처음 인덱스 번호는 포함(n부터~)</li>
+<li>마지막 인덱스 번호는 포함하지 않음(~n-1까지)</li>
+<li>간격조정은 할 수도 있고 하지 않을 수도 있음(기본 1씩 증가)</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s2">"hello python world"</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 처음 인덱스: 0</span>
+<span class="c1"># 마지막 인덱스: -7(뒤에서 7번째까지 가져와야 하므로 실제로는 -6까지를 타겟으로)</span>
+<span class="c1"># 간격 기본값(1)</span>
+<span class="n">text</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">6</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>'hello python'</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 처음 인덱스 : 6</span>
+<span class="c1"># 마지막 인덱스 : 11 or -6</span>
+<span class="c1"># 간격: 기본값(1)</span>
+<span class="n">text</span><span class="p">[</span><span class="mi">6</span><span class="p">:</span><span class="o">-</span><span class="mi">6</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>'python'</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 처음 인덱스 기본값: 0 자동입력</span>
+<span class="c1"># 마지막 인덱스 기본값: 마지막 까지로 자동 입력</span>
+<span class="n">text</span><span class="p">[:]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>'hello python world'</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">text</span><span class="p">[::</span><span class="mi">2</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>'hlopto ol'</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">text</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>'dlrow nohtyp olleh'</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="연습문제">
+<a class="anchor" href="#%EC%97%B0%EC%8A%B5%EB%AC%B8%EC%A0%9C" aria-hidden="true"><span class="octicon octicon-link"></span></a>연습문제<a class="anchor-link" href="#%EC%97%B0%EC%8A%B5%EB%AC%B8%EC%A0%9C"> </a>
+</h2>
+<ul>
+<li>20221004미세먼지양호함</li>
+<li>위의 문장을 weather 변수에 저장한 다음</li>
+<li>날짜는 date 변수에 슬라이싱으로 받아오고,</li>
+<li>dust 변수에 미세먼지 정도를 슬라이싱으로 받아오도록 만들어서 출력해주세요</li>
+</ul>
+<p>출력양식 <br>
+날짜 : 20221005 <br>
+날씨 : 미세먼지양호함</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">weather</span> <span class="o">=</span> <span class="s1">'20221005미세먼지양호함'</span>
+<span class="n">date</span> <span class="o">=</span> <span class="n">weather</span><span class="p">[:</span><span class="mi">8</span><span class="p">]</span>
+<span class="n">dust</span> <span class="o">=</span> <span class="n">weather</span><span class="p">[</span><span class="mi">8</span><span class="p">:]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'날짜:'</span><span class="p">,</span><span class="n">date</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'날씨:'</span><span class="p">,</span><span class="n">dust</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>날짜: 20221005
+날씨: 미세먼지양호함
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="포매팅(Formatting)">
+<a class="anchor" href="#%ED%8F%AC%EB%A7%A4%ED%8C%85(Formatting)" aria-hidden="true"><span class="octicon octicon-link"></span></a>포매팅(Formatting)<a class="anchor-link" href="#%ED%8F%AC%EB%A7%A4%ED%8C%85(Formatting)"> </a>
+</h1>
+<ul>
+<li>특정값만 바뀌고 일정한  형식을 가지는 문자열을 작성할 수 있는 기법</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="%-포메팅">
+<a class="anchor" href="#%-%ED%8F%AC%EB%A9%94%ED%8C%85" aria-hidden="true"><span class="octicon octicon-link"></span></a>% 포메팅<a class="anchor-link" href="#%-%ED%8F%AC%EB%A9%94%ED%8C%85"> </a>
+</h2>
+<ul>
+<li>데이터 타입에 따른 분류: 정수, 실수, 문자</li>
+<li>옵션: 문자열 길이, 표현할 아이템 개수, 공백</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="숫자-값-대입">
+<a class="anchor" href="#%EC%88%AB%EC%9E%90-%EA%B0%92-%EB%8C%80%EC%9E%85" aria-hidden="true"><span class="octicon octicon-link"></span></a>숫자 값 대입<a class="anchor-link" href="#%EC%88%AB%EC%9E%90-%EA%B0%92-%EB%8C%80%EC%9E%85"> </a>
+</h3>
+<ul>
+<li>1.가변자료가 들어갈 자리(땡땡...에 해당하는)에 구멍(%자료형)을 낸다.</li>
+<li>2.구멍이 뚫린 문자열을 뒤에 %로 연결한 다음 집어넣을 값을 적는다</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="s1">'오늘은 </span><span class="si">%d</span><span class="s1">일입니다'</span><span class="o">%</span><span class="k">5</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>'오늘은 5일입니다'</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 실수를 제공하면, 정수로 강제로 바꿔서 출력합니다(소수점 아래를 버림, 반올림 아님)</span>
+<span class="s1">'오늘은 </span><span class="si">%d</span><span class="s1">일입니다'</span><span class="o">%</span><span class="k">5</span>.7
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>'오늘은 5일입니다'</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># %f를 이용하여 값에 대한 구멍을 낸다</span>
+<span class="c1"># %f는 기본적으로 소수점 6자리까지 표현</span>
+<span class="s2">"</span><span class="si">%f</span><span class="s2">표기"</span><span class="o">%</span><span class="k">15</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>'15.000000표기'</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 소수점 아래 7자리에서 반올림이 일어납니다</span>
+<span class="s2">"</span><span class="si">%f</span><span class="s2"> 표기"</span><span class="o">%</span><span class="k">1</span>.123456789
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>'1.123457 표기'</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># %0.nf: 소수점 아래 n자리 까지만 표현하는 실수</span>
+<span class="s2">"</span><span class="si">%0.3f</span><span class="s2"> 표기"</span><span class="o">%</span><span class="k">1</span>.123456789
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>'1.123 표기'</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 집어 넣는 값은 왼쪽부터 하나씩 전달 됨</span>
+<span class="c1"># 2개 이상을 집어넣는 경우는 %(첫번째 값, 두번째값,...) 과 같이 괄호로 전달한다</span>
+<span class="s1">'오늘은 </span><span class="si">%d</span><span class="s1">월 </span><span class="si">%d</span><span class="s1">일입니다.'</span><span class="o">%</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>'오늘은 10월 5일입니다.'</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="s1">'</span><span class="si">%f</span><span class="s1">'</span><span class="o">%</span><span class="s1">'1'</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">TypeError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-intense-fg ansi-bold">~\AppData\Local\Temp\ipykernel_2740\2091584728.py</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">      1</span> <span class="ansi-red-intense-fg ansi-bold"># %d, %f에 숫자가 아닌 자료를 넣으면 에러 발생</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 2</span><span class="ansi-yellow-intense-fg ansi-bold"> </span><span class="ansi-blue-intense-fg ansi-bold">'%f'</span><span class="ansi-yellow-intense-fg ansi-bold">%</span><span class="ansi-blue-intense-fg ansi-bold">'1'</span>
+
+<span class="ansi-red-intense-fg ansi-bold">TypeError</span>: must be real number, not str</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="문자-대입">
+<a class="anchor" href="#%EB%AC%B8%EC%9E%90-%EB%8C%80%EC%9E%85" aria-hidden="true"><span class="octicon octicon-link"></span></a>문자 대입<a class="anchor-link" href="#%EB%AC%B8%EC%9E%90-%EB%8C%80%EC%9E%85"> </a>
+</h3>
+<ul>
+<li>%s로 구멍 뚫기</li>
+<li>집어넣는 값에 대해서는 제한이 없다</li>
+<li>만능 포매팅</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="s1">'</span><span class="si">%s</span><span class="s1">님 접속을 환영합니다'</span><span class="o">%</span><span class="s1">'도형준'</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>'도형준님 접속을 환영합니다'</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="s1">'</span><span class="si">%s</span><span class="s1">, 숫자도 입력 가능'</span><span class="o">%</span><span class="k">100</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>'100, 숫자도 입력 가능'</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="문자열-내장함수*-=-문자열-메서드">
+<a class="anchor" href="#%EB%AC%B8%EC%9E%90%EC%97%B4-%EB%82%B4%EC%9E%A5%ED%95%A8%EC%88%98*-=-%EB%AC%B8%EC%9E%90%EC%97%B4-%EB%A9%94%EC%84%9C%EB%93%9C" aria-hidden="true"><span class="octicon octicon-link"></span></a>문자열 내장함수* = 문자열 메서드<a class="anchor-link" href="#%EB%AC%B8%EC%9E%90%EC%97%B4-%EB%82%B4%EC%9E%A5%ED%95%A8%EC%88%98*-=-%EB%AC%B8%EC%9E%90%EC%97%B4-%EB%A9%94%EC%84%9C%EB%93%9C"> </a>
+</h1>
+<pre><code>└≫ 내장함수 : 특정 데이터 타입이 자체적으로 가지고 있는 속성으로 존재하는 함수
+└≫ 문법 : 변수(데이터타입값).함수명()
+</code></pre>
+<ul>
+<li>count( ) : 특정 문자의 개수</li>
+<li>find( ) :특정 문자의 인덱스 번호(위치)</li>
+<li>join( ) : 특정 기호를 문자열 아이템 사이에 입력</li>
+<li>upper( ) : 문자열을 대문자로 변경</li>
+<li>lower( ) : 문자열을 소문자로 변경</li>
+<li>capitalize( ) : 문자열의 첫 글자를 대문자로</li>
+<li>swapcase( ) : 대문자는 소문자로, 소문자는 대문자로 전환</li>
+<li>lstrip( ) / rstrip( ) / strip( ) : 좌 / 우 / 앞뒤 공백(기본) 및 특정 문자 지우기</li>
+<li>replace( ) : 기존 문자를 새로운 문자로 바꾸기</li>
+<li>split( ) : 특정 기호를 기준으로 문자열을 아이템 단위로 나누어 리스트로 반환</li>
+<li>center( ) : 문자열 길이를 지정하여 대상 문자열을 중앙 정렬</li>
+<li>ljust( ) : 문자열 길이를 지정하여 대상 문자열을 왼쪽 정렬</li>
+<li>rjust( ) : 문자열 길이를 지정하여 대상 문자열을 오른쪽 정렬</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id=".count()">
+<a class="anchor" href="#.count()" aria-hidden="true"><span class="octicon octicon-link"></span></a>.count()<a class="anchor-link" href="#.count()"> </a>
+</h2>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s1">'tomato juice'</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">text</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">'a'</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>1</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">text</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">'to'</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>2</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id=".find():-특정-값의-인덱스-번호를-반환">
+<a class="anchor" href="#.find():-%ED%8A%B9%EC%A0%95-%EA%B0%92%EC%9D%98-%EC%9D%B8%EB%8D%B1%EC%8A%A4-%EB%B2%88%ED%98%B8%EB%A5%BC-%EB%B0%98%ED%99%98" aria-hidden="true"><span class="octicon octicon-link"></span></a>.find(): 특정 값의 인덱스 번호를 반환<a class="anchor-link" href="#.find():-%ED%8A%B9%EC%A0%95-%EA%B0%92%EC%9D%98-%EC%9D%B8%EB%8D%B1%EC%8A%A4-%EB%B2%88%ED%98%B8%EB%A5%BC-%EB%B0%98%ED%99%98"> </a>
+</h2>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># .find('찾을자료',시작번호)입력으로 0번이 아닌 이후 번호를 시작점으로 지정 가능</span>
+<span class="n">text</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">'to'</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>4</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id=".upper()">
+<a class="anchor" href="#.upper()" aria-hidden="true"><span class="octicon octicon-link"></span></a>.upper()<a class="anchor-link" href="#.upper()"> </a>
+</h2>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 변경된 결과를 시뮬레이션 해서 보여줌(원본자료는 대문자화 되지 않음)</span>
+<span class="n">text</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>'TOMATO JUICE'</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">text</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>'tomato juice'</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id=".lower()">
+<a class="anchor" href="#.lower()" aria-hidden="true"><span class="octicon octicon-link"></span></a>.lower()<a class="anchor-link" href="#.lower()"> </a>
+</h2>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">text2</span><span class="o">=</span><span class="n">text</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+<span class="n">text2</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>'TOMATO JUICE'</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">text2</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>'tomato juice'</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">text2</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>'TOMATO JUICE'</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id=".strip()">
+<a class="anchor" href="#.strip()" aria-hidden="true"><span class="octicon octicon-link"></span></a>.strip()<a class="anchor-link" href="#.strip()"> </a>
+</h2>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s1">'          123          123          '</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 문자열의 왼쪽에 있는 공백 전부 제거(가운데는 제거 안함)</span>
+<span class="c1"># 시뮬레이션 결과만 보여줌</span>
+<span class="n">text</span><span class="o">.</span><span class="n">lstrip</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>'123          123          '</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">text</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>'          123          123'</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 양쪽 다 없애줌</span>
+<span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>'123          123'</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="replace(old,-new)">
+<a class="anchor" href="#replace(old,-new)" aria-hidden="true"><span class="octicon octicon-link"></span></a>replace(old, new)<a class="anchor-link" href="#replace(old,-new)"> </a>
+</h2>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 공백 찾아 없애기에 쓸 수 있음</span>
+<span class="c1"># 역시 원본자료에는 영향을 미치지 않고 일시적으로 변경</span>
+<span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"123"</span><span class="p">,</span><span class="s2">"456"</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>'          456          456          '</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">text</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>'          123          123          '</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">" "</span><span class="p">,</span><span class="s2">""</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>'123123'</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id='.split("기준")'>
+<a class="anchor" href="#.split(" aria-hidden="true"><span class="octicon octicon-link"></span></a>.split("기준")<a class="anchor-link" href="#.split(%22%EA%B8%B0%EC%A4%80%22)"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>쪼개기</li>
+<li>기준 입력시 기준점을 기준으로 쪼개고</li>
+<li>입력 안하면 ' ', \n, \t 등을 기준으로 쪼개줌</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">text2</span><span class="o">=</span><span class="s1">'a b c'</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">text2</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>['a', 'b', 'c']</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">text2</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'b'</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>['a ', ' c']</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">text3</span> <span class="o">=</span> <span class="s1">'a,b,c,ddes'</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">text3</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'dde'</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>['a,b,c,', 's']</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id=".join()">
+<a class="anchor" href="#.join()" aria-hidden="true"><span class="octicon octicon-link"></span></a>.join()<a class="anchor-link" href="#.join()"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>왼쪽에 있는 요소를 .join(자료)의</li>
+<li>자료 인덱스 사이사이에 입력해줌</li>
+<li>|| -&gt; 회사들은 ,가 이름에 들어가는 경우가 있어서 ||를 사용하는 케이스도 존재함</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">text</span><span class="o">=</span><span class="s1">'abc'</span>
+<span class="s2">","</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>'a,b,c'</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># len(문자열) -1</span>
+<span class="n">x</span> <span class="o">=</span> <span class="s1">'abcdefghijklnmopqrstuvwxyz'</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>26</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>25</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">x</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">:]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>'z'</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+</div>
+
+
+
+  </div><!-- from https://github.com/utterance/utterances 
+<script src="https://utteranc.es/client.js"
+        repo="dorae222/dorae22_blog"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script> -->
+
+<div id="disqus_thread"></div>
+<script>
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+    /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://dorae222-blog.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a class="u-url" href="/dorae222/jupyter/python/%EB%AC%B8%EC%9E%90%ED%98%95/2022/10/05/Python-%EB%AC%B8%EC%9E%90%ED%98%95.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/dorae222/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/dorae222/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/dorae222/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>HYU BIZ &amp; BIG DATA</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li>
+  <a rel="me" href="dorae222" target="_blank" title="github">
+    <svg class="svg-icon grey">
+      <use xlink:href="/dorae222/assets/minima-social-icons.svg#github"></use>
+    </svg>
+  </a>
+</li>
+</ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

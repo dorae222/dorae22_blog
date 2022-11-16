@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>[Crawling] 교보문고 순회 크롤러 | Dorae222’s BLOG</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="[Crawling] 교보문고 순회 크롤러" />
+<meta name="author" content="도형준" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="페이지 넘기면서 1000권 정보 가져오기" />
+<meta property="og:description" content="페이지 넘기면서 1000권 정보 가져오기" />
+<meta property="og:site_name" content="Dorae222’s BLOG" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-10-13T00:00:00-05:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="[Crawling] 교보문고 순회 크롤러" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"도형준"},"dateModified":"2022-10-13T00:00:00-05:00","datePublished":"2022-10-13T00:00:00-05:00","description":"페이지 넘기면서 1000권 정보 가져오기","headline":"[Crawling] 교보문고 순회 크롤러","mainEntityOfPage":{"@type":"WebPage","@id":"/dorae222/selenium/beautifulsoup/%EC%95%8C%EB%9D%BC%EB%94%98/%ED%81%AC%EB%A1%A4%EB%A7%81/2022/10/13/Crawling-%EA%B5%90%EB%B3%B4%EB%AC%B8%EA%B3%A0-%EC%88%9C%ED%9A%8C-%ED%81%AC%EB%A1%A4%EB%9F%AC.html"},"url":"/dorae222/selenium/beautifulsoup/%EC%95%8C%EB%9D%BC%EB%94%98/%ED%81%AC%EB%A1%A4%EB%A7%81/2022/10/13/Crawling-%EA%B5%90%EB%B3%B4%EB%AC%B8%EA%B3%A0-%EC%88%9C%ED%9A%8C-%ED%81%AC%EB%A1%A4%EB%9F%AC.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/dorae222/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="/dorae222/feed.xml" title="Dorae222's BLOG" /><link rel="shortcut icon" type="image/x-icon" href="/dorae222/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/dorae222/">Dorae222&#39;s BLOG</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/dorae222/about/">About Me</a><a class="page-link" href="/dorae222/gitInfo/">gitInfo</a><a class="page-link" href="/dorae222/search/">Search</a><a class="page-link" href="/dorae222/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">[Crawling] 교보문고 순회 크롤러</h1><p class="page-description">페이지 넘기면서 1000권 정보 가져오기</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2022-10-13T00:00:00-05:00" itemprop="datePublished">
+        Oct 13, 2022
+      </time>• 
+          <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+            <span class="p-author h-card" itemprop="name">도형준</span></span>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      3 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="dorae222/categories/#Selenium">Selenium</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="dorae222/categories/#BeautifulSoup">BeautifulSoup</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="dorae222/categories/#알라딘">알라딘</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="dorae222/categories/#크롤링">크롤링</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-justify-center">
+          <div class="px-2">
+
+    <a href="https://github.com/dorae222/dorae22_blog/tree/master/_notebooks/2022-10-13-[Crawling] 교보문고 순회 크롤러.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/dorae222/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/dorae222/dorae22_blog/master?filepath=_notebooks%2F2022-10-13-%5BCrawling%5D+%EA%B5%90%EB%B3%B4%EB%AC%B8%EA%B3%A0+%EC%88%9C%ED%9A%8C+%ED%81%AC%EB%A1%A4%EB%9F%AC.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/dorae222/assets/badges/binder.svg" alt="Open In Binder"/>
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/dorae222/dorae22_blog/blob/master/_notebooks/2022-10-13-[Crawling] 교보문고 순회 크롤러.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/dorae222/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+          <div class="px-2">
+  <a href="https://deepnote.com/launch?url=https%3A%2F%2Fgithub.com%2Fdorae222%2Fdorae22_blog%2Fblob%2Fmaster%2F_notebooks%2F2022-10-13-%5BCrawling%5D+%EA%B5%90%EB%B3%B4%EB%AC%B8%EA%B3%A0+%EC%88%9C%ED%9A%8C+%ED%81%AC%EB%A1%A4%EB%9F%AC.ipynb" target="_blank">
+      <img class="notebook-badge-image" src="/dorae222/assets/badges/deepnote.svg" alt="Launch in Deepnote"/>
+  </a>
+</div>
+
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h1"><a href="#순회-크롤러">순회 크롤러 </a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#순위">순위 </a></li>
+<li class="toc-entry toc-h2"><a href="#결과">결과 </a></li>
+</ul>
+</li>
+</ul><!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2022-10-13-[Crawling] 교보문고 순회 크롤러.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="순회-크롤러">
+<a class="anchor" href="#%EC%88%9C%ED%9A%8C-%ED%81%AC%EB%A1%A4%EB%9F%AC" aria-hidden="true"><span class="octicon octicon-link"></span></a>순회 크롤러<a class="anchor-link" href="#%EC%88%9C%ED%9A%8C-%ED%81%AC%EB%A1%A4%EB%9F%AC"> </a>
+</h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>같은 양식의 페이지를 순회하면서 자료를 수집해오는 크롤러</li>
+<li>원 페이지 크롤러를 제작한 다음, 완성된 크롤러를 반복문에 넣어서 만든다</li>
+<li>
+<p>반복을 어디부터 돌리지에 대한 파악이 제일 중요하다</p>
+</li>
+<li>
+<p>목적: 순위가 1000번째까지의 책의 제목, 저자, 가격 정보를 txt로 가져온다.</p>
+</li>
+<li>
+<p>코드를 수정하고 싶은 경우</p>
+<ul>
+<li>자신의 chromedriver저장 경로로 바꿔준다.</li>
+<li>자신의 txt파일 저장 경로를 바꿔준다.</li>
+<li>자신의 csv파일 저장 경로를 바꿔준다.</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
+<span class="kn">from</span> <span class="nn">selenium</span> <span class="kn">import</span> <span class="n">webdriver</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="c1"># 코드 진행 지연을 위한 time import</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="c1"># 2022년도 7월 이후 selenium 업데이트로 인한 xpath 추적시 import</span>
+<span class="kn">from</span> <span class="nn">selenium.webdriver.common.by</span> <span class="kn">import</span> <span class="n">By</span>
+<span class="kn">from</span> <span class="nn">selenium.webdriver.chrome.service</span> <span class="kn">import</span> <span class="n">Service</span>
+
+<span class="kn">import</span> <span class="nn">codecs</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">driver</span> <span class="o">=</span> <span class="n">webdriver</span><span class="o">.</span><span class="n">Chrome</span><span class="p">(</span><span class="s2">"C:/Users/dhj98/chromedriver.exe"</span><span class="p">)</span>
+<span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">driver</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"https://product.kyobobook.co.kr/bestseller/online?period=001"</span><span class="p">)</span>
+<span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="n">kyobo_author_list</span><span class="o">=</span><span class="p">[]</span>
+<span class="n">kyobo_title_list</span><span class="o">=</span><span class="p">[]</span>
+<span class="n">kyobo_price_list</span><span class="o">=</span><span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">page</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">50</span><span class="p">):</span> <span class="c1"># 최대 50페이지</span>
+    <span class="n">source</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">page_source</span>
+    <span class="n">parsed_source</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="s2">"html.parser"</span><span class="p">)</span>
+    
+    <span class="n">span_title_list</span><span class="o">=</span><span class="n">parsed_source</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s2">"span"</span><span class="p">,</span><span class="n">class_</span><span class="o">=</span><span class="s1">'prod_name'</span><span class="p">)</span>
+    <span class="n">span_author_list</span><span class="o">=</span><span class="n">parsed_source</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s2">"span"</span><span class="p">,</span><span class="n">class_</span><span class="o">=</span><span class="s1">'prod_author'</span><span class="p">)</span>
+    <span class="n">span_price_list</span><span class="o">=</span><span class="n">parsed_source</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s2">"span"</span><span class="p">,</span><span class="n">class_</span><span class="o">=</span><span class="s1">'val'</span><span class="p">)</span>
+    
+    
+    <span class="c1"># 페이지별 저자, 제목, 가격 각 리스트에 추가하기</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">,</span><span class="n">k</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">span_author_list</span><span class="p">,</span><span class="n">span_title_list</span><span class="p">,</span><span class="n">span_price_list</span><span class="p">):</span>
+        <span class="n">kyobo_author_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'·'</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">kyobo_title_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">j</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+        <span class="n">kyobo_price_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">k</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+    
+    <span class="c1"># 책 순위정보 가져오기</span>
+    <span class="n">span_book_num</span> <span class="o">=</span> <span class="n">parsed_source</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s2">"span"</span><span class="p">,</span><span class="n">class_</span><span class="o">=</span><span class="s1">'text'</span><span class="p">)[</span><span class="o">-</span><span class="mi">14</span><span class="p">]</span><span class="o">.</span><span class="n">text</span>
+    
+    <span class="c1"># 책이 1000번째 순위인지 아닌지에 따라 다음 페이지 넘어가는 경우 결정</span>
+    <span class="k">if</span> <span class="n">span_book_num</span> <span class="o">==</span> <span class="s1">' 1000'</span><span class="p">:</span> <span class="c1"># 책 순위가 1000번째일 경우, driver 종료</span>
+        <span class="n">driver</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">break</span>
+    <span class="k">else</span><span class="p">:</span> <span class="c1"># 책 순위가 1000번째가 아닌 경우, 다음 페이지로</span>
+        <span class="n">driver</span><span class="o">.</span><span class="n">find_element</span><span class="p">(</span><span class="n">By</span><span class="o">.</span><span class="n">XPATH</span><span class="p">,</span><span class="s1">'//*[@id="tabRoot"]/div[2]/div[1]/button[2]'</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="c1"># txt 파일로 정리하기</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">"C:/Users/dhj98/playdata/crawler/교보순회_result.txt"</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">"w"</span><span class="p">)</span>
+<span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="se">\n</span><span class="s2">"</span><span class="o">%</span><span class="p">(</span><span class="s1">'순위'</span><span class="p">,</span><span class="s1">'제목'</span><span class="p">,</span><span class="s1">'저자'</span><span class="p">,</span><span class="s1">'가격'</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">kyobo_price_list</span><span class="p">)):</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"</span><span class="si">%s</span><span class="s2"> 순위, </span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="se">\n</span><span class="s2">"</span> <span class="o">%</span> <span class="p">((</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span>
+                                                   <span class="n">kyobo_title_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">','</span><span class="p">,</span> <span class="s1">''</span><span class="p">),</span>
+                                                   <span class="n">kyobo_author_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">','</span><span class="p">,</span> <span class="s1">''</span><span class="p">),</span>
+                                                   <span class="n">kyobo_price_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">','</span><span class="p">,</span> <span class="s1">''</span><span class="p">)))</span>
+<span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="c1"># txt to csv</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"C:/Users/dhj98/playdata/crawler/교보순회_result.txt"</span><span class="p">,</span><span class="n">encoding</span><span class="o">=</span><span class="s1">'cp949'</span><span class="p">)</span>
+<span class="n">new_csv_file</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">"C:/Users/dhj98/playdata/crawler/교보순회_result.csv"</span><span class="p">,</span><span class="n">encoding</span><span class="o">=</span><span class="s1">'cp949'</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>C:\Users\dhj98\AppData\Local\Temp\ipykernel_8356\3993268019.py:1: DeprecationWarning: executable_path has been deprecated, please pass in a Service object
+  driver = webdriver.Chrome("C:/Users/dhj98/chromedriver.exe")
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">kyobo_price_list</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>902</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>값이 1000이 되지 않는 이유는 1000위까지의 모든 순위의 책이 있는 것이 아님</li>
+<li>예를 들어, 25위 다음에 26위를 뛰어넘고 27위로 가는 케이스 존재</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="순위">
+<a class="anchor" href="#%EC%88%9C%EC%9C%84" aria-hidden="true"><span class="octicon octicon-link"></span></a>순위<a class="anchor-link" href="#%EC%88%9C%EC%9C%84"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>순위의 경우, ("span",class_='text')에 담겨있습니다.</li>
+<li>하지만 순위 뿐만 아니라 다른 정보들도 함께 포함되어 있습니다.</li>
+<li>이에 따라, 순위만 따로 추출하는 전처리 과정이 필요합니다</li>
+<li>아직 해결 시도중</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">span_rank_list</span><span class="o">=</span><span class="n">parsed_source</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s2">"span"</span><span class="p">,</span><span class="n">class_</span><span class="o">=</span><span class="s1">'text'</span><span class="p">)</span>
+<span class="n">span_rank_list</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[&lt;span class="text"&gt;브랜드 더보기&lt;/span&gt;,
+ &lt;span class="text"&gt;회원혜택&lt;/span&gt;,
+ &lt;span class="text"&gt;상세검색&lt;/span&gt;,
+ &lt;span class="text"&gt;도움말&lt;/span&gt;,
+ &lt;span class="text"&gt;국내도서 전체&lt;/span&gt;,
+ &lt;span class="text"&gt;서양도서 전체&lt;/span&gt;,
+ &lt;span class="text"&gt;일본도서 전체&lt;/span&gt;,
+ &lt;span class="text"&gt;교보Only 전체&lt;/span&gt;,
+ &lt;span class="text"&gt;주요서비스&lt;/span&gt;,
+ &lt;span class="text"&gt;이벤트 / 혜택&lt;/span&gt;,
+ &lt;span class="text"&gt;브랜드캠페인&lt;/span&gt;,
+ &lt;span class="text"&gt;문화공간&lt;/span&gt;,
+ &lt;span class="text"&gt;eBook/sam&lt;/span&gt;,
+ &lt;span class="text"&gt;웹소설 톡소다&lt;/span&gt;,
+ &lt;span class="text"&gt;핫트랙스&lt;/span&gt;,
+ &lt;span class="text"&gt;중고장터&lt;/span&gt;,
+ &lt;span class="text"&gt;CASTing&lt;/span&gt;,
+ &lt;span class="text"&gt;북모닝&lt;/span&gt;,
+ &lt;span class="text"&gt;스토리&lt;/span&gt;,
+ &lt;span class="text"&gt;회원혜택&lt;/span&gt;,
+ &lt;span class="text"&gt;고객센터&lt;/span&gt;,
+ &lt;span class="text"&gt;마이&lt;/span&gt;,
+ &lt;span class="text"&gt;라이브러리&lt;/span&gt;,
+ &lt;span class="text"&gt;매장안내&lt;/span&gt;,
+ &lt;span class="text"&gt;회사소개&lt;/span&gt;,
+ &lt;span class="text"&gt;협력사여러분&lt;/span&gt;,
+ &lt;span class="text"&gt;집계기준&lt;/span&gt;,
+ &lt;span class="text"&gt;전체&lt;/span&gt;,
+ &lt;span class="text"&gt;전체&lt;/span&gt;,
+ &lt;span class="text" data-value="01"&gt;문학&lt;/span&gt;,
+ &lt;span class="text" data-value="03"&gt;취미/실용/여행&lt;/span&gt;,
+ &lt;span class="text" data-value="05"&gt;생활/요리/건강&lt;/span&gt;,
+ &lt;span class="text" data-value="07"&gt;예술/건축&lt;/span&gt;,
+ &lt;span class="text" data-value="09"&gt;인문/사회&lt;/span&gt;,
+ &lt;span class="text" data-value="11"&gt;경제/경영&lt;/span&gt;,
+ &lt;span class="text" data-value="13"&gt;과학/기술&lt;/span&gt;,
+ &lt;span class="text" data-value="14"&gt;어린이ELT&lt;/span&gt;,
+ &lt;span class="text" data-value="15"&gt;유아/아동/청소년&lt;/span&gt;,
+ &lt;span class="text" data-value="81"&gt;ELT/수험서&lt;/span&gt;,
+ &lt;span class="text"&gt;전체&lt;/span&gt;,
+ &lt;span class="text" data-value="41"&gt;잡지&lt;/span&gt;,
+ &lt;span class="text" data-value="43"&gt;엔터테인먼트&lt;/span&gt;,
+ &lt;span class="text" data-value="45"&gt;만화/애니&lt;/span&gt;,
+ &lt;span class="text" data-value="47"&gt;문학&lt;/span&gt;,
+ &lt;span class="text" data-value="49"&gt;라이트노벨&lt;/span&gt;,
+ &lt;span class="text" data-value="51"&gt;문고&lt;/span&gt;,
+ &lt;span class="text" data-value="53"&gt;신서&lt;/span&gt;,
+ &lt;span class="text" data-value="55"&gt;아동&lt;/span&gt;,
+ &lt;span class="text" data-value="57"&gt;실용서/예술&lt;/span&gt;,
+ &lt;span class="text" data-value="59"&gt;인문/사회&lt;/span&gt;,
+ &lt;span class="text" data-value="61"&gt;자연/기술과학&lt;/span&gt;,
+ &lt;span class="text" data-value="63"&gt;어학/학습&lt;/span&gt;,
+ &lt;span class="text" data-value="67"&gt;중국도서&lt;/span&gt;,
+ &lt;span class="text"&gt;전체&lt;/span&gt;,
+ &lt;span class="text" data-value="86"&gt;프랑스도서&lt;/span&gt;,
+ &lt;span class="text" data-value="88"&gt;독일도서&lt;/span&gt;,
+ &lt;span class="text" data-value="90"&gt;스페인도서&lt;/span&gt;,
+ &lt;span class="text"&gt;전체&lt;/span&gt;,
+ &lt;span class="text" data-value="000006"&gt;뷰티/헬스&lt;/span&gt;,
+ &lt;span class="text" data-value="000007"&gt;필기구&lt;/span&gt;,
+ &lt;span class="text" data-value="000020"&gt;디자인문구&lt;/span&gt;,
+ &lt;span class="text" data-value="000021"&gt;오피스&lt;/span&gt;,
+ &lt;span class="text" data-value="000022"&gt;디지털/자동차&lt;/span&gt;,
+ &lt;span class="text" data-value="000023"&gt;여행/취미&lt;/span&gt;,
+ &lt;span class="text" data-value="000024"&gt;가구/수납&lt;/span&gt;,
+ &lt;span class="text" data-value="000025"&gt;리빙/생활가전&lt;/span&gt;,
+ &lt;span class="text" data-value="000026"&gt;키친&lt;/span&gt;,
+ &lt;span class="text" data-value="000028"&gt;패션잡화&lt;/span&gt;,
+ &lt;span class="text" data-value="000029"&gt;유아동&lt;/span&gt;,
+ &lt;span class="text" data-value="000031"&gt;푸드&lt;/span&gt;,
+ &lt;span class="text"&gt;전체&lt;/span&gt;,
+ &lt;span class="text" data-value="000300"&gt;가요&lt;/span&gt;,
+ &lt;span class="text" data-value="000301"&gt;POP&lt;/span&gt;,
+ &lt;span class="text" data-value="000302"&gt;ROCK&lt;/span&gt;,
+ &lt;span class="text" data-value="000303"&gt;JAZZ&lt;/span&gt;,
+ &lt;span class="text" data-value="000304"&gt;J-POP&lt;/span&gt;,
+ &lt;span class="text" data-value="000305"&gt;O.S.T/MUSICAL&lt;/span&gt;,
+ &lt;span class="text" data-value="000306"&gt;NEW AGE&lt;/span&gt;,
+ &lt;span class="text" data-value="000307"&gt;WORLD MUSIC&lt;/span&gt;,
+ &lt;span class="text" data-value="000308"&gt;CLASSIC&lt;/span&gt;,
+ &lt;span class="text" data-value="000309"&gt;국악&lt;/span&gt;,
+ &lt;span class="text" data-value="000310"&gt;유아/아동&lt;/span&gt;,
+ &lt;span class="text" data-value="000311"&gt;종교음악&lt;/span&gt;,
+ &lt;span class="text" data-value="000312"&gt;GOODS&lt;/span&gt;,
+ &lt;span class="text" data-value="000400"&gt;Blu-Ray&lt;/span&gt;,
+ &lt;span class="text" data-value="000401"&gt;DVD&lt;/span&gt;,
+ &lt;span class="text"&gt;장바구니&lt;/span&gt;,
+ &lt;span class="text"&gt;Excel다운로드&lt;/span&gt;,
+ &lt;span class="text"&gt;필터&lt;/span&gt;,
+ &lt;span class="text"&gt;적용&lt;/span&gt;,
+ &lt;span class="text"&gt;새창보기&lt;/span&gt;,
+ &lt;span class="text"&gt;미리보기&lt;/span&gt;,
+ &lt;span class="text"&gt; 999&lt;/span&gt;,
+ &lt;span class="text"&gt;오늘의 책&lt;/span&gt;,
+ &lt;span class="text"&gt;MD의 선택&lt;/span&gt;,
+ &lt;span class="text"&gt;사은품&lt;/span&gt;,
+ &lt;span class="text"&gt;소득공제&lt;/span&gt;,
+ &lt;span class="text"&gt;정가&lt;/span&gt;,
+ &lt;span class="text"&gt;배송일정&lt;/span&gt;,
+ &lt;span class="text"&gt;장바구니&lt;/span&gt;,
+ &lt;span class="text"&gt;바로구매&lt;/span&gt;,
+ &lt;span class="text"&gt;새창보기&lt;/span&gt;,
+ &lt;span class="text"&gt;미리보기&lt;/span&gt;,
+ &lt;span class="text"&gt; 1000&lt;/span&gt;,
+ &lt;span class="text"&gt;사은품&lt;/span&gt;,
+ &lt;span class="text"&gt;소득공제&lt;/span&gt;,
+ &lt;span class="text"&gt;정가&lt;/span&gt;,
+ &lt;span class="text"&gt;배송일정&lt;/span&gt;,
+ &lt;span class="text"&gt;장바구니&lt;/span&gt;,
+ &lt;span class="text"&gt;바로구매&lt;/span&gt;,
+ &lt;span class="text"&gt;Family Site&lt;/span&gt;,
+ &lt;span class="text"&gt;전체&lt;/span&gt;,
+ &lt;span class="text"&gt;상품&lt;/span&gt;,
+ &lt;span class="text"&gt;기획전&lt;/span&gt;,
+ &lt;span class="text"&gt;이벤트&lt;/span&gt;,
+ &lt;span class="text"&gt;브랜드&lt;/span&gt;,
+ &lt;span class="text"&gt;전체삭제&lt;/span&gt;]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="결과">
+<a class="anchor" href="#%EA%B2%B0%EA%B3%BC" aria-hidden="true"><span class="octicon octicon-link"></span></a>결과<a class="anchor-link" href="#%EA%B2%B0%EA%B3%BC"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>제목, 저자는 정상적으로 가져오지만</li>
+<li>순위도 어떻게 출력하면 좋을지 고민해보기</li>
+<li>span_rank_list에서 try문을 이용해 int형을 가져왔지만, 정상적으로 가져오지 못하는 것을 확인함.</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+  </div><!-- from https://github.com/utterance/utterances 
+<script src="https://utteranc.es/client.js"
+        repo="dorae222/dorae22_blog"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script> -->
+
+<div id="disqus_thread"></div>
+<script>
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+    /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://dorae222-blog.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a class="u-url" href="/dorae222/selenium/beautifulsoup/%EC%95%8C%EB%9D%BC%EB%94%98/%ED%81%AC%EB%A1%A4%EB%A7%81/2022/10/13/Crawling-%EA%B5%90%EB%B3%B4%EB%AC%B8%EA%B3%A0-%EC%88%9C%ED%9A%8C-%ED%81%AC%EB%A1%A4%EB%9F%AC.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/dorae222/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/dorae222/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/dorae222/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>HYU BIZ &amp; BIG DATA</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li>
+  <a rel="me" href="dorae222" target="_blank" title="github">
+    <svg class="svg-icon grey">
+      <use xlink:href="/dorae222/assets/minima-social-icons.svg#github"></use>
+    </svg>
+  </a>
+</li>
+</ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>[Crawling] 알라딘 순회 크롤러 | Dorae222’s BLOG</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="[Crawling] 알라딘 순회 크롤러" />
+<meta name="author" content="도형준" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="원하는 권수만큼 크롤링하기(좀 까다로움)" />
+<meta property="og:description" content="원하는 권수만큼 크롤링하기(좀 까다로움)" />
+<meta property="og:site_name" content="Dorae222’s BLOG" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-10-13T00:00:00-05:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="[Crawling] 알라딘 순회 크롤러" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"도형준"},"dateModified":"2022-10-13T00:00:00-05:00","datePublished":"2022-10-13T00:00:00-05:00","description":"원하는 권수만큼 크롤링하기(좀 까다로움)","headline":"[Crawling] 알라딘 순회 크롤러","mainEntityOfPage":{"@type":"WebPage","@id":"/dorae222/selenium/beautifulsoup/%EC%95%8C%EB%9D%BC%EB%94%98/%ED%81%AC%EB%A1%A4%EB%A7%81/2022/10/13/Crawling-%EC%95%8C%EB%9D%BC%EB%94%98-%EC%88%9C%ED%9A%8C-%ED%81%AC%EB%A1%A4%EB%9F%AC.html"},"url":"/dorae222/selenium/beautifulsoup/%EC%95%8C%EB%9D%BC%EB%94%98/%ED%81%AC%EB%A1%A4%EB%A7%81/2022/10/13/Crawling-%EC%95%8C%EB%9D%BC%EB%94%98-%EC%88%9C%ED%9A%8C-%ED%81%AC%EB%A1%A4%EB%9F%AC.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/dorae222/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="/dorae222/feed.xml" title="Dorae222's BLOG" /><link rel="shortcut icon" type="image/x-icon" href="/dorae222/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/dorae222/">Dorae222&#39;s BLOG</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/dorae222/about/">About Me</a><a class="page-link" href="/dorae222/gitInfo/">gitInfo</a><a class="page-link" href="/dorae222/search/">Search</a><a class="page-link" href="/dorae222/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">[Crawling] 알라딘 순회 크롤러</h1><p class="page-description">원하는 권수만큼 크롤링하기(좀 까다로움)</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2022-10-13T00:00:00-05:00" itemprop="datePublished">
+        Oct 13, 2022
+      </time>• 
+          <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+            <span class="p-author h-card" itemprop="name">도형준</span></span>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      2 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="dorae222/categories/#Selenium">Selenium</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="dorae222/categories/#BeautifulSoup">BeautifulSoup</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="dorae222/categories/#알라딘">알라딘</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="dorae222/categories/#크롤링">크롤링</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-justify-center">
+          <div class="px-2">
+
+    <a href="https://github.com/dorae222/dorae22_blog/tree/master/_notebooks/2022-10-13-[Crawling] 알라딘 순회 크롤러.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/dorae222/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/dorae222/dorae22_blog/master?filepath=_notebooks%2F2022-10-13-%5BCrawling%5D+%EC%95%8C%EB%9D%BC%EB%94%98+%EC%88%9C%ED%9A%8C+%ED%81%AC%EB%A1%A4%EB%9F%AC.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/dorae222/assets/badges/binder.svg" alt="Open In Binder"/>
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/dorae222/dorae22_blog/blob/master/_notebooks/2022-10-13-[Crawling] 알라딘 순회 크롤러.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/dorae222/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+          <div class="px-2">
+  <a href="https://deepnote.com/launch?url=https%3A%2F%2Fgithub.com%2Fdorae222%2Fdorae22_blog%2Fblob%2Fmaster%2F_notebooks%2F2022-10-13-%5BCrawling%5D+%EC%95%8C%EB%9D%BC%EB%94%98+%EC%88%9C%ED%9A%8C+%ED%81%AC%EB%A1%A4%EB%9F%AC.ipynb" target="_blank">
+      <img class="notebook-badge-image" src="/dorae222/assets/badges/deepnote.svg" alt="Launch in Deepnote"/>
+  </a>
+</div>
+
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#원하는-권수만큼-책-정보-가져오기(단,-끝이-0-or-50)">원하는 권수만큼 책 정보 가져오기(단, 끝이 0 or 50) </a></li>
+<li class="toc-entry toc-h2"><a href="#결과">결과 </a></li>
+</ul><!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2022-10-13-[Crawling] 알라딘 순회 크롤러.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
+<span class="kn">from</span> <span class="nn">selenium</span> <span class="kn">import</span> <span class="n">webdriver</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="c1"># 코드 진행 지연을 위한 time import</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="c1"># 2022년도 7월 이후 selenium 업데이트로 인한 xpath 추적시 import</span>
+<span class="kn">from</span> <span class="nn">selenium.webdriver.common.by</span> <span class="kn">import</span> <span class="n">By</span>
+<span class="kn">from</span> <span class="nn">selenium.webdriver.chrome.service</span> <span class="kn">import</span> <span class="n">Service</span>
+
+<span class="kn">import</span> <span class="nn">codecs</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="원하는-권수만큼-책-정보-가져오기(단,-끝이-0-or-50)">
+<a class="anchor" href="#%EC%9B%90%ED%95%98%EB%8A%94-%EA%B6%8C%EC%88%98%EB%A7%8C%ED%81%BC-%EC%B1%85-%EC%A0%95%EB%B3%B4-%EA%B0%80%EC%A0%B8%EC%98%A4%EA%B8%B0(%EB%8B%A8,-%EB%81%9D%EC%9D%B4-0-or-50)" aria-hidden="true"><span class="octicon octicon-link"></span></a>원하는 권수만큼 책 정보 가져오기(단, 끝이 0 or 50)<a class="anchor-link" href="#%EC%9B%90%ED%95%98%EB%8A%94-%EA%B6%8C%EC%88%98%EB%A7%8C%ED%81%BC-%EC%B1%85-%EC%A0%95%EB%B3%B4-%EA%B0%80%EC%A0%B8%EC%98%A4%EA%B8%B0(%EB%8B%A8,-%EB%81%9D%EC%9D%B4-0-or-50)"> </a>
+</h2>
+<ul>
+<li>ex. 1000권,550권</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>코드를 수정하고 싶은 경우<ul>
+<li>자신의 chromedriver저장 경로로 바꿔준다.</li>
+<li>자신의 txt파일 저장 경로를 바꿔준다.</li>
+<li>자신의 csv파일 저장 경로를 바꿔준다.</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">book_num</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s1">'원하는 책 권수를 입력해주세요: '</span><span class="p">))</span>
+<span class="n">page_num</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">book_num</span><span class="o">/</span><span class="mi">50</span><span class="p">)</span>
+
+<span class="n">driver</span> <span class="o">=</span> <span class="n">webdriver</span><span class="o">.</span><span class="n">Chrome</span><span class="p">(</span><span class="s2">"C:/Users/dhj98/chromedriver.exe"</span><span class="p">)</span>
+<span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">driver</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"https://www.aladin.co.kr/shop/common/wbest.aspx?BranchType=1&amp;start=we"</span><span class="p">)</span>
+<span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">aladdin_author_list</span><span class="o">=</span><span class="p">[]</span>
+<span class="n">aladdin_title_list</span><span class="o">=</span><span class="p">[]</span>
+<span class="n">aladdin_price_list</span><span class="o">=</span><span class="p">[]</span>
+
+<span class="n">count</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># 페이지 카운트</span>
+<span class="c1">##############################################################################################################</span>
+<span class="k">for</span> <span class="n">page_order</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">page_num</span><span class="p">):</span>
+    <span class="n">aladdin_source</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">page_source</span>
+    <span class="n">parsed_source</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">aladdin_source</span><span class="p">,</span> <span class="s2">"html.parser"</span><span class="p">)</span>
+    <span class="c1">##############################################################################################################</span>
+    <span class="c1"># 제목</span>
+    <span class="n">span_title_list</span> <span class="o">=</span> <span class="n">parsed_source</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s2">"a"</span><span class="p">,</span><span class="n">class_</span><span class="o">=</span><span class="s1">'bo3'</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">title</span> <span class="ow">in</span> <span class="n">span_title_list</span><span class="p">:</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="n">title</span><span class="o">.</span><span class="n">text</span>
+        <span class="n">aladdin_title_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        
+    <span class="c1"># 저자</span>
+    <span class="n">author_list</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># 저자가 여러명이라 책 별로 분리하기 위해 새로운 빈 리스트 생성</span>
+    <span class="k">for</span> <span class="n">num2</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">parsed_source</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s2">"div"</span><span class="p">,</span><span class="n">class_</span><span class="o">=</span><span class="s1">'ss_book_box'</span><span class="p">))):</span>
+        <span class="n">span_author_list</span> <span class="o">=</span> <span class="n">parsed_source</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s2">"div"</span><span class="p">,</span><span class="n">class_</span><span class="o">=</span><span class="s1">'ss_book_box'</span><span class="p">)[</span><span class="n">num2</span><span class="p">]</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s2">"li"</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s2">"a"</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">num3</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">span_author_list</span><span class="p">)):</span>
+            <span class="n">j</span> <span class="o">=</span> <span class="n">span_author_list</span><span class="p">[</span><span class="n">num3</span><span class="p">]</span>
+            <span class="n">author</span> <span class="o">=</span> <span class="n">j</span><span class="o">.</span><span class="n">text</span>
+            <span class="n">author_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">author</span><span class="p">)</span>
+        <span class="n">aladdin_author_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">author_list</span><span class="p">)</span>
+        <span class="n">author_list</span> <span class="o">=</span> <span class="p">[]</span>
+        
+    <span class="c1"># 가격</span>
+    <span class="k">for</span> <span class="n">num4</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">parsed_source</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s2">"div"</span><span class="p">,</span><span class="n">class_</span><span class="o">=</span><span class="s1">'ss_book_box'</span><span class="p">))):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">span_price_list</span> <span class="o">=</span>  <span class="n">parsed_source</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s2">"div"</span><span class="p">,</span><span class="n">class_</span><span class="o">=</span><span class="s1">'ss_book_box'</span><span class="p">)[</span><span class="n">num4</span><span class="p">]</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s2">"li"</span><span class="p">)[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">"span"</span><span class="p">,</span><span class="n">class_</span><span class="o">=</span><span class="s1">'ss_p2'</span><span class="p">)</span>
+            <span class="n">k</span> <span class="o">=</span> <span class="n">span_price_list</span><span class="o">.</span><span class="n">text</span>
+            <span class="n">aladdin_price_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="n">span_price_list</span> <span class="o">=</span>  <span class="n">parsed_source</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s2">"div"</span><span class="p">,</span><span class="n">class_</span><span class="o">=</span><span class="s1">'ss_book_box'</span><span class="p">)[</span><span class="n">num4</span><span class="p">]</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s2">"li"</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">"span"</span><span class="p">,</span><span class="n">class_</span><span class="o">=</span><span class="s1">'ss_p2'</span><span class="p">)</span>
+            <span class="n">k</span> <span class="o">=</span> <span class="n">span_price_list</span><span class="o">.</span><span class="n">text</span>
+            <span class="n">aladdin_price_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+    <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="c1">##############################################################################################################</span>
+    <span class="c1"># 큰페이지 넘어갈 경우</span>
+    <span class="k">if</span> <span class="n">count</span> <span class="o">&gt;</span> <span class="mi">9</span><span class="p">:</span>
+        <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">driver</span><span class="o">.</span><span class="n">find_element</span><span class="p">(</span><span class="n">By</span><span class="o">.</span><span class="n">XPATH</span><span class="p">,</span><span class="s1">'//*[@id="newbg_body"]/div[3]/ul/li[22]/a'</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">driver</span><span class="o">.</span><span class="n">find_element</span><span class="p">(</span><span class="n">By</span><span class="o">.</span><span class="n">XPATH</span><span class="p">,</span><span class="s1">'//*[@id="newbg_body"]/div[3]/ul/li[</span><span class="si">{}</span><span class="s1">]/a'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">page_order</span><span class="o">+</span><span class="mi">3</span><span class="p">))</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="c1"># 작은 페이지 넘어갈 경우</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">driver</span><span class="o">.</span><span class="n">find_element</span><span class="p">(</span><span class="n">By</span><span class="o">.</span><span class="n">XPATH</span><span class="p">,</span><span class="s1">'//*[@id="newbg_body"]/div[3]/ul/li[</span><span class="si">{}</span><span class="s1">]/a'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">page_order</span><span class="o">+</span><span class="mi">3</span><span class="p">))</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">driver</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="c1">##############################################################################################################</span>
+<span class="c1"># txt 파일로 정리하기</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">"C:/Users/dhj98/playdata/crawler/알라딘순회_result.txt"</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">"w"</span><span class="p">)</span>
+<span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="se">\n</span><span class="s2">"</span><span class="o">%</span><span class="p">(</span><span class="s1">'순위'</span><span class="p">,</span><span class="s1">'제목'</span><span class="p">,</span><span class="s1">'저자'</span><span class="p">,</span><span class="s1">'가격'</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">aladdin_price_list</span><span class="p">)):</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"</span><span class="si">%s</span><span class="s2"> 순위, </span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="se">\n</span><span class="s2">"</span> <span class="o">%</span> <span class="p">((</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span>
+                                                   <span class="n">aladdin_title_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">','</span><span class="p">,</span><span class="s1">'/'</span><span class="p">),</span>
+                                                   <span class="nb">str</span><span class="p">(</span><span class="n">aladdin_author_list</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">','</span><span class="p">,</span><span class="s1">'/'</span><span class="p">),</span>
+                                                   <span class="n">aladdin_price_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">','</span><span class="p">,</span> <span class="s1">''</span><span class="p">)))</span>
+<span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="c1">##############################################################################################################</span>
+<span class="c1"># txt to csv</span>
+
+<span class="c1">#df = pd.read_csv("C:/Users/dhj98/playdata/crawler/알라딘순회_result.txt",encoding='cp949',error_abd_lines=False)</span>
+<span class="c1">#new_csv_file = df.to_csv("C:/Users/dhj98/playdata/crawler/알라딘_result.csv",encoding='cp949')</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>원하는 책 권수를 입력해주세요: 1000
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>C:\Users\dhj98\AppData\Local\Temp\ipykernel_29200\4161581748.py:4: DeprecationWarning: executable_path has been deprecated, please pass in a Service object
+  driver = webdriver.Chrome("C:/Users/dhj98/chromedriver.exe")
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="결과">
+<a class="anchor" href="#%EA%B2%B0%EA%B3%BC" aria-hidden="true"><span class="octicon octicon-link"></span></a>결과<a class="anchor-link" href="#%EA%B2%B0%EA%B3%BC"> </a>
+</h2>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"C:/Users/dhj98/playdata/crawler/알라딘순회_result.txt"</span><span class="p">,</span><span class="n">encoding</span><span class="o">=</span><span class="s1">'cp949'</span><span class="p">)</span>
+<span class="n">df</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>순위</th>
+      <th>제목</th>
+      <th>저자</th>
+      <th>가격</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1 순위</td>
+      <td>헤어질 결심 스토리보드북</td>
+      <td>['이윤호'/ '박찬욱']</td>
+      <td>29700원</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2 순위</td>
+      <td>트렌드 코리아 2023</td>
+      <td>['김난도'/ '전미영'/ '최지혜'/ '이수진'/ '권정윤'/ '이준영'/ '이향...</td>
+      <td>17100원</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3 순위</td>
+      <td>아버지의 해방일지</td>
+      <td>['정지아']</td>
+      <td>13500원</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4 순위</td>
+      <td>단순한 열정 (무선)</td>
+      <td>['아니 에르노'/ '최정수']</td>
+      <td>9000원</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5 순위</td>
+      <td>이토록 평범한 미래</td>
+      <td>['김연수']</td>
+      <td>12600원</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>994</th>
+      <td>995 순위</td>
+      <td>2023 강해준 경찰학 Ⅲ. 기출문제집 - 전2권</td>
+      <td>['강해준']</td>
+      <td>40500원</td>
+    </tr>
+    <tr>
+      <th>995</th>
+      <td>996 순위</td>
+      <td>사카모토 데이즈 6</td>
+      <td>['스즈키 유우토']</td>
+      <td>5400원</td>
+    </tr>
+    <tr>
+      <th>996</th>
+      <td>997 순위</td>
+      <td>모두에게 잘 보일 필요는 없다</td>
+      <td>['함광성']</td>
+      <td>14400원</td>
+    </tr>
+    <tr>
+      <th>997</th>
+      <td>998 순위</td>
+      <td>여성향 게임 세계는 모브에게 가혹한 세계입니다 9</td>
+      <td>['미시마 요무'/ '몬다'/ '주승현']</td>
+      <td>10800원</td>
+    </tr>
+    <tr>
+      <th>998</th>
+      <td>999 순위</td>
+      <td>불안이 나를 더 좋은 곳으로 데려다주리라</td>
+      <td>['임이랑']</td>
+      <td>12600원</td>
+    </tr>
+  </tbody>
+</table>
+<p>999 rows × 4 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+</div>
+
+
+
+  </div><!-- from https://github.com/utterance/utterances 
+<script src="https://utteranc.es/client.js"
+        repo="dorae222/dorae22_blog"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script> -->
+
+<div id="disqus_thread"></div>
+<script>
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+    /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://dorae222-blog.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a class="u-url" href="/dorae222/selenium/beautifulsoup/%EC%95%8C%EB%9D%BC%EB%94%98/%ED%81%AC%EB%A1%A4%EB%A7%81/2022/10/13/Crawling-%EC%95%8C%EB%9D%BC%EB%94%98-%EC%88%9C%ED%9A%8C-%ED%81%AC%EB%A1%A4%EB%9F%AC.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/dorae222/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/dorae222/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/dorae222/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>HYU BIZ &amp; BIG DATA</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li>
+  <a rel="me" href="dorae222" target="_blank" title="github">
+    <svg class="svg-icon grey">
+      <use xlink:href="/dorae222/assets/minima-social-icons.svg#github"></use>
+    </svg>
+  </a>
+</li>
+</ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

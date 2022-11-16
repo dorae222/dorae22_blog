@@ -1,0 +1,3218 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>[DA] Pandas 심화 | Dorae222’s BLOG</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="[DA] Pandas 심화" />
+<meta name="author" content="도형준" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Data 형식 통일하기" />
+<meta property="og:description" content="Data 형식 통일하기" />
+<meta property="og:site_name" content="Dorae222’s BLOG" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-11-01T00:00:00-05:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="[DA] Pandas 심화" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"도형준"},"dateModified":"2022-11-01T00:00:00-05:00","datePublished":"2022-11-01T00:00:00-05:00","description":"Data 형식 통일하기","headline":"[DA] Pandas 심화","mainEntityOfPage":{"@type":"WebPage","@id":"/dorae222/data%20%ED%98%95%EC%8B%9D%20%ED%86%B5%EC%9D%BC/2022/11/01/DA-Pandas-%EC%8B%AC%ED%99%94.html"},"url":"/dorae222/data%20%ED%98%95%EC%8B%9D%20%ED%86%B5%EC%9D%BC/2022/11/01/DA-Pandas-%EC%8B%AC%ED%99%94.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/dorae222/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="/dorae222/feed.xml" title="Dorae222's BLOG" /><link rel="shortcut icon" type="image/x-icon" href="/dorae222/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/dorae222/">Dorae222&#39;s BLOG</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/dorae222/about/">About Me</a><a class="page-link" href="/dorae222/gitInfo/">gitInfo</a><a class="page-link" href="/dorae222/search/">Search</a><a class="page-link" href="/dorae222/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">[DA] Pandas 심화</h1><p class="page-description">Data 형식 통일하기</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2022-11-01T00:00:00-05:00" itemprop="datePublished">
+        Nov 1, 2022
+      </time>• 
+          <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+            <span class="p-author h-card" itemprop="name">도형준</span></span>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      8 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="dorae222/categories/#Data 형식 통일">Data 형식 통일</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-justify-center">
+          <div class="px-2">
+
+    <a href="https://github.com/dorae222/dorae22_blog/tree/master/_notebooks/2022-11-01-[DA] Pandas 심화.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/dorae222/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/dorae222/dorae22_blog/master?filepath=_notebooks%2F2022-11-01-%5BDA%5D+Pandas+%EC%8B%AC%ED%99%94.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/dorae222/assets/badges/binder.svg" alt="Open In Binder"/>
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/dorae222/dorae22_blog/blob/master/_notebooks/2022-11-01-[DA] Pandas 심화.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/dorae222/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+          <div class="px-2">
+  <a href="https://deepnote.com/launch?url=https%3A%2F%2Fgithub.com%2Fdorae222%2Fdorae22_blog%2Fblob%2Fmaster%2F_notebooks%2F2022-11-01-%5BDA%5D+Pandas+%EC%8B%AC%ED%99%94.ipynb" target="_blank">
+      <img class="notebook-badge-image" src="/dorae222/assets/badges/deepnote.svg" alt="Launch in Deepnote"/>
+  </a>
+</div>
+
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h1"><a href="#데이터셋-전처리">데이터셋 전처리 </a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#1.-데이터-전처리">1. 데이터 전처리 </a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#1.-날짜-형식">1. 날짜 형식 </a></li>
+<li class="toc-entry toc-h3"><a href="#2.-라벨-형식-통일">2. 라벨 형식 통일 </a></li>
+<li class="toc-entry toc-h3"><a href="#3.-문자-형식(대소문자,-기호-등)-통일">3. 문자 형식(대소문자, 기호 등) 통일 </a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#컬럼명을-소문자로-바꾸는-첫-번째-방법">컬럼명을 소문자로 바꾸는 첫 번째 방법 </a></li>
+<li class="toc-entry toc-h4"><a href="#두번째-방법">두번째 방법 </a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#2.-데이터-값에-대한-처리">2. 데이터 값에 대한 처리 </a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#1.-결측치-처리---삭제">1. 결측치 처리 - 삭제 </a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#1.-결측치가-하나라도-있는-레코드-삭제">1. 결측치가 하나라도 있는 레코드 삭제 </a></li>
+<li class="toc-entry toc-h4"><a href="#2.-모든-값이-결측인-레코드-삭제">2. 모든 값이 결측인 레코드 삭제 </a></li>
+<li class="toc-entry toc-h4"><a href="#3.-결측치가-하나라도-있는-데이터만-삭제">3. 결측치가 하나라도 있는 데이터만 삭제 </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h3"><a href="#2.-결측치-처리---대체값">2. 결측치 처리 - 대체값 </a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#평균값으로-채워넣기">평균값으로 채워넣기 </a></li>
+<li class="toc-entry toc-h4"><a href="#중위값으로-채워넣기">중위값으로 채워넣기 </a></li>
+<li class="toc-entry toc-h4"><a href="#범주형---최빈값으로-채워넣기">범주형 - 최빈값으로 채워넣기 </a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#3.-데이터-단위-통일">3. 데이터 단위 통일 </a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#1.-표준화(Standardization)">1. 표준화(Standardization) </a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul><!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2022-11-01-[DA] Pandas 심화.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="데이터셋-전처리">
+<a class="anchor" href="#%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%85%8B-%EC%A0%84%EC%B2%98%EB%A6%AC" aria-hidden="true"><span class="octicon octicon-link"></span></a>데이터셋 전처리<a class="anchor-link" href="#%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%85%8B-%EC%A0%84%EC%B2%98%EB%A6%AC"> </a>
+</h1>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="1.-데이터-전처리">
+<a class="anchor" href="#1.-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%A0%84%EC%B2%98%EB%A6%AC" aria-hidden="true"><span class="octicon octicon-link"></span></a>1. 데이터 전처리<a class="anchor-link" href="#1.-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%A0%84%EC%B2%98%EB%A6%AC"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>데이터 형식에 대한 처리<ul>
+<li>공백 문자<ul>
+<li>str.strip() : 양쪽 공백 제거</li>
+<li>str.lstrip() : 왼쪽 공백 제거</li>
+<li>str.rstip() : 오른쪽 공백 제거</li>
+</ul>
+</li>
+<li>데이터 타입</li>
+<li>불규칙한 대소문자</li>
+<li>불규칙한 구분기호</li>
+<li>유효하지 않은 문자</li>
+<li>불규칙한 날짜 및 시간 표기</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="1.-날짜-형식">
+<a class="anchor" href="#1.-%EB%82%A0%EC%A7%9C-%ED%98%95%EC%8B%9D" aria-hidden="true"><span class="octicon octicon-link"></span></a>1. 날짜 형식<a class="anchor-link" href="#1.-%EB%82%A0%EC%A7%9C-%ED%98%95%EC%8B%9D"> </a>
+</h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">str_date</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'2022/11/01'</span><span class="p">,</span><span class="s1">'2022.10.31'</span><span class="p">,</span><span class="s1">'2021-10-09'</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">str_date</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0    2022/11/01
+1    2022.10.31
+2    2021-10-09
+dtype: object</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># pd.to_datetime()</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">str_date</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>DatetimeIndex(['2022-11-01', '2022-10-31', '2021-10-09'], dtype='datetime64[ns]', freq=None)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># series.dtype: 데이터타입 확인</span>
+<span class="c1"># series.astype(): 데이터 타입 변경</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">str_date</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">'datetime64'</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0   2022-11-01
+1   2022-10-31
+2   2021-10-09
+dtype: datetime64[ns]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># timestamp: 기준시각(1970 . 01. 01 00:00:00 UTC)로부터 몇 초가 경과했는지 표기</span>
+<span class="n">stamp_date</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1234000</span><span class="p">,</span><span class="mi">1234101</span><span class="p">,</span><span class="mi">1234202</span><span class="p">,</span><span class="mi">1234300</span><span class="p">,</span><span class="mi">1234500</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">stamp_date</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0    1234000
+1    1234101
+2    1234202
+3    1234300
+4    1234500
+dtype: int64</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># timestamp의 기본 unit = ns(nano seconds) 나노초: 10억분의 1초</span>
+<span class="c1"># unit = ns(default), D(days), s(seconds), ms(milli seconds), us(micro senconds)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">stamp_date</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0   1970-01-01 00:00:00.001234000
+1   1970-01-01 00:00:00.001234101
+2   1970-01-01 00:00:00.001234202
+3   1970-01-01 00:00:00.001234300
+4   1970-01-01 00:00:00.001234500
+dtype: datetime64[ns]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">stamp_date</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">'s'</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0   1970-01-15 06:46:40
+1   1970-01-15 06:48:21
+2   1970-01-15 06:50:02
+3   1970-01-15 06:51:40
+4   1970-01-15 06:55:00
+dtype: datetime64[ns]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">stamp_date</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">'D'</span><span class="p">))</span>
+<span class="c1"># Overflow  Error: 컴퓨터는 2038년 이후 인식 못함</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">OverflowError</span>                             Traceback (most recent call last)
+File <span class="ansi-green-intense-fg ansi-bold">~\anaconda3\lib\site-packages\pandas\_libs\tslib.pyx:299</span>, in <span class="ansi-cyan-fg">pandas._libs.tslib.array_with_unit_to_datetime</span><span class="ansi-blue-intense-fg ansi-bold">()</span>
+
+File <span class="ansi-green-intense-fg ansi-bold">~\anaconda3\lib\site-packages\pandas\_libs\tslibs\conversion.pyx:125</span>, in <span class="ansi-cyan-fg">pandas._libs.tslibs.conversion.cast_from_unit</span><span class="ansi-blue-intense-fg ansi-bold">()</span>
+
+<span class="ansi-red-intense-fg ansi-bold">OverflowError</span>: int too big to convert
+
+During handling of the above exception, another exception occurred:
+
+<span class="ansi-red-intense-fg ansi-bold">OutOfBoundsDatetime</span>                       Traceback (most recent call last)
+Input <span class="ansi-green-intense-fg ansi-bold">In [10]</span>, in <span class="ansi-cyan-fg">&lt;cell line: 2&gt;</span><span class="ansi-blue-intense-fg ansi-bold">()</span>
+<span class="ansi-green-fg">      1</span> <span style="color: rgb(95,135,135)"># unit = D(Day)</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 2</span> pd<span style="color: rgb(98,98,98)">.</span>Series(<span class="ansi-yellow-bg">pd</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">to_datetime</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">stamp_date</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">unit</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">'</span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">D</span><span class="ansi-yellow-bg" style="color: rgb(175,0,0)">'</span><span class="ansi-yellow-bg">)</span>)
+
+File <span class="ansi-green-intense-fg ansi-bold">~\anaconda3\lib\site-packages\pandas\core\tools\datetimes.py:1076</span>, in <span class="ansi-cyan-fg">to_datetime</span><span class="ansi-blue-intense-fg ansi-bold">(arg, errors, dayfirst, yearfirst, utc, format, exact, unit, infer_datetime_format, origin, cache)</span>
+<span class="ansi-green-fg">   1074</span>         result <span style="color: rgb(98,98,98)">=</span> _convert_and_box_cache(arg, cache_array)
+<span class="ansi-green-fg">   1075</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">else</span>:
+<span class="ansi-green-intense-fg ansi-bold">-&gt; 1076</span>         result <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">convert_listlike</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">arg</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg" style="color: rgb(0,135,0)">format</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">   1077</span> <span class="ansi-bold" style="color: rgb(0,135,0)">else</span>:
+<span class="ansi-green-fg">   1078</span>     result <span style="color: rgb(98,98,98)">=</span> convert_listlike(np<span style="color: rgb(98,98,98)">.</span>array([arg]), <span style="color: rgb(0,135,0)">format</span>)[<span style="color: rgb(98,98,98)">0</span>]
+
+File <span class="ansi-green-intense-fg ansi-bold">~\anaconda3\lib\site-packages\pandas\core\tools\datetimes.py:357</span>, in <span class="ansi-cyan-fg">_convert_listlike_datetimes</span><span class="ansi-blue-intense-fg ansi-bold">(arg, format, name, tz, unit, errors, infer_datetime_format, dayfirst, yearfirst, exact)</span>
+<span class="ansi-green-fg">    355</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> <span style="color: rgb(0,135,0)">format</span> <span class="ansi-bold" style="color: rgb(175,0,255)">is</span> <span class="ansi-bold" style="color: rgb(175,0,255)">not</span> <span class="ansi-bold" style="color: rgb(0,135,0)">None</span>:
+<span class="ansi-green-fg">    356</span>         <span class="ansi-bold" style="color: rgb(0,135,0)">raise</span> <span class="ansi-bold" style="color: rgb(215,95,95)">ValueError</span>(<span style="color: rgb(175,0,0)">"</span><span style="color: rgb(175,0,0)">cannot specify both format and unit</span><span style="color: rgb(175,0,0)">"</span>)
+<span class="ansi-green-intense-fg ansi-bold">--&gt; 357</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> <span class="ansi-yellow-bg">_to_datetime_with_unit</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">arg</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">unit</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">name</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">tz</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">errors</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">    358</span> <span class="ansi-bold" style="color: rgb(0,135,0)">elif</span> <span style="color: rgb(0,135,0)">getattr</span>(arg, <span style="color: rgb(175,0,0)">"</span><span style="color: rgb(175,0,0)">ndim</span><span style="color: rgb(175,0,0)">"</span>, <span style="color: rgb(98,98,98)">1</span>) <span style="color: rgb(98,98,98)">&gt;</span> <span style="color: rgb(98,98,98)">1</span>:
+<span class="ansi-green-fg">    359</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">raise</span> <span class="ansi-bold" style="color: rgb(215,95,95)">TypeError</span>(
+<span class="ansi-green-fg">    360</span>         <span style="color: rgb(175,0,0)">"</span><span style="color: rgb(175,0,0)">arg must be a string, datetime, list, tuple, 1-d array, or Series</span><span style="color: rgb(175,0,0)">"</span>
+<span class="ansi-green-fg">    361</span>     )
+
+File <span class="ansi-green-intense-fg ansi-bold">~\anaconda3\lib\site-packages\pandas\core\tools\datetimes.py:530</span>, in <span class="ansi-cyan-fg">_to_datetime_with_unit</span><span class="ansi-blue-intense-fg ansi-bold">(arg, unit, name, tz, errors)</span>
+<span class="ansi-green-fg">    528</span> <span class="ansi-bold" style="color: rgb(0,135,0)">else</span>:
+<span class="ansi-green-fg">    529</span>     arg <span style="color: rgb(98,98,98)">=</span> np<span style="color: rgb(98,98,98)">.</span>asarray(arg)
+<span class="ansi-green-intense-fg ansi-bold">--&gt; 530</span>     arr, tz_parsed <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">tslib</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">array_with_unit_to_datetime</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">arg</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">unit</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">errors</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg">errors</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">    532</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> errors <span style="color: rgb(98,98,98)">==</span> <span style="color: rgb(175,0,0)">"</span><span style="color: rgb(175,0,0)">ignore</span><span style="color: rgb(175,0,0)">"</span>:
+<span class="ansi-green-fg">    533</span>     <span style="color: rgb(95,135,135)"># Index constructor _may_ infer to DatetimeIndex</span>
+<span class="ansi-green-fg">    534</span>     result <span style="color: rgb(98,98,98)">=</span> Index<span style="color: rgb(98,98,98)">.</span>_with_infer(arr, name<span style="color: rgb(98,98,98)">=</span>name)
+
+File <span class="ansi-green-intense-fg ansi-bold">~\anaconda3\lib\site-packages\pandas\_libs\tslib.pyx:302</span>, in <span class="ansi-cyan-fg">pandas._libs.tslib.array_with_unit_to_datetime</span><span class="ansi-blue-intense-fg ansi-bold">()</span>
+
+<span class="ansi-red-intense-fg ansi-bold">OutOfBoundsDatetime</span>: cannot convert input 1234000 with the unit 'D'</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">stamp_date</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">'ms'</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0   1970-01-01 00:20:34.000
+1   1970-01-01 00:20:34.101
+2   1970-01-01 00:20:34.202
+3   1970-01-01 00:20:34.300
+4   1970-01-01 00:20:34.500
+dtype: datetime64[ns]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">stamp_date</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">'us'</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0   1970-01-01 00:00:01.234000
+1   1970-01-01 00:00:01.234101
+2   1970-01-01 00:00:01.234202
+3   1970-01-01 00:00:01.234300
+4   1970-01-01 00:00:01.234500
+dtype: datetime64[ns]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="2.-라벨-형식-통일">
+<a class="anchor" href="#2.-%EB%9D%BC%EB%B2%A8-%ED%98%95%EC%8B%9D-%ED%86%B5%EC%9D%BC" aria-hidden="true"><span class="octicon octicon-link"></span></a>2. 라벨 형식 통일<a class="anchor-link" href="#2.-%EB%9D%BC%EB%B2%A8-%ED%98%95%EC%8B%9D-%ED%86%B5%EC%9D%BC"> </a>
+</h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>데이터 인코딩 작업에 포함</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># dictionary 타입으로 encoding map을 생성해서 적용</span>
+<span class="c1"># gender = 0(남자), 1(여자)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">'gender'</span><span class="p">:[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]})</span>
+<span class="n">gender_map</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span><span class="s1">'M'</span><span class="p">,</span><span class="mi">1</span><span class="p">:</span><span class="s1">'F'</span><span class="p">}</span>
+<span class="n">df</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>gender</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">'gender'</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">gender_map</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0    M
+1    M
+2    M
+3    F
+4    M
+5    F
+Name: gender, dtype: object</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 찾아 바꾸기인 .replace()를 써도 된다.</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">'gender'</span><span class="p">]</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">'gender'</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="s1">'M'</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="s1">'F'</span><span class="p">)</span>
+<span class="n">df</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>gender</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>M</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>M</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>M</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>F</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>M</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>F</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="3.-문자-형식(대소문자,-기호-등)-통일">
+<a class="anchor" href="#3.-%EB%AC%B8%EC%9E%90-%ED%98%95%EC%8B%9D(%EB%8C%80%EC%86%8C%EB%AC%B8%EC%9E%90,-%EA%B8%B0%ED%98%B8-%EB%93%B1)-%ED%86%B5%EC%9D%BC" aria-hidden="true"><span class="octicon octicon-link"></span></a>3. 문자 형식(대소문자, 기호 등) 통일<a class="anchor-link" href="#3.-%EB%AC%B8%EC%9E%90-%ED%98%95%EC%8B%9D(%EB%8C%80%EC%86%8C%EB%AC%B8%EC%9E%90,-%EA%B8%B0%ED%98%B8-%EB%93%B1)-%ED%86%B5%EC%9D%BC"> </a>
+</h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'Name'</span><span class="p">:[</span><span class="s1">'Jane'</span><span class="p">,</span><span class="s1">'Albert'</span><span class="p">,</span><span class="s1">'John'</span><span class="p">],</span>
+       <span class="s1">'Age'</span><span class="p">:[</span><span class="mi">18</span><span class="p">,</span><span class="mi">19</span><span class="p">,</span><span class="mi">20</span><span class="p">]}</span>
+<span class="n">df1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">df1</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Name</th>
+      <th>Age</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Jane</td>
+      <td>18</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Albert</td>
+      <td>19</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>John</td>
+      <td>20</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="컬럼명을-소문자로-바꾸는-첫-번째-방법">
+<a class="anchor" href="#%EC%BB%AC%EB%9F%BC%EB%AA%85%EC%9D%84-%EC%86%8C%EB%AC%B8%EC%9E%90%EB%A1%9C-%EB%B0%94%EA%BE%B8%EB%8A%94-%EC%B2%AB-%EB%B2%88%EC%A7%B8-%EB%B0%A9%EB%B2%95" aria-hidden="true"><span class="octicon octicon-link"></span></a>컬럼명을 소문자로 바꾸는 첫 번째 방법<a class="anchor-link" href="#%EC%BB%AC%EB%9F%BC%EB%AA%85%EC%9D%84-%EC%86%8C%EB%AC%B8%EC%9E%90%EB%A1%9C-%EB%B0%94%EA%BE%B8%EB%8A%94-%EC%B2%AB-%EB%B2%88%EC%A7%B8-%EB%B0%A9%EB%B2%95"> </a>
+</h4>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">new_cols</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df1</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">col</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+    <span class="n">new_cols</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">col</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>name
+age
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df1</span><span class="o">.</span><span class="n">colums</span> <span class="o">=</span> <span class="n">new_cols</span>
+<span class="n">df1</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>C:\Users\dhj98\AppData\Local\Temp\ipykernel_11552\2034365358.py:1: UserWarning: Pandas doesn't allow columns to be created via a new attribute name - see https://pandas.pydata.org/pandas-docs/stable/indexing.html#attribute-access
+  df1.colums = new_cols
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Name</th>
+      <th>Age</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Jane</td>
+      <td>18</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Albert</td>
+      <td>19</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>John</td>
+      <td>20</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="두번째-방법">
+<a class="anchor" href="#%EB%91%90%EB%B2%88%EC%A7%B8-%EB%B0%A9%EB%B2%95" aria-hidden="true"><span class="octicon octicon-link"></span></a>두번째 방법<a class="anchor-link" href="#%EB%91%90%EB%B2%88%EC%A7%B8-%EB%B0%A9%EB%B2%95"> </a>
+</h4>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df1</span><span class="o">.</span><span class="n">columns</span><span class="o">=</span><span class="n">df1</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+<span class="n">df1</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>NAME</th>
+      <th>AGE</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Jane</td>
+      <td>18</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Albert</td>
+      <td>19</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>John</td>
+      <td>20</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># age: 정수 자료이므로 고칠 필요가 없음. 따라서 배제</span>
+<span class="c1"># .apply(함수명)</span>
+<span class="c1"># 해당 함수의 리턴 값으로 컬럼 내부 값을 일괄적으로 교체해주는 명령어</span>
+<span class="k">def</span> <span class="nf">change_lower</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">value</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df1</span><span class="p">[</span><span class="s1">'NAME'</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">change_lower</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0      jane
+1    albert
+2      john
+Name: NAME, dtype: object</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 리턴하도록 is_adult() 함수를 아래에 정의</span>
+
+<span class="k">def</span> <span class="nf">is_adult</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">value</span> <span class="o">&gt;=</span> <span class="mi">20</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">'성인'</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">'미성년자'</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df1</span><span class="p">[</span><span class="s1">'AGE'</span><span class="p">]</span><span class="o">=</span><span class="n">df1</span><span class="p">[</span><span class="s1">'AGE'</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">is_adult</span><span class="p">)</span>
+<span class="n">df1</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>NAME</th>
+      <th>AGE</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Jane</td>
+      <td>미성년자</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Albert</td>
+      <td>미성년자</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>John</td>
+      <td>성인</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="2.-데이터-값에-대한-처리">
+<a class="anchor" href="#2.-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EA%B0%92%EC%97%90-%EB%8C%80%ED%95%9C-%EC%B2%98%EB%A6%AC" aria-hidden="true"><span class="octicon octicon-link"></span></a>2. 데이터 값에 대한 처리<a class="anchor-link" href="#2.-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EA%B0%92%EC%97%90-%EB%8C%80%ED%95%9C-%EC%B2%98%EB%A6%AC"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>결측값</li>
+<li>이상치</li>
+<li>단순 중복 데이터</li>
+<li>동일한 의미, 다른 명칭의 중복 데이터</li>
+<li>중복속성(다중공선성)</li>
+<li>불규칙한 데이터 수집(간격, 단위)</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sample</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'csv_exam_nan.csv'</span><span class="p">)</span>
+<span class="n">sample</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>math</th>
+      <th>english</th>
+      <th>science</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>70.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>75.0</td>
+      <td>65.0</td>
+      <td>80.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>56.0</td>
+      <td>89.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>89.0</td>
+      <td>95.0</td>
+      <td>83.0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>90.0</td>
+      <td>100.0</td>
+      <td>89.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="1.-결측치-처리---삭제">
+<a class="anchor" href="#1.-%EA%B2%B0%EC%B8%A1%EC%B9%98-%EC%B2%98%EB%A6%AC---%EC%82%AD%EC%A0%9C" aria-hidden="true"><span class="octicon octicon-link"></span></a>1. 결측치 처리 - 삭제<a class="anchor-link" href="#1.-%EA%B2%B0%EC%B8%A1%EC%B9%98-%EC%B2%98%EB%A6%AC---%EC%82%AD%EC%A0%9C"> </a>
+</h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="1.-결측치가-하나라도-있는-레코드-삭제">
+<a class="anchor" href="#1.-%EA%B2%B0%EC%B8%A1%EC%B9%98%EA%B0%80-%ED%95%98%EB%82%98%EB%9D%BC%EB%8F%84-%EC%9E%88%EB%8A%94-%EB%A0%88%EC%BD%94%EB%93%9C-%EC%82%AD%EC%A0%9C" aria-hidden="true"><span class="octicon octicon-link"></span></a>1. 결측치가 하나라도 있는 레코드 삭제<a class="anchor-link" href="#1.-%EA%B2%B0%EC%B8%A1%EC%B9%98%EA%B0%80-%ED%95%98%EB%82%98%EB%9D%BC%EB%8F%84-%EC%9E%88%EB%8A%94-%EB%A0%88%EC%BD%94%EB%93%9C-%EC%82%AD%EC%A0%9C"> </a>
+</h4>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># df.dropna(how='any'(default), inplace=True)</span>
+<span class="c1"># inplace 파라미터: 원본에 바로 반영</span>
+<span class="n">sample</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span> <span class="c1">#how='any'</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>math</th>
+      <th>english</th>
+      <th>science</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>75.0</td>
+      <td>65.0</td>
+      <td>80.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>89.0</td>
+      <td>95.0</td>
+      <td>83.0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>90.0</td>
+      <td>100.0</td>
+      <td>89.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="2.-모든-값이-결측인-레코드-삭제">
+<a class="anchor" href="#2.-%EB%AA%A8%EB%93%A0-%EA%B0%92%EC%9D%B4-%EA%B2%B0%EC%B8%A1%EC%9D%B8-%EB%A0%88%EC%BD%94%EB%93%9C-%EC%82%AD%EC%A0%9C" aria-hidden="true"><span class="octicon octicon-link"></span></a>2. 모든 값이 결측인 레코드 삭제<a class="anchor-link" href="#2.-%EB%AA%A8%EB%93%A0-%EA%B0%92%EC%9D%B4-%EA%B2%B0%EC%B8%A1%EC%9D%B8-%EB%A0%88%EC%BD%94%EB%93%9C-%EC%82%AD%EC%A0%9C"> </a>
+</h4>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sample</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">how</span><span class="o">=</span><span class="s1">'all'</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>math</th>
+      <th>english</th>
+      <th>science</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>70.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>75.0</td>
+      <td>65.0</td>
+      <td>80.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>56.0</td>
+      <td>89.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>89.0</td>
+      <td>95.0</td>
+      <td>83.0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>90.0</td>
+      <td>100.0</td>
+      <td>89.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="3.-결측치가-하나라도-있는-데이터만-삭제">
+<a class="anchor" href="#3.-%EA%B2%B0%EC%B8%A1%EC%B9%98%EA%B0%80-%ED%95%98%EB%82%98%EB%9D%BC%EB%8F%84-%EC%9E%88%EB%8A%94-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%A7%8C-%EC%82%AD%EC%A0%9C" aria-hidden="true"><span class="octicon octicon-link"></span></a>3. 결측치가 하나라도 있는 데이터만 삭제<a class="anchor-link" href="#3.-%EA%B2%B0%EC%B8%A1%EC%B9%98%EA%B0%80-%ED%95%98%EB%82%98%EB%9D%BC%EB%8F%84-%EC%9E%88%EB%8A%94-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%A7%8C-%EC%82%AD%EC%A0%9C"> </a>
+</h4>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># df[df.isnull().any(axis=1)]</span>
+<span class="n">sample</span><span class="p">[</span><span class="n">sample</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>math</th>
+      <th>english</th>
+      <th>science</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>70.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>56.0</td>
+      <td>89.0</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sample</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>math</th>
+      <th>english</th>
+      <th>science</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>False</td>
+      <td>True</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># default: axis = 0(컬럼 기준으로 결측치 여부 조사)</span>
+<span class="n">sample</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">any</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>math       True
+english    True
+science    True
+dtype: bool</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sample</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0     True
+1    False
+2     True
+3     True
+4    False
+5    False
+dtype: bool</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sample</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>math</th>
+      <th>english</th>
+      <th>science</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>False</td>
+      <td>True</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>True</td>
+      <td>True</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sample</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>math       1
+english    2
+science    3
+dtype: int64</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="2.-결측치-처리---대체값">
+<a class="anchor" href="#2.-%EA%B2%B0%EC%B8%A1%EC%B9%98-%EC%B2%98%EB%A6%AC---%EB%8C%80%EC%B2%B4%EA%B0%92" aria-hidden="true"><span class="octicon octicon-link"></span></a>2. 결측치 처리 - 대체값<a class="anchor-link" href="#2.-%EA%B2%B0%EC%B8%A1%EC%B9%98-%EC%B2%98%EB%A6%AC---%EB%8C%80%EC%B2%B4%EA%B0%92"> </a>
+</h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>연속형: 임의값(0 등...), mean, median, 예측값, 도메인 지식 활용</li>
+<li>명목형: mode(최빈값), 예측값, 도메인 지식 활용</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># df.fillna(v)</span>
+<span class="n">sample</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="평균값으로-채워넣기">
+<a class="anchor" href="#%ED%8F%89%EA%B7%A0%EA%B0%92%EC%9C%BC%EB%A1%9C-%EC%B1%84%EC%9B%8C%EB%84%A3%EA%B8%B0" aria-hidden="true"><span class="octicon octicon-link"></span></a>평균값으로 채워넣기<a class="anchor-link" href="#%ED%8F%89%EA%B7%A0%EA%B0%92%EC%9C%BC%EB%A1%9C-%EC%B1%84%EC%9B%8C%EB%84%A3%EA%B8%B0"> </a>
+</h4>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># sample: 6*3 모든 데이터에 대한 평균</span>
+<span class="c1"># df.mean(): 컬럼별로 평균값</span>
+<span class="c1"># NaN를 없는 값으로 가정하고 구한 평균</span>
+<span class="n">sample</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>math       76.00
+english    87.25
+science    84.00
+dtype: float64</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># sample.values.mean() =&gt; 전체 평균을 구할 수 있지만 NaN</span>
+<span class="c1"># df.fillna(0)으로 결측치를 보완하고 =&gt; mean()으로 구해야 함</span>
+<span class="c1"># NaN가 0으로 대체된 평균을 구한다음, 그 평균값으로 결측치 매우기</span>
+<span class="n">sample</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="c1"># NaN은 계산에 반영이 안 되기 때문</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>nan</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#sample.replace(0,sample.values.mean(),inplace=True)</span>
+<span class="c1">#sample</span>
+<span class="n">tot_avg</span> <span class="o">=</span> <span class="n">sample</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">sample</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">tot_avg</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>math</th>
+      <th>english</th>
+      <th>science</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>70.0</td>
+      <td>54.5</td>
+      <td>54.5</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>75.0</td>
+      <td>65.0</td>
+      <td>80.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>54.5</td>
+      <td>54.5</td>
+      <td>54.5</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>56.0</td>
+      <td>89.0</td>
+      <td>54.5</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>89.0</td>
+      <td>95.0</td>
+      <td>83.0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>90.0</td>
+      <td>100.0</td>
+      <td>89.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># sample: math/en/sc 컬럼에 존재하는 결측치 -&gt; math/en/sc 컬럼의 평균 값</span>
+<span class="c1"># df.mean() 컬럼별 평균</span>
+<span class="n">sample</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>math       76.00
+english    87.25
+science    84.00
+dtype: float64</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">math_avg</span> <span class="o">=</span> <span class="n">sample</span><span class="o">.</span><span class="n">mean</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">en_avg</span> <span class="o">=</span> <span class="n">sample</span><span class="o">.</span><span class="n">mean</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">sc_avg</span> <span class="o">=</span> <span class="n">sample</span><span class="o">.</span><span class="n">mean</span><span class="p">()[</span><span class="mi">2</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">sample</span><span class="p">[</span><span class="s1">'math'</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">math_avg</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sample</span><span class="p">[</span><span class="s1">'english'</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">en_avg</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sample</span><span class="p">[</span><span class="s1">'science'</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">sc_avg</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>0    70.0
+1    75.0
+2    76.0
+3    56.0
+4    89.0
+5    90.0
+Name: math, dtype: float64
+0     87.25
+1     65.00
+2     87.25
+3     89.00
+4     95.00
+5    100.00
+Name: english, dtype: float64
+0    84.0
+1    80.0
+2    84.0
+3    84.0
+4    83.0
+5    89.0
+Name: science, dtype: float64
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="중위값으로-채워넣기">
+<a class="anchor" href="#%EC%A4%91%EC%9C%84%EA%B0%92%EC%9C%BC%EB%A1%9C-%EC%B1%84%EC%9B%8C%EB%84%A3%EA%B8%B0" aria-hidden="true"><span class="octicon octicon-link"></span></a>중위값으로 채워넣기<a class="anchor-link" href="#%EC%A4%91%EC%9C%84%EA%B0%92%EC%9C%BC%EB%A1%9C-%EC%B1%84%EC%9B%8C%EB%84%A3%EA%B8%B0"> </a>
+</h4>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># tot_medi: 54.5</span>
+<span class="c1"># median()을 이용해 몇인지 구하기</span>
+<span class="c1"># Series나 DF는 벡터함수 연산시 자동으로 NaN을 배제</span>
+<span class="c1"># 따라서 전체 데이터의 중위값을 구하기 위해서 먼저 Series로 변경</span>
+<span class="c1"># sample.size를 .reshape()에 넣어주면 자동으로 1차원 배열로 크기 맞춰서 변경</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">18</span><span class="p">))</span><span class="o">.</span><span class="n">median</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>86.0</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="범주형---최빈값으로-채워넣기">
+<a class="anchor" href="#%EB%B2%94%EC%A3%BC%ED%98%95---%EC%B5%9C%EB%B9%88%EA%B0%92%EC%9C%BC%EB%A1%9C-%EC%B1%84%EC%9B%8C%EB%84%A3%EA%B8%B0" aria-hidden="true"><span class="octicon octicon-link"></span></a>범주형 - 최빈값으로 채워넣기<a class="anchor-link" href="#%EB%B2%94%EC%A3%BC%ED%98%95---%EC%B5%9C%EB%B9%88%EA%B0%92%EC%9C%BC%EB%A1%9C-%EC%B1%84%EC%9B%8C%EB%84%A3%EA%B8%B0"> </a>
+</h4>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># describe()</span>
+<span class="c1"># value_counts()</span>
+<span class="c1"># collections 라이브러리의 Counter 모듈</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">'label'</span><span class="p">:[</span><span class="s1">'A'</span><span class="p">,</span><span class="s1">'B'</span><span class="p">,</span><span class="s1">'B'</span><span class="p">,</span><span class="s1">'C'</span><span class="p">,</span><span class="s1">'C'</span><span class="p">,</span><span class="s1">'C'</span><span class="p">,</span><span class="s1">'D'</span><span class="p">]})</span>
+<span class="n">df</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>label</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>A</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>B</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>B</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>C</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>C</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>C</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>D</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># count 로우는 총 데이터 개수</span>
+<span class="c1"># unique는 데이터의 유형이 몇 개인지</span>
+<span class="c1"># top은 가장 많이 나온 요소가 무엇인지</span>
+<span class="c1"># freq는 top 빈도가 몇 번인지</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>label    C
+Name: top, dtype: object</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">'top'</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>label    C
+Name: top, dtype: object</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 각 범주별 개수를 구할 수 있음</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">'label'</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>C    3
+B    2
+A    1
+D    1
+Name: label, dtype: int64</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
+<span class="c1"># 1. 라이브러리 가져오기</span>
+<span class="c1"># 2. Counter()를 이용해 Counter 타입의 자료 생성</span>
+<span class="c1"># 3. Counter 객체.most_commons() =&gt; [(value1,count1),(value2,count2),...]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'red'</span><span class="p">,</span><span class="s1">'blue'</span><span class="p">,</span> <span class="s1">'pink'</span><span class="p">,</span><span class="s1">'blue'</span><span class="p">,</span><span class="s1">'blue'</span><span class="p">,</span><span class="s1">'red'</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">counter</span><span class="o">=</span><span class="n">Counter</span><span class="p">(</span><span class="n">colors</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">counter</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>Counter({'red': 2, 'blue': 3, 'pink': 1})</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 갯수순으로 나열해줌</span>
+<span class="n">counter</span><span class="o">.</span><span class="n">most_common</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[('blue', 3), ('red', 2), ('pink', 1)]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">'label'</span><span class="p">:[</span><span class="s1">'A'</span><span class="p">,</span><span class="s1">'B'</span><span class="p">,</span><span class="s1">'B'</span><span class="p">,</span><span class="s1">'C'</span><span class="p">,</span><span class="s1">'C'</span><span class="p">,</span><span class="s1">'C'</span><span class="p">,</span><span class="s1">'D'</span><span class="p">]})</span>
+<span class="n">df</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>label</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>A</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>B</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>B</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>C</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>C</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>C</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>D</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Counter</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">'label'</span><span class="p">])</span><span class="o">.</span><span class="n">most_common</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[('C', 3), ('B', 2), ('A', 1), ('D', 1)]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="3.-데이터-단위-통일">
+<a class="anchor" href="#3.-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%8B%A8%EC%9C%84-%ED%86%B5%EC%9D%BC" aria-hidden="true"><span class="octicon octicon-link"></span></a>3. 데이터 단위 통일<a class="anchor-link" href="#3.-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%8B%A8%EC%9C%84-%ED%86%B5%EC%9D%BC"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="1.-표준화(Standardization)">
+<a class="anchor" href="#1.-%ED%91%9C%EC%A4%80%ED%99%94(Standardization)" aria-hidden="true"><span class="octicon octicon-link"></span></a>1. 표준화(Standardization)<a class="anchor-link" href="#1.-%ED%91%9C%EC%A4%80%ED%99%94(Standardization)"> </a>
+</h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>평균을 기준으로 얼마나 떨어져 있는지를 파악</li>
+<li>sklearn에서 제공하는 전처리 클래스<ul>
+<li>preprocessing 클래스<ul>
+<li>scaler() : 전체 자료의 분포를 평균 0, 표준편차 1이 되도록 스케일링</li>
+<li>minmax_scale() : 최대/최소값이 각각 1, 0이 되도록 스케일링</li>
+<li>StandardScaler() : scaler() 함수와 동일한 동작</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>표준화 : (요소값(하나의 데이터) - 평균) / 표준편차</li>
+<li>삼성전자 vs 작은회사 주식 시세</li>
+<li>몸무게 vs 키<ul>
+<li>표준화 결과 : 몸무게 음수, 키 양수</li>
+<li>해석 : 몸무게는 평균 이하, 키는 평균 이상(=&gt;마른몸)</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">scale</span><span class="p">,</span> <span class="n">minmax_scale</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span><span class="o">-</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">x</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([[-3],
+       [-2],
+       [-1],
+       [ 0],
+       [ 1],
+       [ 2],
+       [ 3],
+       [ 4],
+       [ 5]])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 3개 컬럼: x, scale(x), minmax_scale(x)</span>
+<span class="nb">type</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>numpy.ndarray</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">scale</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([[-1.54919334],
+       [-1.161895  ],
+       [-0.77459667],
+       [-0.38729833],
+       [ 0.        ],
+       [ 0.38729833],
+       [ 0.77459667],
+       [ 1.161895  ],
+       [ 1.54919334]])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># np.vstack =&gt; 세로 방향으로 붙혀줌</span>
+<span class="c1"># 9*1 데이터 3개를 가로로 붙여서 9*3(세로로 붙였으면 27*1)으로 만들고</span>
+<span class="c1"># 붙여준 컬럼별로 수행한 연산을 컬럼명으로 정의</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">x</span><span class="p">,</span><span class="n">scale</span><span class="p">(</span><span class="n">x</span><span class="p">),</span><span class="n">minmax_scale</span><span class="p">(</span><span class="n">x</span><span class="p">)]),</span>
+                  <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'x'</span><span class="p">,</span><span class="s1">'scale(x)'</span><span class="p">,</span><span class="s1">'minmax_scale(x)'</span><span class="p">])</span>
+<span class="n">df</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>x</th>
+      <th>scale(x)</th>
+      <th>minmax_scale(x)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>-3.0</td>
+      <td>-1.549193</td>
+      <td>0.000</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>-2.0</td>
+      <td>-1.161895</td>
+      <td>0.125</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>-1.0</td>
+      <td>-0.774597</td>
+      <td>0.250</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.0</td>
+      <td>-0.387298</td>
+      <td>0.375</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1.0</td>
+      <td>0.000000</td>
+      <td>0.500</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>2.0</td>
+      <td>0.387298</td>
+      <td>0.625</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>3.0</td>
+      <td>0.774597</td>
+      <td>0.750</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>4.0</td>
+      <td>1.161895</td>
+      <td>0.875</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>5.0</td>
+      <td>1.549193</td>
+      <td>1.000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+</div>
+
+
+
+  </div><!-- from https://github.com/utterance/utterances 
+<script src="https://utteranc.es/client.js"
+        repo="dorae222/dorae22_blog"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script> -->
+
+<div id="disqus_thread"></div>
+<script>
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+    /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://dorae222-blog.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a class="u-url" href="/dorae222/data%20%ED%98%95%EC%8B%9D%20%ED%86%B5%EC%9D%BC/2022/11/01/DA-Pandas-%EC%8B%AC%ED%99%94.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/dorae222/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/dorae222/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/dorae222/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>HYU BIZ &amp; BIG DATA</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li>
+  <a rel="me" href="dorae222" target="_blank" title="github">
+    <svg class="svg-icon grey">
+      <use xlink:href="/dorae222/assets/minima-social-icons.svg#github"></use>
+    </svg>
+  </a>
+</li>
+</ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

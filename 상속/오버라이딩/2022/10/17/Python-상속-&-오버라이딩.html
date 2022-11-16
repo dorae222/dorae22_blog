@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>[Python] 상속 &amp; 오버라이딩 | Dorae222’s BLOG</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="[Python] 상속 &amp; 오버라이딩" />
+<meta name="author" content="도형준" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="상속과 오버라이딩 개념" />
+<meta property="og:description" content="상속과 오버라이딩 개념" />
+<meta property="og:site_name" content="Dorae222’s BLOG" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-10-17T00:00:00-05:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="[Python] 상속 &amp; 오버라이딩" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"도형준"},"dateModified":"2022-10-17T00:00:00-05:00","datePublished":"2022-10-17T00:00:00-05:00","description":"상속과 오버라이딩 개념","headline":"[Python] 상속 &amp; 오버라이딩","mainEntityOfPage":{"@type":"WebPage","@id":"/dorae222/%EC%83%81%EC%86%8D/%EC%98%A4%EB%B2%84%EB%9D%BC%EC%9D%B4%EB%94%A9/2022/10/17/Python-%EC%83%81%EC%86%8D-&-%EC%98%A4%EB%B2%84%EB%9D%BC%EC%9D%B4%EB%94%A9.html"},"url":"/dorae222/%EC%83%81%EC%86%8D/%EC%98%A4%EB%B2%84%EB%9D%BC%EC%9D%B4%EB%94%A9/2022/10/17/Python-%EC%83%81%EC%86%8D-&-%EC%98%A4%EB%B2%84%EB%9D%BC%EC%9D%B4%EB%94%A9.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/dorae222/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="/dorae222/feed.xml" title="Dorae222's BLOG" /><link rel="shortcut icon" type="image/x-icon" href="/dorae222/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/dorae222/">Dorae222&#39;s BLOG</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/dorae222/about/">About Me</a><a class="page-link" href="/dorae222/gitInfo/">gitInfo</a><a class="page-link" href="/dorae222/search/">Search</a><a class="page-link" href="/dorae222/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">[Python] 상속 &amp; 오버라이딩</h1><p class="page-description">상속과 오버라이딩 개념</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2022-10-17T00:00:00-05:00" itemprop="datePublished">
+        Oct 17, 2022
+      </time>• 
+          <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+            <span class="p-author h-card" itemprop="name">도형준</span></span>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      1 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="dorae222/categories/#상속">상속</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="dorae222/categories/#오버라이딩">오버라이딩</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-justify-center">
+          <div class="px-2">
+
+    <a href="https://github.com/dorae222/dorae22_blog/tree/master/_notebooks/2022-10-17-[Python]  상속 & 오버라이딩.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/dorae222/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/dorae222/dorae22_blog/master?filepath=_notebooks%2F2022-10-17-%5BPython%5D++%EC%83%81%EC%86%8D+%26+%EC%98%A4%EB%B2%84%EB%9D%BC%EC%9D%B4%EB%94%A9.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/dorae222/assets/badges/binder.svg" alt="Open In Binder"/>
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/dorae222/dorae22_blog/blob/master/_notebooks/2022-10-17-[Python]  상속 & 오버라이딩.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/dorae222/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+          <div class="px-2">
+  <a href="https://deepnote.com/launch?url=https%3A%2F%2Fgithub.com%2Fdorae222%2Fdorae22_blog%2Fblob%2Fmaster%2F_notebooks%2F2022-10-17-%5BPython%5D++%EC%83%81%EC%86%8D+%26+%EC%98%A4%EB%B2%84%EB%9D%BC%EC%9D%B4%EB%94%A9.ipynb" target="_blank">
+      <img class="notebook-badge-image" src="/dorae222/assets/badges/deepnote.svg" alt="Launch in Deepnote"/>
+  </a>
+</div>
+
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h1"><a href="#상속">상속 </a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#개념">개념 </a></li>
+<li class="toc-entry toc-h2"><a href="#파이썬에서는-다중-상속-가능함">파이썬에서는 다중 상속 가능함 </a></li>
+</ul>
+</li>
+</ul><!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2022-10-17-[Python]  상속 & 오버라이딩.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="상속">
+<a class="anchor" href="#%EC%83%81%EC%86%8D" aria-hidden="true"><span class="octicon octicon-link"></span></a>상속<a class="anchor-link" href="#%EC%83%81%EC%86%8D"> </a>
+</h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="개념">
+<a class="anchor" href="#%EA%B0%9C%EB%85%90" aria-hidden="true"><span class="octicon octicon-link"></span></a>개념<a class="anchor-link" href="#%EA%B0%9C%EB%85%90"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>상속은 부모 클래스의 정보를 활용해 자식 클래스를 이끌어내는 것을 의미합니다.</li>
+<li>문법은<blockquote>
+<p>class 클래스명(부모클래스):내부 정의- 현실에서의 상속과 마찬가지로 프로그래밍의 상속에서도 부모는 자식에게 자신이 가진 요소를 물려줍니다(변수, 메서드)</p>
+</blockquote>
+</li>
+<li>현실과 다른 점은 프로그래밍의 상속은 자식이 부모를 지목해 이뤄지며</li>
+<li>부모쪽에서 물려받은 변수, 메서드 및 자식 쪽에서 새로 정의한 변수, 메서드</li>
+<li>그리고 물려받은 메서드를 재정의(오버라이딩)해 사용할 수 있습니다.</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Person</span><span class="p">:</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">""</span>
+    <span class="n">age</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">height</span> <span class="o">=</span> <span class="mi">0</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">p1</span> <span class="o">=</span> <span class="n">Person</span><span class="p">()</span>
+<span class="n">p1</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">"홍길동"</span>
+<span class="n">p1</span><span class="o">.</span><span class="n">age</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="n">p1</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="mi">170</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">p1</span><span class="o">.</span><span class="n">name</span><span class="p">,</span><span class="n">p1</span><span class="o">.</span><span class="n">age</span><span class="p">,</span><span class="n">p1</span><span class="o">.</span><span class="n">height</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>홍길동 20 170
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Student</span><span class="p">(</span><span class="n">Person</span><span class="p">):</span>
+    <span class="n">major</span> <span class="o">=</span> <span class="s2">""</span>
+    <span class="n">grade</span> <span class="o">=</span> <span class="mi">0</span>
+    
+    <span class="k">def</span> <span class="nf">save_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">s</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">q</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">n</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">age</span> <span class="o">=</span> <span class="n">s</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="n">a</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">major</span> <span class="o">=</span> <span class="n">p</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">grade</span> <span class="o">=</span> <span class="n">q</span>
+        
+    <span class="k">def</span> <span class="nf">get_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">((</span><span class="s2">"name: </span><span class="si">%s</span><span class="s2">, age: </span><span class="si">%s</span><span class="s2">세, height: </span><span class="si">%s</span><span class="s2">cm, major: </span><span class="si">%s</span><span class="s2">, grade:</span><span class="si">%s</span><span class="s2">학년"</span><span class="p">)</span><span class="o">%</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">age</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">major</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">grade</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">s1</span> <span class="o">=</span> <span class="n">Student</span><span class="p">()</span>
+<span class="n">s1</span><span class="o">.</span><span class="n">save_info</span><span class="p">(</span><span class="s2">"가나다"</span><span class="p">,</span><span class="mi">21</span><span class="p">,</span><span class="mi">175</span><span class="p">,</span><span class="s2">"빅데이터"</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">s1</span><span class="o">.</span><span class="n">get_info</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>name: 가나다, age: 21세, height: 175cm, major: 빅데이터, grade:1학년
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 샐러리맨은 연봉을 가집니다.</span>
+<span class="k">class</span> <span class="nc">Salaryman</span><span class="p">(</span><span class="n">Person</span><span class="p">):</span>
+    <span class="n">job</span> <span class="o">=</span> <span class="s2">""</span>
+    <span class="n">income</span> <span class="o">=</span> <span class="mi">0</span>
+    
+    <span class="k">def</span> <span class="nf">save_my_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">z</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">job</span> <span class="o">=</span> <span class="n">x</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">income</span> <span class="o">=</span> <span class="n">z</span>
+    <span class="k">def</span> <span class="nf">get_my_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">((</span><span class="s2">"이름:</span><span class="si">%s</span><span class="s2">, 나이:</span><span class="si">%s</span><span class="s2">세, 키:</span><span class="si">%s</span><span class="s2">cm, 직업:</span><span class="si">%s</span><span class="s2">, 수입:$</span><span class="si">%s</span><span class="s2">"</span><span class="p">)</span><span class="o">%</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">age</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">job</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">income</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">me</span> <span class="o">=</span> <span class="n">Salaryman</span><span class="p">()</span>
+<span class="n">me</span><span class="o">.</span><span class="n">save_my_info</span><span class="p">(</span><span class="s2">"DS"</span><span class="p">,</span><span class="mi">100000</span><span class="p">)</span>
+<span class="n">me</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">"도형준"</span>
+<span class="n">me</span><span class="o">.</span><span class="n">age</span> <span class="o">=</span> <span class="mi">24</span>
+<span class="n">me</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="mi">175</span>
+<span class="n">me</span><span class="o">.</span><span class="n">get_my_info</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>이름:도형준, 나이:24세, 키:175cm, 직업:DS, 수입:$100000
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="파이썬에서는-다중-상속-가능함">
+<a class="anchor" href="#%ED%8C%8C%EC%9D%B4%EC%8D%AC%EC%97%90%EC%84%9C%EB%8A%94-%EB%8B%A4%EC%A4%91-%EC%83%81%EC%86%8D-%EA%B0%80%EB%8A%A5%ED%95%A8" aria-hidden="true"><span class="octicon octicon-link"></span></a>파이썬에서는 다중 상속 가능함<a class="anchor-link" href="#%ED%8C%8C%EC%9D%B4%EC%8D%AC%EC%97%90%EC%84%9C%EB%8A%94-%EB%8B%A4%EC%A4%91-%EC%83%81%EC%86%8D-%EA%B0%80%EB%8A%A5%ED%95%A8"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>하지만 보통 다중 상속을 하지 않음.(특히, JAVA or C)</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">Person</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">greeting</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">'안녕하세요.'</span><span class="p">)</span>
+ 
+<span class="k">class</span> <span class="nc">University</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">manage_credit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">'학점 관리'</span><span class="p">)</span>
+ 
+<span class="k">class</span> <span class="nc">Undergraduate</span><span class="p">(</span><span class="n">Person</span><span class="p">,</span> <span class="n">University</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">study</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">'공부하기'</span><span class="p">)</span>
+ 
+<span class="n">james</span> <span class="o">=</span> <span class="n">Undergraduate</span><span class="p">()</span>
+<span class="n">james</span><span class="o">.</span><span class="n">greeting</span><span class="p">()</span>         <span class="c1"># 안녕하세요.: 기반 클래스 Person의 메서드 호출</span>
+<span class="n">james</span><span class="o">.</span><span class="n">manage_credit</span><span class="p">()</span>    <span class="c1"># 학점 관리: 기반 클래스 University의 메서드 호출</span>
+<span class="n">james</span><span class="o">.</span><span class="n">study</span><span class="p">()</span>            <span class="c1"># 공부하기: 파생 클래스 Undergraduate에 추가한 study 메서드</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>안녕하세요.
+학점 관리
+공부하기
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+</div>
+
+
+
+  </div><!-- from https://github.com/utterance/utterances 
+<script src="https://utteranc.es/client.js"
+        repo="dorae222/dorae22_blog"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script> -->
+
+<div id="disqus_thread"></div>
+<script>
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+    /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://dorae222-blog.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a class="u-url" href="/dorae222/%EC%83%81%EC%86%8D/%EC%98%A4%EB%B2%84%EB%9D%BC%EC%9D%B4%EB%94%A9/2022/10/17/Python-%EC%83%81%EC%86%8D-&-%EC%98%A4%EB%B2%84%EB%9D%BC%EC%9D%B4%EB%94%A9.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/dorae222/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/dorae222/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/dorae222/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>HYU BIZ &amp; BIG DATA</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li>
+  <a rel="me" href="dorae222" target="_blank" title="github">
+    <svg class="svg-icon grey">
+      <use xlink:href="/dorae222/assets/minima-social-icons.svg#github"></use>
+    </svg>
+  </a>
+</li>
+</ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

@@ -1,0 +1,5466 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>[DA] Pandas - DataFrame 1 | Dorae222’s BLOG</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="[DA] Pandas - DataFrame 1" />
+<meta name="author" content="도형준" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Pandas DataFrame" />
+<meta property="og:description" content="Pandas DataFrame" />
+<meta property="og:site_name" content="Dorae222’s BLOG" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-10-21T00:00:00-05:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="[DA] Pandas - DataFrame 1" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"도형준"},"dateModified":"2022-10-21T00:00:00-05:00","datePublished":"2022-10-21T00:00:00-05:00","description":"Pandas DataFrame","headline":"[DA] Pandas - DataFrame 1","mainEntityOfPage":{"@type":"WebPage","@id":"/dorae222/pandas/datafrmae/df/2022/10/21/DA-Pandas-DataFarme-1.html"},"url":"/dorae222/pandas/datafrmae/df/2022/10/21/DA-Pandas-DataFarme-1.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/dorae222/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="/dorae222/feed.xml" title="Dorae222's BLOG" /><link rel="shortcut icon" type="image/x-icon" href="/dorae222/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper">
+<a class="site-title" rel="author" href="/dorae222/">Dorae222's BLOG</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger">
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewbox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"></path>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger">
+<a class="page-link" href="/dorae222/about/">About Me</a><a class="page-link" href="/dorae222/gitInfo/">gitInfo</a><a class="page-link" href="/dorae222/search/">Search</a><a class="page-link" href="/dorae222/categories/">Tags</a>
+</div>
+      </nav>
+</div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">[DA] Pandas - DataFrame 1</h1>
+<p class="page-description">Pandas DataFrame</p>
+<p class="post-meta post-meta-title"><time class="dt-published" datetime="2022-10-21T00:00:00-05:00" itemprop="datePublished">
+        Oct 21, 2022
+      </time>• 
+          <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+            <span class="p-author h-card" itemprop="name">도형준</span></span>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      17 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i> 
+      
+        <a class="category-tags-link" href="dorae222/categories/#pandas">pandas</a>
+         
+      
+        <a class="category-tags-link" href="dorae222/categories/#DataFrmae">DataFrmae</a>
+         
+      
+        <a class="category-tags-link" href="dorae222/categories/#df">df</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-justify-center">
+          <div class="px-2">
+
+    <a href="https://github.com/dorae222/dorae22_blog/tree/master/_notebooks/2022-10-21-%5BDA%5D%20Pandas%20-%20DataFarme%201.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/dorae222/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/dorae222/dorae22_blog/master?filepath=_notebooks%2F2022-10-21-%5BDA%5D+Pandas+-+DataFarme+1.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/dorae222/assets/badges/binder.svg" alt="Open In Binder">
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/dorae222/dorae22_blog/blob/master/_notebooks/2022-10-21-%5BDA%5D%20Pandas%20-%20DataFarme%201.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/dorae222/assets/badges/colab.svg" alt="Open In Colab">
+    </a>
+</div>
+          <div class="px-2">
+  <a href="https://deepnote.com/launch?url=https%3A%2F%2Fgithub.com%2Fdorae222%2Fdorae22_blog%2Fblob%2Fmaster%2F_notebooks%2F2022-10-21-%5BDA%5D+Pandas+-+DataFarme+1.ipynb" target="_blank">
+      <img class="notebook-badge-image" src="/dorae222/assets/badges/deepnote.svg" alt="Launch in Deepnote">
+  </a>
+</div>
+
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h1">
+<a href="#DataFrame">DataFrame </a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#DataFrame-%EC%83%9D%EC%84%B1">DataFrame 생성 </a></li>
+<li class="toc-entry toc-h2">
+<a href="#DataFrame%EC%9D%98-%EC%86%8D%EC%84%B1">DataFrame의 속성 </a>
+<ul>
+<li class="toc-entry toc-h3">
+<a href="#DataFrame%EC%9D%98-%EC%86%8D%EC%84%B1-%EC%82%B4%ED%8E%B4%EB%B3%B4%EA%B8%B0">DataFrame의 속성 살펴보기 </a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#DF-%EC%83%9D%EC%84%B1">DF 생성 </a></li>
+<li class="toc-entry toc-h4"><a href="#index">index </a></li>
+<li class="toc-entry toc-h4"><a href="#columns">columns </a></li>
+<li class="toc-entry toc-h4"><a href="#rename">rename </a></li>
+<li class="toc-entry toc-h4"><a href="#axes">axes </a></li>
+<li class="toc-entry toc-h4"><a href="#reset_index">reset_index </a></li>
+<li class="toc-entry toc-h4"><a href="#values">values </a></li>
+<li class="toc-entry toc-h4"><a href="#size">size </a></li>
+<li class="toc-entry toc-h4"><a href="#shape">shape </a></li>
+<li class="toc-entry toc-h4"><a href="#T(%EC%A0%84%EC%B9%98%ED%96%89%EB%A0%AC)">T(전치행렬) </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h3">
+<a href="#%EC%9D%B8%EB%8D%B1%EC%8B%B1">인덱싱 </a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#%EC%BB%AC%EB%9F%BC-%EC%A1%B0%ED%9A%8C">컬럼 조회 </a></li>
+<li class="toc-entry toc-h4"><a href="#iloc-&amp;-loc">iloc &amp; loc </a></li>
+<li class="toc-entry toc-h4"><a href="#%EC%97%AC%EB%9F%AC-%EA%B0%9C%EC%9D%98-%EC%97%B4-%EC%A1%B0%ED%9A%8C(%EC%BB%AC%EB%9F%BC%EC%A1%B0%ED%9A%8C-&amp;-(loc,-iloc))">여러 개의 열 조회(컬럼조회 &amp; (loc, iloc)) </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h3">
+<a href="#%EC%8A%AC%EB%9D%BC%EC%9D%B4%EC%8B%B1">슬라이싱 </a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#row-%EC%8A%AC%EB%9D%BC%EC%9D%B4%EC%8B%B1">row 슬라이싱 </a></li>
+<li class="toc-entry toc-h4"><a href="#col-%EC%8A%AC%EB%9D%BC%EC%9D%B4%EC%8B%B1(col%EC%9D%B4-%EB%AC%B8%EC%9E%90%EC%9D%B8-%EA%B2%BD%EC%9A%B0)">col 슬라이싱(col이 문자인 경우) </a></li>
+<li class="toc-entry toc-h4"><a href="#col-%EC%8A%AC%EB%9D%BC%EC%9D%B4%EC%8B%B1(col%EC%9D%B4-%EC%88%AB%EC%9E%90%EC%9D%B8-%EA%B2%BD%EC%9A%B0)">col 슬라이싱(col이 숫자인 경우) </a></li>
+<li class="toc-entry toc-h4"><a href="#%EC%97%B0%EC%8A%B5%EB%AC%B8%EC%A0%9C">연습문제 </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h3">
+<a href="#%EC%BB%AC%EB%9F%BC,-%EB%A1%9C%EC%9A%B0-%EC%B6%94%EA%B0%80">컬럼, 로우 추가 </a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#%EC%BB%AC%EB%9F%BC%EC%B6%94%EA%B0%80">컬럼추가 </a></li>
+<li class="toc-entry toc-h4"><a href="#%EB%A1%9C%EC%9A%B0-%EC%B6%94%EA%B0%80">로우 추가 </a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2022-10-21-[DA] Pandas - DataFarme 1.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="DataFrame">
+<a class="anchor" href="#DataFrame" aria-hidden="true"><span class="octicon octicon-link"></span></a>DataFrame<a class="anchor-link" href="#DataFrame"> </a>
+</h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="DataFrame-생성">
+<a class="anchor" href="#DataFrame-%EC%83%9D%EC%84%B1" aria-hidden="true"><span class="octicon octicon-link"></span></a>DataFrame 생성<a class="anchor-link" href="#DataFrame-%EC%83%9D%EC%84%B1"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>2차원 배열과 유사한 자료형</li>
+<li>다차원 리스트, 딕셔너리 자료형으로 데이터 구성 가능</li>
+<li>관계형 데이터베이스의 테이블 구조, excel/csv 데이터 구조와 유사</li>
+<li>하나의 컬럼은 하나의 Series로서 하나의 Dataframe은 여러 개의 Series 묶음으로 구성됨</li>
+<li>index 특징<ul>
+<li>row index(행 인덱스) : 기본 숫자형 인덱스가 아닌 새롭게 지정한 로우명(라벨) 인덱스를 사용해도 기본 숫자형 인덱스를 함께 사용할 수 있음</li>
+<li>column index(열 인덱스) : 새롭게 컬럼명(라벨) 인덱스를 사용하면 기본 숫자형 인덱스는 사용할 수 없음
+<img src="https://user-images.githubusercontent.com/105966480/197099314-c81b5055-cdd5-414f-b3a6-6ac2e3b6108a.PNG" alt="df_example">
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 주의점: 자료형에 따라서 아이템 길이 이슈 발생</span>
+<span class="c1"># 다차원 리스트: 아이템 길이가 동일/ 서로 다른 타입</span>
+<span class="c1"># 딕셔너리: 아이템 길이가 동일/ 서로 다른 타입</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 다차원 리스트: 아이템 개수 3개, 하위 아이템 개수 4개</span>
+<span class="n">data1</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span>
+        <span class="p">[</span><span class="s1">'a'</span><span class="p">,</span><span class="s1">'b'</span><span class="p">,</span><span class="s1">'c'</span><span class="p">,</span><span class="s1">'d'</span><span class="p">],</span>
+        <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.8</span><span class="p">]]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 하위 아이템 4개: 열 4줄</span>
+<span class="n">df1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data1</span><span class="p">)</span>
+<span class="n">df1</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>a</td>
+      <td>b</td>
+      <td>c</td>
+      <td>d</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.1</td>
+      <td>0.2</td>
+      <td>0.5</td>
+      <td>0.8</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 최대 길이의 행을 기준으로 df구조가 생성됨</span>
+<span class="c1"># 길이가 모자란 튜플(셀): NaN으로 채워짐</span>
+<span class="n">data2</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">],</span>
+        <span class="p">[</span><span class="s1">'a'</span><span class="p">,</span><span class="s1">'b'</span><span class="p">],</span>
+        <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.5</span><span class="p">]]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data2</span><span class="p">)</span>
+<span class="n">df2</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>2</td>
+      <td>3.0</td>
+      <td>4.0</td>
+      <td>5.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>a</td>
+      <td>b</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.1</td>
+      <td>0.2</td>
+      <td>0.5</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 아이템의 개수(col의 개수), value의 길이(row의 개수)</span>
+<span class="c1"># 딕셔너리의 키:</span>
+<span class="n">data3</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'a'</span><span class="p">:[</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">40</span><span class="p">],</span>
+        <span class="s1">'b'</span><span class="p">:[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span>
+        <span class="s1">'c'</span><span class="p">:[</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">]}</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df3</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data3</span><span class="p">)</span>
+<span class="n">df3</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>a</th>
+      <th>b</th>
+      <th>c</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>10</td>
+      <td>1</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>20</td>
+      <td>2</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>30</td>
+      <td>3</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>40</td>
+      <td>4</td>
+      <td>8</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 아이템 개수 3개, value 길이는 다르게</span>
+<span class="c1"># 개수가 모자란 튜플(셀):ValueError -&gt; key별 매칭 value의 길이가 모두 동일해야함</span>
+<span class="n">data4</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'a'</span><span class="p">:[</span><span class="mi">10</span><span class="p">],</span>
+        <span class="s1">'b'</span><span class="p">:[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
+        <span class="s1">'c'</span><span class="p">:[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">]}</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df4</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data4</span><span class="p">)</span>
+<span class="n">df4</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">ValueError</span>                                Traceback (most recent call last)
+Input <span class="ansi-green-intense-fg ansi-bold">In [25]</span>, in <span class="ansi-cyan-fg">&lt;cell line: 1&gt;</span><span class="ansi-blue-intense-fg ansi-bold">()</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span> df4 <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">pd</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">DataFrame</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">data4</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">      2</span> df4
+
+File <span class="ansi-green-intense-fg ansi-bold">~\anaconda3\lib\site-packages\pandas\core\frame.py:636</span>, in <span class="ansi-cyan-fg">DataFrame.__init__</span><span class="ansi-blue-intense-fg ansi-bold">(self, data, index, columns, dtype, copy)</span>
+<span class="ansi-green-fg">    630</span>     mgr <span style="color: rgb(98,98,98)">=</span> <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>_init_mgr(
+<span class="ansi-green-fg">    631</span>         data, axes<span style="color: rgb(98,98,98)">=</span>{<span style="color: rgb(175,0,0)">"</span><span style="color: rgb(175,0,0)">index</span><span style="color: rgb(175,0,0)">"</span>: index, <span style="color: rgb(175,0,0)">"</span><span style="color: rgb(175,0,0)">columns</span><span style="color: rgb(175,0,0)">"</span>: columns}, dtype<span style="color: rgb(98,98,98)">=</span>dtype, copy<span style="color: rgb(98,98,98)">=</span>copy
+<span class="ansi-green-fg">    632</span>     )
+<span class="ansi-green-fg">    634</span> <span class="ansi-bold" style="color: rgb(0,135,0)">elif</span> <span style="color: rgb(0,135,0)">isinstance</span>(data, <span style="color: rgb(0,135,0)">dict</span>):
+<span class="ansi-green-fg">    635</span>     <span style="color: rgb(95,135,135)"># GH#38939 de facto copy defaults to False only in non-dict cases</span>
+<span class="ansi-green-intense-fg ansi-bold">--&gt; 636</span>     mgr <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">dict_to_mgr</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">data</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">index</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">columns</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">dtype</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg">dtype</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">copy</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg">copy</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">typ</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg">manager</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">    637</span> <span class="ansi-bold" style="color: rgb(0,135,0)">elif</span> <span style="color: rgb(0,135,0)">isinstance</span>(data, ma<span style="color: rgb(98,98,98)">.</span>MaskedArray):
+<span class="ansi-green-fg">    638</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">import</span> <span class="ansi-bold" style="color: rgb(0,0,255)">numpy</span><span class="ansi-bold" style="color: rgb(0,0,255)">.</span><span class="ansi-bold" style="color: rgb(0,0,255)">ma</span><span class="ansi-bold" style="color: rgb(0,0,255)">.</span><span class="ansi-bold" style="color: rgb(0,0,255)">mrecords</span> <span class="ansi-bold" style="color: rgb(0,135,0)">as</span> <span class="ansi-bold" style="color: rgb(0,0,255)">mrecords</span>
+
+File <span class="ansi-green-intense-fg ansi-bold">~\anaconda3\lib\site-packages\pandas\core\internals\construction.py:502</span>, in <span class="ansi-cyan-fg">dict_to_mgr</span><span class="ansi-blue-intense-fg ansi-bold">(data, index, columns, dtype, typ, copy)</span>
+<span class="ansi-green-fg">    494</span>     arrays <span style="color: rgb(98,98,98)">=</span> [
+<span class="ansi-green-fg">    495</span>         x
+<span class="ansi-green-fg">    496</span>         <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> <span class="ansi-bold" style="color: rgb(175,0,255)">not</span> <span style="color: rgb(0,135,0)">hasattr</span>(x, <span style="color: rgb(175,0,0)">"</span><span style="color: rgb(175,0,0)">dtype</span><span style="color: rgb(175,0,0)">"</span>) <span class="ansi-bold" style="color: rgb(175,0,255)">or</span> <span class="ansi-bold" style="color: rgb(175,0,255)">not</span> <span style="color: rgb(0,135,0)">isinstance</span>(x<span style="color: rgb(98,98,98)">.</span>dtype, ExtensionDtype)
+<span class="ansi-green-fg">    497</span>         <span class="ansi-bold" style="color: rgb(0,135,0)">else</span> x<span style="color: rgb(98,98,98)">.</span>copy()
+<span class="ansi-green-fg">    498</span>         <span class="ansi-bold" style="color: rgb(0,135,0)">for</span> x <span class="ansi-bold" style="color: rgb(175,0,255)">in</span> arrays
+<span class="ansi-green-fg">    499</span>     ]
+<span class="ansi-green-fg">    500</span>     <span style="color: rgb(95,135,135)"># TODO: can we get rid of the dt64tz special case above?</span>
+<span class="ansi-green-intense-fg ansi-bold">--&gt; 502</span> <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> <span class="ansi-yellow-bg">arrays_to_mgr</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">arrays</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">columns</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">index</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">dtype</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg">dtype</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">typ</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg">typ</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">consolidate</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg">copy</span><span class="ansi-yellow-bg">)</span>
+
+File <span class="ansi-green-intense-fg ansi-bold">~\anaconda3\lib\site-packages\pandas\core\internals\construction.py:120</span>, in <span class="ansi-cyan-fg">arrays_to_mgr</span><span class="ansi-blue-intense-fg ansi-bold">(arrays, columns, index, dtype, verify_integrity, typ, consolidate)</span>
+<span class="ansi-green-fg">    117</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> verify_integrity:
+<span class="ansi-green-fg">    118</span>     <span style="color: rgb(95,135,135)"># figure out the index, if necessary</span>
+<span class="ansi-green-fg">    119</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> index <span class="ansi-bold" style="color: rgb(175,0,255)">is</span> <span class="ansi-bold" style="color: rgb(0,135,0)">None</span>:
+<span class="ansi-green-intense-fg ansi-bold">--&gt; 120</span>         index <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">_extract_index</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">arrays</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">    121</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">else</span>:
+<span class="ansi-green-fg">    122</span>         index <span style="color: rgb(98,98,98)">=</span> ensure_index(index)
+
+File <span class="ansi-green-intense-fg ansi-bold">~\anaconda3\lib\site-packages\pandas\core\internals\construction.py:674</span>, in <span class="ansi-cyan-fg">_extract_index</span><span class="ansi-blue-intense-fg ansi-bold">(data)</span>
+<span class="ansi-green-fg">    672</span> lengths <span style="color: rgb(98,98,98)">=</span> <span style="color: rgb(0,135,0)">list</span>(<span style="color: rgb(0,135,0)">set</span>(raw_lengths))
+<span class="ansi-green-fg">    673</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> <span style="color: rgb(0,135,0)">len</span>(lengths) <span style="color: rgb(98,98,98)">&gt;</span> <span style="color: rgb(98,98,98)">1</span>:
+<span class="ansi-green-intense-fg ansi-bold">--&gt; 674</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">raise</span> <span class="ansi-bold" style="color: rgb(215,95,95)">ValueError</span>(<span style="color: rgb(175,0,0)">"</span><span style="color: rgb(175,0,0)">All arrays must be of the same length</span><span style="color: rgb(175,0,0)">"</span>)
+<span class="ansi-green-fg">    676</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> have_dicts:
+<span class="ansi-green-fg">    677</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">raise</span> <span class="ansi-bold" style="color: rgb(215,95,95)">ValueError</span>(
+<span class="ansi-green-fg">    678</span>         <span style="color: rgb(175,0,0)">"</span><span style="color: rgb(175,0,0)">Mixing dicts with non-Series may lead to ambiguous ordering.</span><span style="color: rgb(175,0,0)">"</span>
+<span class="ansi-green-fg">    679</span>     )
+
+<span class="ansi-red-intense-fg ansi-bold">ValueError</span>: All arrays must be of the same length</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># coulmns 파라미터: 컬럼명(열 개수와 동일한 길이를 가진 리스트 전달)</span>
+<span class="c1"># index 파라미터: row명(행 개수와 동일한 길이를 가진 리스트 전달)</span>
+<span class="n">df5</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data1</span><span class="p">,</span>
+                  <span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'r1'</span><span class="p">,</span><span class="s1">'r2'</span><span class="p">,</span><span class="s1">'r3'</span><span class="p">],</span>
+                  <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'c1'</span><span class="p">,</span><span class="s1">'c2'</span><span class="p">,</span><span class="s1">'c3'</span><span class="p">,</span><span class="s1">'c4'</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span><span class="s1">'</span><span class="se">\n</span><span class="s1">'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df5</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>     0    1    2    3
+0    1    2    3    4
+1    a    b    c    d
+2  0.1  0.2  0.5  0.8 
+
+     c1   c2   c3   c4
+r1    1    2    3    4
+r2    a    b    c    d
+r3  0.1  0.2  0.5  0.8
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">data1</span><span class="p">,</span><span class="s1">'</span><span class="se">\n</span><span class="s1">'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[[1, 2, 3, 4], ['a', 'b', 'c', 'd'], [0.1, 0.2, 0.5, 0.8]] 
+
+{'a': [10, 20, 30, 40], 'b': [1, 2, 3, 4], 'c': [5, 6, 7, 8]}
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df6</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data3</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="s1">'wxyz'</span><span class="p">),</span><span class="n">columns</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="s1">'cab'</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df3</span><span class="p">,</span><span class="s1">'</span><span class="se">\n</span><span class="s1">'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df6</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>    a  b  c
+0  10  1  5
+1  20  2  6
+2  30  3  7
+3  40  4  8 
+
+   c   a  b
+w  5  10  1
+x  6  20  2
+y  7  30  3
+z  8  40  4
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df7</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data3</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="s1">'abd'</span><span class="p">))</span>
+<span class="n">df7</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>a</th>
+      <th>b</th>
+      <th>d</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>10</td>
+      <td>1</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>20</td>
+      <td>2</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>30</td>
+      <td>3</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>40</td>
+      <td>4</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df8</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data3</span><span class="p">,</span> <span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">40</span><span class="p">,</span><span class="mi">50</span><span class="p">])</span>
+<span class="n">df8</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">ValueError</span>                                Traceback (most recent call last)
+Input <span class="ansi-green-intense-fg ansi-bold">In [30]</span>, in <span class="ansi-cyan-fg">&lt;cell line: 2&gt;</span><span class="ansi-blue-intense-fg ansi-bold">()</span>
+<span class="ansi-green-fg">      1</span> <span style="color: rgb(95,135,135)"># 딕셔너리 data와 일치하지 않는 index 개수를 전달하는 경우</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 2</span> df8 <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">pd</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">DataFrame</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">data3</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">index</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">[</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">10</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">20</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">30</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">40</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">50</span><span class="ansi-yellow-bg">]</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">      3</span> df8
+
+File <span class="ansi-green-intense-fg ansi-bold">~\anaconda3\lib\site-packages\pandas\core\frame.py:636</span>, in <span class="ansi-cyan-fg">DataFrame.__init__</span><span class="ansi-blue-intense-fg ansi-bold">(self, data, index, columns, dtype, copy)</span>
+<span class="ansi-green-fg">    630</span>     mgr <span style="color: rgb(98,98,98)">=</span> <span style="color: rgb(0,135,0)">self</span><span style="color: rgb(98,98,98)">.</span>_init_mgr(
+<span class="ansi-green-fg">    631</span>         data, axes<span style="color: rgb(98,98,98)">=</span>{<span style="color: rgb(175,0,0)">"</span><span style="color: rgb(175,0,0)">index</span><span style="color: rgb(175,0,0)">"</span>: index, <span style="color: rgb(175,0,0)">"</span><span style="color: rgb(175,0,0)">columns</span><span style="color: rgb(175,0,0)">"</span>: columns}, dtype<span style="color: rgb(98,98,98)">=</span>dtype, copy<span style="color: rgb(98,98,98)">=</span>copy
+<span class="ansi-green-fg">    632</span>     )
+<span class="ansi-green-fg">    634</span> <span class="ansi-bold" style="color: rgb(0,135,0)">elif</span> <span style="color: rgb(0,135,0)">isinstance</span>(data, <span style="color: rgb(0,135,0)">dict</span>):
+<span class="ansi-green-fg">    635</span>     <span style="color: rgb(95,135,135)"># GH#38939 de facto copy defaults to False only in non-dict cases</span>
+<span class="ansi-green-intense-fg ansi-bold">--&gt; 636</span>     mgr <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">dict_to_mgr</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">data</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">index</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">columns</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">dtype</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg">dtype</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">copy</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg">copy</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">typ</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg">manager</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">    637</span> <span class="ansi-bold" style="color: rgb(0,135,0)">elif</span> <span style="color: rgb(0,135,0)">isinstance</span>(data, ma<span style="color: rgb(98,98,98)">.</span>MaskedArray):
+<span class="ansi-green-fg">    638</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">import</span> <span class="ansi-bold" style="color: rgb(0,0,255)">numpy</span><span class="ansi-bold" style="color: rgb(0,0,255)">.</span><span class="ansi-bold" style="color: rgb(0,0,255)">ma</span><span class="ansi-bold" style="color: rgb(0,0,255)">.</span><span class="ansi-bold" style="color: rgb(0,0,255)">mrecords</span> <span class="ansi-bold" style="color: rgb(0,135,0)">as</span> <span class="ansi-bold" style="color: rgb(0,0,255)">mrecords</span>
+
+File <span class="ansi-green-intense-fg ansi-bold">~\anaconda3\lib\site-packages\pandas\core\internals\construction.py:502</span>, in <span class="ansi-cyan-fg">dict_to_mgr</span><span class="ansi-blue-intense-fg ansi-bold">(data, index, columns, dtype, typ, copy)</span>
+<span class="ansi-green-fg">    494</span>     arrays <span style="color: rgb(98,98,98)">=</span> [
+<span class="ansi-green-fg">    495</span>         x
+<span class="ansi-green-fg">    496</span>         <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> <span class="ansi-bold" style="color: rgb(175,0,255)">not</span> <span style="color: rgb(0,135,0)">hasattr</span>(x, <span style="color: rgb(175,0,0)">"</span><span style="color: rgb(175,0,0)">dtype</span><span style="color: rgb(175,0,0)">"</span>) <span class="ansi-bold" style="color: rgb(175,0,255)">or</span> <span class="ansi-bold" style="color: rgb(175,0,255)">not</span> <span style="color: rgb(0,135,0)">isinstance</span>(x<span style="color: rgb(98,98,98)">.</span>dtype, ExtensionDtype)
+<span class="ansi-green-fg">    497</span>         <span class="ansi-bold" style="color: rgb(0,135,0)">else</span> x<span style="color: rgb(98,98,98)">.</span>copy()
+<span class="ansi-green-fg">    498</span>         <span class="ansi-bold" style="color: rgb(0,135,0)">for</span> x <span class="ansi-bold" style="color: rgb(175,0,255)">in</span> arrays
+<span class="ansi-green-fg">    499</span>     ]
+<span class="ansi-green-fg">    500</span>     <span style="color: rgb(95,135,135)"># TODO: can we get rid of the dt64tz special case above?</span>
+<span class="ansi-green-intense-fg ansi-bold">--&gt; 502</span> <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> <span class="ansi-yellow-bg">arrays_to_mgr</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">arrays</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">columns</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">index</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">dtype</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg">dtype</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">typ</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg">typ</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">consolidate</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">=</span><span class="ansi-yellow-bg">copy</span><span class="ansi-yellow-bg">)</span>
+
+File <span class="ansi-green-intense-fg ansi-bold">~\anaconda3\lib\site-packages\pandas\core\internals\construction.py:125</span>, in <span class="ansi-cyan-fg">arrays_to_mgr</span><span class="ansi-blue-intense-fg ansi-bold">(arrays, columns, index, dtype, verify_integrity, typ, consolidate)</span>
+<span class="ansi-green-fg">    122</span>         index <span style="color: rgb(98,98,98)">=</span> ensure_index(index)
+<span class="ansi-green-fg">    124</span>     <span style="color: rgb(95,135,135)"># don't force copy because getting jammed in an ndarray anyway</span>
+<span class="ansi-green-intense-fg ansi-bold">--&gt; 125</span>     arrays <span style="color: rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">_homogenize</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">arrays</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">index</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">dtype</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">    126</span>     <span style="color: rgb(95,135,135)"># _homogenize ensures</span>
+<span class="ansi-green-fg">    127</span>     <span style="color: rgb(95,135,135)">#  - all(len(x) == len(index) for x in arrays)</span>
+<span class="ansi-green-fg">    128</span>     <span style="color: rgb(95,135,135)">#  - all(x.ndim == 1 for x in arrays)</span>
+<span class="ansi-green-intense-fg ansi-bold">   (...)</span>
+<span class="ansi-green-fg">    131</span> 
+<span class="ansi-green-fg">    132</span> <span class="ansi-bold" style="color: rgb(0,135,0)">else</span>:
+<span class="ansi-green-fg">    133</span>     index <span style="color: rgb(98,98,98)">=</span> ensure_index(index)
+
+File <span class="ansi-green-intense-fg ansi-bold">~\anaconda3\lib\site-packages\pandas\core\internals\construction.py:628</span>, in <span class="ansi-cyan-fg">_homogenize</span><span class="ansi-blue-intense-fg ansi-bold">(data, index, dtype)</span>
+<span class="ansi-green-fg">    623</span>             val <span style="color: rgb(98,98,98)">=</span> lib<span style="color: rgb(98,98,98)">.</span>fast_multiget(val, oindex<span style="color: rgb(98,98,98)">.</span>_values, default<span style="color: rgb(98,98,98)">=</span>np<span style="color: rgb(98,98,98)">.</span>nan)
+<span class="ansi-green-fg">    625</span>         val <span style="color: rgb(98,98,98)">=</span> sanitize_array(
+<span class="ansi-green-fg">    626</span>             val, index, dtype<span style="color: rgb(98,98,98)">=</span>dtype, copy<span style="color: rgb(98,98,98)">=</span><span class="ansi-bold" style="color: rgb(0,135,0)">False</span>, raise_cast_failure<span style="color: rgb(98,98,98)">=</span><span class="ansi-bold" style="color: rgb(0,135,0)">False</span>
+<span class="ansi-green-fg">    627</span>         )
+<span class="ansi-green-intense-fg ansi-bold">--&gt; 628</span>         <span class="ansi-yellow-bg">com</span><span class="ansi-yellow-bg" style="color: rgb(98,98,98)">.</span><span class="ansi-yellow-bg">require_length_match</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">val</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">index</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">    630</span>     homogenized<span style="color: rgb(98,98,98)">.</span>append(val)
+<span class="ansi-green-fg">    632</span> <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> homogenized
+
+File <span class="ansi-green-intense-fg ansi-bold">~\anaconda3\lib\site-packages\pandas\core\common.py:557</span>, in <span class="ansi-cyan-fg">require_length_match</span><span class="ansi-blue-intense-fg ansi-bold">(data, index)</span>
+<span class="ansi-green-fg">    553</span> <span style="color: rgb(175,0,0)">"""</span>
+<span class="ansi-green-fg">    554</span> <span style="color: rgb(175,0,0)">Check the length of data matches the length of the index.</span>
+<span class="ansi-green-fg">    555</span> <span style="color: rgb(175,0,0)">"""</span>
+<span class="ansi-green-fg">    556</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> <span style="color: rgb(0,135,0)">len</span>(data) <span style="color: rgb(98,98,98)">!=</span> <span style="color: rgb(0,135,0)">len</span>(index):
+<span class="ansi-green-intense-fg ansi-bold">--&gt; 557</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">raise</span> <span class="ansi-bold" style="color: rgb(215,95,95)">ValueError</span>(
+<span class="ansi-green-fg">    558</span>         <span style="color: rgb(175,0,0)">"</span><span style="color: rgb(175,0,0)">Length of values </span><span style="color: rgb(175,0,0)">"</span>
+<span class="ansi-green-fg">    559</span>         <span style="color: rgb(175,0,0)">f</span><span style="color: rgb(175,0,0)">"</span><span style="color: rgb(175,0,0)">(</span><span class="ansi-bold" style="color: rgb(175,95,135)">{</span><span style="color: rgb(0,135,0)">len</span>(data)<span class="ansi-bold" style="color: rgb(175,95,135)">}</span><span style="color: rgb(175,0,0)">) </span><span style="color: rgb(175,0,0)">"</span>
+<span class="ansi-green-fg">    560</span>         <span style="color: rgb(175,0,0)">"</span><span style="color: rgb(175,0,0)">does not match length of index </span><span style="color: rgb(175,0,0)">"</span>
+<span class="ansi-green-fg">    561</span>         <span style="color: rgb(175,0,0)">f</span><span style="color: rgb(175,0,0)">"</span><span style="color: rgb(175,0,0)">(</span><span class="ansi-bold" style="color: rgb(175,95,135)">{</span><span style="color: rgb(0,135,0)">len</span>(index)<span class="ansi-bold" style="color: rgb(175,95,135)">}</span><span style="color: rgb(175,0,0)">)</span><span style="color: rgb(175,0,0)">"</span>
+<span class="ansi-green-fg">    562</span>     )
+
+<span class="ansi-red-intense-fg ansi-bold">ValueError</span>: Length of values (4) does not match length of index (5)</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="DataFrame의-속성">
+<a class="anchor" href="#DataFrame%EC%9D%98-%EC%86%8D%EC%84%B1" aria-hidden="true"><span class="octicon octicon-link"></span></a>DataFrame의 속성<a class="anchor-link" href="#DataFrame%EC%9D%98-%EC%86%8D%EC%84%B1"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="DataFrame의-속성-살펴보기">
+<a class="anchor" href="#DataFrame%EC%9D%98-%EC%86%8D%EC%84%B1-%EC%82%B4%ED%8E%B4%EB%B3%B4%EA%B8%B0" aria-hidden="true"><span class="octicon octicon-link"></span></a>DataFrame의 속성 살펴보기<a class="anchor-link" href="#DataFrame%EC%9D%98-%EC%86%8D%EC%84%B1-%EC%82%B4%ED%8E%B4%EB%B3%B4%EA%B8%B0"> </a>
+</h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>속성은 소괄호를 붙이지 않음</li>
+<li>index : df 객체의 행 인덱스 배열을 반환</li>
+<li>columns : df 객체의 열 인덱스 배열을 반환</li>
+<li>axes : df 객체의 행, 열 인덱스를 아이템으로 가지는 배열을 반환</li>
+<li>values : df 객체의 데이터(값)를 아이템으로 가지는 2차원 배열을 반환</li>
+<li>dtypes : df 객체의 데이터 타입을 열 기준으로 반환</li>
+<li>size : df 객체의 데이터 개수(길이)를 반환</li>
+<li>shape : df 객체의 구조(행, 열, 차원)를 반환</li>
+<li>T : 행과 열을 전환시킴</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="DF-생성">
+<a class="anchor" href="#DF-%EC%83%9D%EC%84%B1" aria-hidden="true"><span class="octicon octicon-link"></span></a>DF 생성<a class="anchor-link" href="#DF-%EC%83%9D%EC%84%B1"> </a>
+</h4>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 서울, 경기, 충청, 경상, 전라 지역에 대해 2016, 2017, 2018년 유입인구 데이터 세팅</span>
+<span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'서울'</span><span class="p">:[</span><span class="mi">150</span><span class="p">,</span><span class="mi">180</span><span class="p">,</span><span class="mi">300</span><span class="p">],</span>
+       <span class="s1">'경기'</span><span class="p">:[</span><span class="mi">200</span><span class="p">,</span><span class="mi">240</span><span class="p">,</span><span class="mi">450</span><span class="p">],</span>
+       <span class="s1">'충청'</span><span class="p">:[</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="o">-</span><span class="mi">13</span><span class="p">],</span>
+       <span class="s1">'경상'</span><span class="p">:[</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">30</span><span class="p">],</span>
+       <span class="s1">'전라'</span><span class="p">:[</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">]}</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sample</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">sample</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>서울</th>
+      <th>경기</th>
+      <th>충청</th>
+      <th>경상</th>
+      <th>전라</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>150</td>
+      <td>200</td>
+      <td>-10</td>
+      <td>10</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>180</td>
+      <td>240</td>
+      <td>3</td>
+      <td>20</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>300</td>
+      <td>450</td>
+      <td>-13</td>
+      <td>30</td>
+      <td>7</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="index">
+<a class="anchor" href="#index" aria-hidden="true"><span class="octicon octicon-link"></span></a>index<a class="anchor-link" href="#index"> </a>
+</h4>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sample</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2018</span><span class="p">,</span><span class="mi">2019</span><span class="p">,</span><span class="mi">2020</span><span class="p">]</span>
+<span class="n">sample</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>서울</th>
+      <th>경기</th>
+      <th>충청</th>
+      <th>경상</th>
+      <th>전라</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2018</th>
+      <td>150</td>
+      <td>200</td>
+      <td>-10</td>
+      <td>10</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>2019</th>
+      <td>180</td>
+      <td>240</td>
+      <td>3</td>
+      <td>20</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>2020</th>
+      <td>300</td>
+      <td>450</td>
+      <td>-13</td>
+      <td>30</td>
+      <td>7</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sample</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">'year'</span>
+<span class="n">sample</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>서울</th>
+      <th>경기</th>
+      <th>충청</th>
+      <th>경상</th>
+      <th>전라</th>
+    </tr>
+    <tr>
+      <th>year</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2018</th>
+      <td>150</td>
+      <td>200</td>
+      <td>-10</td>
+      <td>10</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>2019</th>
+      <td>180</td>
+      <td>240</td>
+      <td>3</td>
+      <td>20</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>2020</th>
+      <td>300</td>
+      <td>450</td>
+      <td>-13</td>
+      <td>30</td>
+      <td>7</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="columns">
+<a class="anchor" href="#columns" aria-hidden="true"><span class="octicon octicon-link"></span></a>columns<a class="anchor-link" href="#columns"> </a>
+</h4>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sample</span><span class="o">.</span><span class="n">columns</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>Index(['서울', '경기', '충청', '경상', '전라'], dtype='object')</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sample</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">'location'</span>
+<span class="n">sample</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>location</th>
+      <th>서울</th>
+      <th>경기</th>
+      <th>충청</th>
+      <th>경상</th>
+      <th>전라</th>
+    </tr>
+    <tr>
+      <th>year</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2018</th>
+      <td>150</td>
+      <td>200</td>
+      <td>-10</td>
+      <td>10</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>2019</th>
+      <td>180</td>
+      <td>240</td>
+      <td>3</td>
+      <td>20</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>2020</th>
+      <td>300</td>
+      <td>450</td>
+      <td>-13</td>
+      <td>30</td>
+      <td>7</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 속성값</span>
+<span class="c1"># 1. 행의 개수와 동일한 리스트를 전달</span>
+<span class="c1"># 2. 속성값으로 사용하는 인덱스 객체는 아이템 수정 불가(하나만 수정 불가)</span>
+<span class="n">sample</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1991</span><span class="p">,</span><span class="mi">1992</span><span class="p">,</span><span class="mi">1993</span><span class="p">]</span>
+<span class="n">sample</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>location</th>
+      <th>서울</th>
+      <th>경기</th>
+      <th>충청</th>
+      <th>경상</th>
+      <th>전라</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1991</th>
+      <td>150</td>
+      <td>200</td>
+      <td>-10</td>
+      <td>10</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>1992</th>
+      <td>180</td>
+      <td>240</td>
+      <td>3</td>
+      <td>20</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>1993</th>
+      <td>300</td>
+      <td>450</td>
+      <td>-13</td>
+      <td>30</td>
+      <td>7</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="rename">
+<a class="anchor" href="#rename" aria-hidden="true"><span class="octicon octicon-link"></span></a>rename<a class="anchor-link" href="#rename"> </a>
+</h4>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># df 메서드: df변수.rename(data,axis)</span>
+<span class="c1"># axis 기본값: 0(로우 == 'index')</span>
+<span class="c1"># 열 인덱스(컬럼)에 대한 수정: axis =1 혹은 axis ='columns'</span>
+<span class="c1"># data: 딕셔너리타입, {'이전 인덱스명':'바꿀 인덱스명'}</span>
+<span class="c1"># inplace = False(기본값): 바뀐 결과가 적용X(시뮬레이션만 수행)</span>
+<span class="c1"># inplace = True: 바뀐 결과가 바로 적용</span>
+<span class="n">sample</span><span class="o">.</span><span class="n">rename</span><span class="p">({</span><span class="mi">1991</span><span class="p">:</span><span class="mi">1990</span><span class="p">})</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>location</th>
+      <th>서울</th>
+      <th>경기</th>
+      <th>충청</th>
+      <th>경상</th>
+      <th>전라</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1990</th>
+      <td>150</td>
+      <td>200</td>
+      <td>-10</td>
+      <td>10</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>1992</th>
+      <td>180</td>
+      <td>240</td>
+      <td>3</td>
+      <td>20</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>1993</th>
+      <td>300</td>
+      <td>450</td>
+      <td>-13</td>
+      <td>30</td>
+      <td>7</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sample</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>location</th>
+      <th>서울</th>
+      <th>경기</th>
+      <th>충청</th>
+      <th>경상</th>
+      <th>전라</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1991</th>
+      <td>150</td>
+      <td>200</td>
+      <td>-10</td>
+      <td>10</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>1992</th>
+      <td>180</td>
+      <td>240</td>
+      <td>3</td>
+      <td>20</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>1993</th>
+      <td>300</td>
+      <td>450</td>
+      <td>-13</td>
+      <td>30</td>
+      <td>7</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sample</span><span class="o">.</span><span class="n">rename</span><span class="p">({</span><span class="mi">1991</span><span class="p">:</span><span class="mi">1990</span><span class="p">},</span><span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">sample</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>location</th>
+      <th>서울</th>
+      <th>경기</th>
+      <th>충청</th>
+      <th>경상</th>
+      <th>전라</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1990</th>
+      <td>150</td>
+      <td>200</td>
+      <td>-10</td>
+      <td>10</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>1992</th>
+      <td>180</td>
+      <td>240</td>
+      <td>3</td>
+      <td>20</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>1993</th>
+      <td>300</td>
+      <td>450</td>
+      <td>-13</td>
+      <td>30</td>
+      <td>7</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 전라 =&gt; 제주로 변경</span>
+<span class="c1"># 1회성 시뮬레이션</span>
+<span class="n">sample</span><span class="o">.</span><span class="n">rename</span><span class="p">({</span><span class="s1">'전라'</span><span class="p">:</span><span class="s1">'제주'</span><span class="p">},</span><span class="n">axis</span><span class="o">=</span><span class="s1">'columns'</span><span class="p">)</span>
+<span class="n">sample</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>location</th>
+      <th>서울</th>
+      <th>경기</th>
+      <th>충청</th>
+      <th>경상</th>
+      <th>전라</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1990</th>
+      <td>150</td>
+      <td>200</td>
+      <td>-10</td>
+      <td>10</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>1992</th>
+      <td>180</td>
+      <td>240</td>
+      <td>3</td>
+      <td>20</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>1993</th>
+      <td>300</td>
+      <td>450</td>
+      <td>-13</td>
+      <td>30</td>
+      <td>7</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="axes">
+<a class="anchor" href="#axes" aria-hidden="true"><span class="octicon octicon-link"></span></a>axes<a class="anchor-link" href="#axes"> </a>
+</h4>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 반환값: 리스트 =&gt; 첫 번째 아이템(행(row)인덱스), 두번째 아이템(열(col))인덱스</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">axes</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[Int64Index([1990, 1992, 1993], dtype='int64'), Index(['서울', '경기', '충청', '경상', '전라'], dtype='object', name='location')]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li><a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.reset_index.html?highlight=reset_index">https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.reset_index.html?highlight=reset_index</a></li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="reset_index">
+<a class="anchor" href="#reset_index" aria-hidden="true"><span class="octicon octicon-link"></span></a>reset_index<a class="anchor-link" href="#reset_index"> </a>
+</h4>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span><span class="s1">'</span><span class="se">\n</span><span class="s1">'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>location   서울   경기  충청  경상  전라
+1990      150  200 -10  10   5
+1992      180  240   3  20   6
+1993      300  450 -13  30   7 
+
+location   서울   경기  충청  경상  전라
+0         150  200 -10  10   5
+1         180  240   3  20   6
+2         300  450 -13  30   7
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span><span class="s1">'</span><span class="se">\n</span><span class="s1">'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">reset_index</span><span class="p">())</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>location   서울   경기  충청  경상  전라
+1990      150  200 -10  10   5
+1992      180  240   3  20   6
+1993      300  450 -13  30   7 
+
+location  index   서울   경기  충청  경상  전라
+0          1990  150  200 -10  10   5
+1          1992  180  240   3  20   6
+2          1993  300  450 -13  30   7
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="values">
+<a class="anchor" href="#values" aria-hidden="true"><span class="octicon octicon-link"></span></a>values<a class="anchor-link" href="#values"> </a>
+</h4>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 반환값: 2d array</span>
+<span class="n">sample</span><span class="o">.</span><span class="n">values</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([[150, 200, -10,  10,   5],
+       [180, 240,   3,  20,   6],
+       [300, 450, -13,  30,   7]], dtype=int64)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="size">
+<a class="anchor" href="#size" aria-hidden="true"><span class="octicon octicon-link"></span></a>size<a class="anchor-link" href="#size"> </a>
+</h4>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sample</span><span class="o">.</span><span class="n">size</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>15</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>3</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="shape">
+<a class="anchor" href="#shape" aria-hidden="true"><span class="octicon octicon-link"></span></a>shape<a class="anchor-link" href="#shape"> </a>
+</h4>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sample</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(3, 5)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span><span class="s1">'</span><span class="se">\n</span><span class="s1">'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+<span class="n">sample_t</span> <span class="o">=</span> <span class="n">sample</span><span class="o">.</span><span class="n">T</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>location   서울   경기  충청  경상  전라
+1990      150  200 -10  10   5
+1992      180  240   3  20   6
+1993      300  450 -13  30   7 
+
+          1990  1992  1993
+location                  
+서울         150   180   300
+경기         200   240   450
+충청         -10     3   -13
+경상          10    20    30
+전라           5     6     7
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="T(전치행렬)">
+<a class="anchor" href="#T(%EC%A0%84%EC%B9%98%ED%96%89%EB%A0%AC)" aria-hidden="true"><span class="octicon octicon-link"></span></a>T(전치행렬)<a class="anchor-link" href="#T(%EC%A0%84%EC%B9%98%ED%96%89%EB%A0%AC)"> </a>
+</h4>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sample_t</span><span class="o">.</span><span class="n">index</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>Index(['서울', '경기', '충청', '경상', '전라'], dtype='object', name='location')</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sample_t</span><span class="o">.</span><span class="n">columns</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>Int64Index([1990, 1992, 1993], dtype='int64')</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sample</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>location</th>
+      <th>서울</th>
+      <th>경기</th>
+      <th>충청</th>
+      <th>경상</th>
+      <th>전라</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1990</th>
+      <td>150</td>
+      <td>200</td>
+      <td>-10</td>
+      <td>10</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>1992</th>
+      <td>180</td>
+      <td>240</td>
+      <td>3</td>
+      <td>20</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>1993</th>
+      <td>300</td>
+      <td>450</td>
+      <td>-13</td>
+      <td>30</td>
+      <td>7</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="인덱싱">
+<a class="anchor" href="#%EC%9D%B8%EB%8D%B1%EC%8B%B1" aria-hidden="true"><span class="octicon octicon-link"></span></a>인덱싱<a class="anchor-link" href="#%EC%9D%B8%EB%8D%B1%EC%8B%B1"> </a>
+</h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="컬럼-조회">
+<a class="anchor" href="#%EC%BB%AC%EB%9F%BC-%EC%A1%B0%ED%9A%8C" aria-hidden="true"><span class="octicon octicon-link"></span></a>컬럼 조회<a class="anchor-link" href="#%EC%BB%AC%EB%9F%BC-%EC%A1%B0%ED%9A%8C"> </a>
+</h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>컬럼 조회<ul>
+<li>df[col]</li>
+<li>df.col</li>
+<li>df.get(col)</li>
+</ul>
+</li>
+<li>iloc, loc 메서드로 로우 조회<ul>
+<li>df.iloc[idx] : 기본 숫자형 인덱스</li>
+<li>df.loc[label] : 새롭게 지정한 인덱스(숫자형이어도 기본 인덱스가 아니면 모두 loc 메서드로 조회)</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 객체[idx_n]</span>
+<span class="n">sample</span><span class="p">[</span><span class="s1">'서울'</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>1990    150
+1992    180
+1993    300
+Name: 서울, dtype: int64</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 1. 기본적인 인덱싱 기호: df[col]</span>
+<span class="c1"># 2. 컬럼명을 .을 이용해서 조회, 무조건 이름이 변수명으로 사용될 때만 가능</span>
+<span class="c1"># 3. df의 get 메서드로 조회: df.get(col)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sample</span><span class="p">[</span><span class="s1">'서울'</span><span class="p">],</span><span class="s1">'</span><span class="se">\n</span><span class="s1">'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">서울</span><span class="p">,</span><span class="s1">'</span><span class="se">\n</span><span class="s1">'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'서울'</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>1990    150
+1992    180
+1993    300
+Name: 서울, dtype: int64 
+
+1990    150
+1992    180
+1993    300
+Name: 서울, dtype: int64 
+
+1990    150
+1992    180
+1993    300
+Name: 서울, dtype: int64
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="iloc-&amp;-loc">
+<a class="anchor" href="#iloc-&amp;-loc" aria-hidden="true"><span class="octicon octicon-link"></span></a>iloc &amp; loc<a class="anchor-link" href="#iloc-&amp;-loc"> </a>
+</h4>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 반환값: Series</span>
+<span class="c1"># 라벨 인덱스: 기존 df의 컬럼</span>
+<span class="c1"># Series name: 기존 df에서 참조한 첫번째 행의 라벨 인덱스</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span><span class="s1">'</span><span class="se">\n</span><span class="s1">'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>location   서울   경기  충청  경상  전라
+1990      150  200 -10  10   5
+1992      180  240   3  20   6
+1993      300  450 -13  30   7 
+
+location
+서울    150
+경기    200
+충청    -10
+경상     10
+전라      5
+Name: 1990, dtype: int64
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sample</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">1992</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>location
+서울    180
+경기    240
+충청      3
+경상     20
+전라      6
+Name: 1992, dtype: int64</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="여러-개의-열-조회(컬럼조회-&amp;-(loc,-iloc))">
+<a class="anchor" href="#%EC%97%AC%EB%9F%AC-%EA%B0%9C%EC%9D%98-%EC%97%B4-%EC%A1%B0%ED%9A%8C(%EC%BB%AC%EB%9F%BC%EC%A1%B0%ED%9A%8C-&amp;-(loc,-iloc))" aria-hidden="true"><span class="octicon octicon-link"></span></a>여러 개의 열 조회(컬럼조회 &amp; (loc, iloc))<a class="anchor-link" href="#%EC%97%AC%EB%9F%AC-%EA%B0%9C%EC%9D%98-%EC%97%B4-%EC%A1%B0%ED%9A%8C(%EC%BB%AC%EB%9F%BC%EC%A1%B0%ED%9A%8C-&amp;-(loc,-iloc))"> </a>
+</h4>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sample</span><span class="p">[[</span><span class="s1">'서울'</span><span class="p">,</span><span class="s1">'경기'</span><span class="p">]]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>location</th>
+      <th>서울</th>
+      <th>경기</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1990</th>
+      <td>150</td>
+      <td>200</td>
+    </tr>
+    <tr>
+      <th>1992</th>
+      <td>180</td>
+      <td>240</td>
+    </tr>
+    <tr>
+      <th>1993</th>
+      <td>300</td>
+      <td>450</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sample</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>location</th>
+      <th>서울</th>
+      <th>경기</th>
+      <th>충청</th>
+      <th>경상</th>
+      <th>전라</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1990</th>
+      <td>150</td>
+      <td>200</td>
+      <td>-10</td>
+      <td>10</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>1992</th>
+      <td>180</td>
+      <td>240</td>
+      <td>3</td>
+      <td>20</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>1993</th>
+      <td>300</td>
+      <td>450</td>
+      <td>-13</td>
+      <td>30</td>
+      <td>7</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">sample</span><span class="p">[[</span><span class="s1">'서울'</span><span class="p">,</span><span class="s1">'경기'</span><span class="p">]]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">1992</span><span class="p">],</span><span class="s1">'</span><span class="se">\n</span><span class="s1">'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">1992</span><span class="p">][[</span><span class="s1">'서울'</span><span class="p">,</span><span class="s1">'경기'</span><span class="p">]])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>location
+서울    180
+경기    240
+Name: 1992, dtype: int64 
+
+location
+서울    180
+경기    240
+Name: 1992, dtype: int64
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sample</span><span class="o">.</span><span class="n">loc</span><span class="p">[[</span><span class="mi">1990</span><span class="p">,</span><span class="mi">1993</span><span class="p">]]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>location</th>
+      <th>서울</th>
+      <th>경기</th>
+      <th>충청</th>
+      <th>경상</th>
+      <th>전라</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1990</th>
+      <td>150</td>
+      <td>200</td>
+      <td>-10</td>
+      <td>10</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>1993</th>
+      <td>300</td>
+      <td>450</td>
+      <td>-13</td>
+      <td>30</td>
+      <td>7</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">loc</span><span class="p">[[</span><span class="mi">1990</span><span class="p">,</span><span class="mi">1993</span><span class="p">]][</span><span class="s1">'충청'</span><span class="p">],</span><span class="s1">'</span><span class="se">\n</span><span class="s1">'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sample</span><span class="o">.</span><span class="n">iloc</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">]][</span><span class="s1">'충청'</span><span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>1990   -10
+1993   -13
+Name: 충청, dtype: int64 
+
+1990   -10
+1993   -13
+Name: 충청, dtype: int64
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="슬라이싱">
+<a class="anchor" href="#%EC%8A%AC%EB%9D%BC%EC%9D%B4%EC%8B%B1" aria-hidden="true"><span class="octicon octicon-link"></span></a>슬라이싱<a class="anchor-link" href="#%EC%8A%AC%EB%9D%BC%EC%9D%B4%EC%8B%B1"> </a>
+</h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>로우(행) 슬라이싱<ul>
+<li>순서가 있으며 로우 단독으로 슬라이싱 가능</li>
+<li>기본 슬라이싱 문법은 기본 숫자형 인덱스를 기준으로 적용</li>
+<li>기본 숫자형 인덱스로 슬라이싱할 때는 마지막 인덱스는 포함하지 않고 라벨 인덱스로 슬라이싱할 때는 마지막 인덱스를 포함</li>
+</ul>
+</li>
+<li>컬럼(열) 슬라이싱<ul>
+<li>순서가 없기 때문에 컬럼 단독으로 슬라이싱할 수 없음</li>
+<li>라벨 기준으로 로우 기준 슬라이싱 결과에 대해 컬럼 슬라이싱 가능(기본 숫자형 인덱스는 적용 불가)</li>
+<li>마지막 인덱스를 포함</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sample</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>location</th>
+      <th>서울</th>
+      <th>경기</th>
+      <th>충청</th>
+      <th>경상</th>
+      <th>전라</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1990</th>
+      <td>150</td>
+      <td>200</td>
+      <td>-10</td>
+      <td>10</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>1992</th>
+      <td>180</td>
+      <td>240</td>
+      <td>3</td>
+      <td>20</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>1993</th>
+      <td>300</td>
+      <td>450</td>
+      <td>-13</td>
+      <td>30</td>
+      <td>7</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="row-슬라이싱">
+<a class="anchor" href="#row-%EC%8A%AC%EB%9D%BC%EC%9D%B4%EC%8B%B1" aria-hidden="true"><span class="octicon octicon-link"></span></a>row 슬라이싱<a class="anchor-link" href="#row-%EC%8A%AC%EB%9D%BC%EC%9D%B4%EC%8B%B1"> </a>
+</h4>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 0번부터 1번까지 슬라이싱</span>
+<span class="n">sample</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>location</th>
+      <th>서울</th>
+      <th>경기</th>
+      <th>충청</th>
+      <th>경상</th>
+      <th>전라</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1990</th>
+      <td>150</td>
+      <td>200</td>
+      <td>-10</td>
+      <td>10</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>1992</th>
+      <td>180</td>
+      <td>240</td>
+      <td>3</td>
+      <td>20</td>
+      <td>6</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sample</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>location</th>
+      <th>서울</th>
+      <th>경기</th>
+      <th>충청</th>
+      <th>경상</th>
+      <th>전라</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1990</th>
+      <td>150</td>
+      <td>200</td>
+      <td>-10</td>
+      <td>10</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>1993</th>
+      <td>300</td>
+      <td>450</td>
+      <td>-13</td>
+      <td>30</td>
+      <td>7</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sample</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>location</th>
+      <th>서울</th>
+      <th>경기</th>
+      <th>충청</th>
+      <th>경상</th>
+      <th>전라</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1993</th>
+      <td>300</td>
+      <td>450</td>
+      <td>-13</td>
+      <td>30</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <th>1992</th>
+      <td>180</td>
+      <td>240</td>
+      <td>3</td>
+      <td>20</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>1990</th>
+      <td>150</td>
+      <td>200</td>
+      <td>-10</td>
+      <td>10</td>
+      <td>5</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="col-슬라이싱(col이-문자인-경우)">
+<a class="anchor" href="#col-%EC%8A%AC%EB%9D%BC%EC%9D%B4%EC%8B%B1(col%EC%9D%B4-%EB%AC%B8%EC%9E%90%EC%9D%B8-%EA%B2%BD%EC%9A%B0)" aria-hidden="true"><span class="octicon octicon-link"></span></a>col 슬라이싱(col이 문자인 경우)<a class="anchor-link" href="#col-%EC%8A%AC%EB%9D%BC%EC%9D%B4%EC%8B%B1(col%EC%9D%B4-%EB%AC%B8%EC%9E%90%EC%9D%B8-%EA%B2%BD%EC%9A%B0)"> </a>
+</h4>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># df[:,start:end:step]</span>
+<span class="c1"># 기본 숫자형 인덱스 기준의 슬라이싱 =&gt; 컬럼명으로 사용</span>
+<span class="n">sample</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">'경상'</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>1990    10
+1992    20
+1993    30
+Name: 경상, dtype: int64</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="col-슬라이싱(col이-숫자인-경우)">
+<a class="anchor" href="#col-%EC%8A%AC%EB%9D%BC%EC%9D%B4%EC%8B%B1(col%EC%9D%B4-%EC%88%AB%EC%9E%90%EC%9D%B8-%EA%B2%BD%EC%9A%B0)" aria-hidden="true"><span class="octicon octicon-link"></span></a>col 슬라이싱(col이 숫자인 경우)<a class="anchor-link" href="#col-%EC%8A%AC%EB%9D%BC%EC%9D%B4%EC%8B%B1(col%EC%9D%B4-%EC%88%AB%EC%9E%90%EC%9D%B8-%EA%B2%BD%EC%9A%B0)"> </a>
+</h4>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 4*4 구조에서 모든 값이 0인 DF 생성</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">17</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="s1">'abcd'</span><span class="p">))</span>
+<span class="n">df</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>a</th>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>b</th>
+      <td>5</td>
+      <td>6</td>
+      <td>7</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>c</th>
+      <td>9</td>
+      <td>10</td>
+      <td>11</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <th>d</th>
+      <td>13</td>
+      <td>14</td>
+      <td>15</td>
+      <td>16</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 컬럼, 로우</span>
+<span class="n">df</span><span class="p">[:][:</span><span class="mi">2</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>a</th>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>b</th>
+      <td>5</td>
+      <td>6</td>
+      <td>7</td>
+      <td>8</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 2. 컬럼 슬라이싱 조건: 로우 슬라이싱 결과에서만 가능</span>
+<span class="c1"># 3. 메서드를 사용한 로우 슬라이싱: iloc/loc =&gt; 1번 기준</span>
+<span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">3</span><span class="p">,:</span><span class="mi">2</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>a</th>
+      <td>1</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>b</th>
+      <td>5</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>c</th>
+      <td>9</td>
+      <td>10</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="연습문제">
+<a class="anchor" href="#%EC%97%B0%EC%8A%B5%EB%AC%B8%EC%A0%9C" aria-hidden="true"><span class="octicon octicon-link"></span></a>연습문제<a class="anchor-link" href="#%EC%97%B0%EC%8A%B5%EB%AC%B8%EC%A0%9C"> </a>
+</h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>아래와 같은 데이터프레임을 생성하고 출력화면과 동일한 결과를 생성하세요.
+<img src="https://user-images.githubusercontent.com/105966480/197128261-75ff9079-d415-4271-b8ad-5fe0bbb6e854.PNG" alt="df_practice1">
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Col1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="s1">'ks01'</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">]</span>
+<span class="n">a</span> <span class="o">=</span> <span class="s1">'big data is very good'</span>
+<span class="n">Col2</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">' '</span><span class="p">)</span>
+<span class="n">Col3</span> <span class="o">=</span> <span class="p">[</span><span class="mf">2.7</span><span class="p">,</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="mf">2.12</span><span class="p">,</span><span class="mf">8.31</span><span class="p">,</span><span class="o">-</span><span class="mf">1.34</span><span class="p">]</span>
+<span class="n">Col4</span> <span class="o">=</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span><span class="kc">True</span><span class="p">,</span><span class="kc">False</span><span class="p">,</span><span class="kc">False</span><span class="p">,</span><span class="kc">True</span><span class="p">]</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"Col1"</span><span class="p">:</span><span class="n">Col1</span><span class="p">,</span><span class="s2">"Col2"</span><span class="p">:</span><span class="n">Col2</span><span class="p">,</span><span class="s2">"Col3"</span><span class="p">:</span><span class="n">Col3</span><span class="p">,</span><span class="s2">"Col4"</span><span class="p">:</span><span class="n">Col4</span><span class="p">},</span><span class="n">index</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="s1">'ABCDE'</span><span class="p">))</span>
+<span class="n">df</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Col1</th>
+      <th>Col2</th>
+      <th>Col3</th>
+      <th>Col4</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>A</th>
+      <td>0</td>
+      <td>big</td>
+      <td>2.70</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>B</th>
+      <td>3</td>
+      <td>data</td>
+      <td>-5.00</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>C</th>
+      <td>ks01</td>
+      <td>is</td>
+      <td>2.12</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>D</th>
+      <td>2</td>
+      <td>very</td>
+      <td>8.31</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>E</th>
+      <td>5</td>
+      <td>good</td>
+      <td>-1.34</td>
+      <td>True</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="p">[[</span><span class="s1">'Col1'</span><span class="p">,</span><span class="s1">'Col3'</span><span class="p">]]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Col1</th>
+      <th>Col3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>A</th>
+      <td>0</td>
+      <td>2.70</td>
+    </tr>
+    <tr>
+      <th>B</th>
+      <td>3</td>
+      <td>-5.00</td>
+    </tr>
+    <tr>
+      <th>C</th>
+      <td>ks01</td>
+      <td>2.12</td>
+    </tr>
+    <tr>
+      <th>D</th>
+      <td>2</td>
+      <td>8.31</td>
+    </tr>
+    <tr>
+      <th>E</th>
+      <td>5</td>
+      <td>-1.34</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[[</span><span class="s1">'A'</span><span class="p">,</span><span class="s1">'C'</span><span class="p">,</span><span class="s1">'D'</span><span class="p">]]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Col1</th>
+      <th>Col2</th>
+      <th>Col3</th>
+      <th>Col4</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>A</th>
+      <td>0</td>
+      <td>big</td>
+      <td>2.70</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>C</th>
+      <td>ks01</td>
+      <td>is</td>
+      <td>2.12</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>D</th>
+      <td>2</td>
+      <td>very</td>
+      <td>8.31</td>
+      <td>False</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[[</span><span class="s1">'B'</span><span class="p">,</span><span class="s1">'D'</span><span class="p">]][[</span><span class="s1">'Col1'</span><span class="p">,</span><span class="s1">'Col2'</span><span class="p">]]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Col1</th>
+      <th>Col2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>B</th>
+      <td>3</td>
+      <td>data</td>
+    </tr>
+    <tr>
+      <th>D</th>
+      <td>2</td>
+      <td>very</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="컬럼,-로우-추가">
+<a class="anchor" href="#%EC%BB%AC%EB%9F%BC,-%EB%A1%9C%EC%9A%B0-%EC%B6%94%EA%B0%80" aria-hidden="true"><span class="octicon octicon-link"></span></a>컬럼, 로우 추가<a class="anchor-link" href="#%EC%BB%AC%EB%9F%BC,-%EB%A1%9C%EC%9A%B0-%EC%B6%94%EA%B0%80"> </a>
+</h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>컬럼 추가 / 변경<ul>
+<li>컬럼 인덱싱 = 스칼라 값</li>
+<li>컬럼 인덱싱 = 배열, 리스트(로우 개수와 아이템 개수 일치)</li>
+<li>컬럼 인덱싱 = 컬럼 간의 연산</li>
+<li>컬럼 인덱싱 = series</li>
+</ul>
+</li>
+<li>로우 추가<ul>
+<li>로우 인덱싱 = 스칼라 값</li>
+<li>로우 인덱싱 = 로우 간의 연산</li>
+</ul>
+</li>
+<li>데이터 분석에서 컬럼과 로우의 의미<ul>
+<li>컬럼 : 변수(특성)</li>
+<li>로우 : 개별 데이터(레코드)</li>
+<li>전체 데이터를 구성하는 변수를 추가/삭제하는 일은 빈번하게 발생하지만 특정 인덱스를 기준으로 전체 로우 데이터를 추가/삭제하는 일은 자주 발생하지 않으며 데이터 처리를 하는 과정에서 권장하지 않는 작업</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="컬럼추가">
+<a class="anchor" href="#%EC%BB%AC%EB%9F%BC%EC%B6%94%EA%B0%80" aria-hidden="true"><span class="octicon octicon-link"></span></a>컬럼추가<a class="anchor-link" href="#%EC%BB%AC%EB%9F%BC%EC%B6%94%EA%B0%80"> </a>
+</h4>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sample</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>location</th>
+      <th>서울</th>
+      <th>경기</th>
+      <th>충청</th>
+      <th>경상</th>
+      <th>전라</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1990</th>
+      <td>150</td>
+      <td>200</td>
+      <td>-10</td>
+      <td>10</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>1992</th>
+      <td>180</td>
+      <td>240</td>
+      <td>3</td>
+      <td>20</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>1993</th>
+      <td>300</td>
+      <td>450</td>
+      <td>-13</td>
+      <td>30</td>
+      <td>7</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sample</span><span class="p">[</span><span class="s1">'제주'</span><span class="p">]</span><span class="o">=</span><span class="mi">1</span>
+<span class="n">sample</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>location</th>
+      <th>서울</th>
+      <th>경기</th>
+      <th>충청</th>
+      <th>경상</th>
+      <th>전라</th>
+      <th>제주</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1990</th>
+      <td>150</td>
+      <td>200</td>
+      <td>-10</td>
+      <td>10</td>
+      <td>5</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1992</th>
+      <td>180</td>
+      <td>240</td>
+      <td>3</td>
+      <td>20</td>
+      <td>6</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1993</th>
+      <td>300</td>
+      <td>450</td>
+      <td>-13</td>
+      <td>30</td>
+      <td>7</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 조건: 전달하는 자료형(배열, 리스트)의 길이 = 행의 길이</span>
+<span class="c1"># 부산 컬럼 추가, 데이터는 5부터 1씩 증가하는 숫자를 가지는 배열</span>
+<span class="n">sample</span><span class="p">[</span><span class="s1">'부산'</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">sample</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>location</th>
+      <th>서울</th>
+      <th>경기</th>
+      <th>충청</th>
+      <th>경상</th>
+      <th>전라</th>
+      <th>제주</th>
+      <th>부산</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1990</th>
+      <td>150</td>
+      <td>200</td>
+      <td>-10</td>
+      <td>10</td>
+      <td>5</td>
+      <td>1</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>1992</th>
+      <td>180</td>
+      <td>240</td>
+      <td>3</td>
+      <td>20</td>
+      <td>6</td>
+      <td>1</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>1993</th>
+      <td>300</td>
+      <td>450</td>
+      <td>-13</td>
+      <td>30</td>
+      <td>7</td>
+      <td>1</td>
+      <td>7</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 수도권: 서울 + 경기</span>
+<span class="n">sample</span><span class="p">[</span><span class="s1">'수도권'</span><span class="p">]</span> <span class="o">=</span> <span class="n">sample</span><span class="p">[</span><span class="s1">'서울'</span><span class="p">]</span><span class="o">+</span><span class="n">sample</span><span class="p">[</span><span class="s1">'경기'</span><span class="p">]</span>
+<span class="n">sample</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>location</th>
+      <th>서울</th>
+      <th>경기</th>
+      <th>충청</th>
+      <th>경상</th>
+      <th>전라</th>
+      <th>제주</th>
+      <th>부산</th>
+      <th>수도권</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1990</th>
+      <td>150</td>
+      <td>200</td>
+      <td>-10</td>
+      <td>10</td>
+      <td>5</td>
+      <td>1</td>
+      <td>5</td>
+      <td>350</td>
+    </tr>
+    <tr>
+      <th>1992</th>
+      <td>180</td>
+      <td>240</td>
+      <td>3</td>
+      <td>20</td>
+      <td>6</td>
+      <td>1</td>
+      <td>6</td>
+      <td>420</td>
+    </tr>
+    <tr>
+      <th>1993</th>
+      <td>300</td>
+      <td>450</td>
+      <td>-13</td>
+      <td>30</td>
+      <td>7</td>
+      <td>1</td>
+      <td>7</td>
+      <td>750</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 조건: 추가 대상인 df의 구조와 추가 아이템인 Series의 구조를 파약하야함</span>
+<span class="c1"># 라벨 인덱스를 기준으로 Series데이터와 df데이터가 매핑</span>
+<span class="c1"># Series에 없는 라벨 인덱스의 경우에는 NaN</span>
+<span class="c1"># 반드시 길이가 일치하지 않아도 된다</span>
+<span class="n">s1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">9</span><span class="p">,</span><span class="mi">99</span><span class="p">],</span><span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="mi">1990</span><span class="p">,</span><span class="mi">1992</span><span class="p">])</span>
+<span class="n">s1</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>1990     9
+1992    99
+dtype: int64</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sample</span><span class="p">[</span><span class="s1">'강원'</span><span class="p">]</span> <span class="o">=</span> <span class="n">s1</span>
+<span class="n">sample</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>location</th>
+      <th>서울</th>
+      <th>경기</th>
+      <th>충청</th>
+      <th>경상</th>
+      <th>전라</th>
+      <th>제주</th>
+      <th>부산</th>
+      <th>수도권</th>
+      <th>강원</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1990</th>
+      <td>150</td>
+      <td>200</td>
+      <td>-10</td>
+      <td>10</td>
+      <td>5</td>
+      <td>1</td>
+      <td>5</td>
+      <td>NaN</td>
+      <td>9.0</td>
+    </tr>
+    <tr>
+      <th>1992</th>
+      <td>180</td>
+      <td>240</td>
+      <td>3</td>
+      <td>20</td>
+      <td>6</td>
+      <td>1</td>
+      <td>6</td>
+      <td>NaN</td>
+      <td>99.0</td>
+    </tr>
+    <tr>
+      <th>1993</th>
+      <td>300</td>
+      <td>450</td>
+      <td>-13</td>
+      <td>30</td>
+      <td>7</td>
+      <td>1</td>
+      <td>7</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">s2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">100</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">100</span><span class="p">])</span>
+<span class="n">s2</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0    100
+1    100
+2    100
+dtype: int64</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sample</span><span class="p">[</span><span class="s1">'test'</span><span class="p">]</span> <span class="o">=</span> <span class="n">s2</span>
+<span class="n">sample</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>location</th>
+      <th>서울</th>
+      <th>경기</th>
+      <th>충청</th>
+      <th>경상</th>
+      <th>전라</th>
+      <th>제주</th>
+      <th>부산</th>
+      <th>수도권</th>
+      <th>강원</th>
+      <th>test</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1990</th>
+      <td>150</td>
+      <td>200</td>
+      <td>-10</td>
+      <td>10</td>
+      <td>5</td>
+      <td>1</td>
+      <td>5</td>
+      <td>NaN</td>
+      <td>9.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1992</th>
+      <td>180</td>
+      <td>240</td>
+      <td>3</td>
+      <td>20</td>
+      <td>6</td>
+      <td>1</td>
+      <td>6</td>
+      <td>NaN</td>
+      <td>99.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1993</th>
+      <td>300</td>
+      <td>450</td>
+      <td>-13</td>
+      <td>30</td>
+      <td>7</td>
+      <td>1</td>
+      <td>7</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">s2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">100</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">100</span><span class="p">],</span><span class="n">index</span><span class="o">=</span><span class="n">sample</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+<span class="n">s2</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>1990    100
+1992    100
+1993    100
+dtype: int64</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sample</span><span class="p">[</span><span class="s1">'test'</span><span class="p">]</span> <span class="o">=</span> <span class="n">s2</span>
+<span class="n">sample</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>location</th>
+      <th>서울</th>
+      <th>경기</th>
+      <th>충청</th>
+      <th>경상</th>
+      <th>전라</th>
+      <th>제주</th>
+      <th>부산</th>
+      <th>수도권</th>
+      <th>강원</th>
+      <th>test</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1990</th>
+      <td>150</td>
+      <td>200</td>
+      <td>-10</td>
+      <td>10</td>
+      <td>5</td>
+      <td>1</td>
+      <td>5</td>
+      <td>NaN</td>
+      <td>9.0</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <th>1992</th>
+      <td>180</td>
+      <td>240</td>
+      <td>3</td>
+      <td>20</td>
+      <td>6</td>
+      <td>1</td>
+      <td>6</td>
+      <td>NaN</td>
+      <td>99.0</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <th>1993</th>
+      <td>300</td>
+      <td>450</td>
+      <td>-13</td>
+      <td>30</td>
+      <td>7</td>
+      <td>1</td>
+      <td>7</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>100</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="로우-추가">
+<a class="anchor" href="#%EB%A1%9C%EC%9A%B0-%EC%B6%94%EA%B0%80" aria-hidden="true"><span class="octicon octicon-link"></span></a>로우 추가<a class="anchor-link" href="#%EB%A1%9C%EC%9A%B0-%EC%B6%94%EA%B0%80"> </a>
+</h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>로우 추가<ul>
+<li>로우 인덱싱 = 스칼라 값</li>
+<li>로우 인덱싱 = 로우 간의 연산</li>
+<li>로우 인덱싱 = 자료형(배열, 리스트 / 컬럼 개수와 아이템 개수 일치)</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># .loc가 붙는다는 점만 빼고는 컬럼과 완전히 동일한 문법을 사용한다.</span>
+<span class="n">sample</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">1994</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">sample</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>location</th>
+      <th>서울</th>
+      <th>경기</th>
+      <th>충청</th>
+      <th>경상</th>
+      <th>전라</th>
+      <th>제주</th>
+      <th>부산</th>
+      <th>수도권</th>
+      <th>강원</th>
+      <th>test</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1990</th>
+      <td>150</td>
+      <td>200</td>
+      <td>-10</td>
+      <td>10</td>
+      <td>5</td>
+      <td>1</td>
+      <td>5</td>
+      <td>NaN</td>
+      <td>9.0</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <th>1992</th>
+      <td>180</td>
+      <td>240</td>
+      <td>3</td>
+      <td>20</td>
+      <td>6</td>
+      <td>1</td>
+      <td>6</td>
+      <td>NaN</td>
+      <td>99.0</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <th>1993</th>
+      <td>300</td>
+      <td>450</td>
+      <td>-13</td>
+      <td>30</td>
+      <td>7</td>
+      <td>1</td>
+      <td>7</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <th>1994</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sample</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(4, 10)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 컬럼개수와 아이템 개수를 일치시켜 전달</span>
+<span class="n">sample</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">1995</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="c1">#0~9까지 전달</span>
+<span class="n">sample</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>location</th>
+      <th>서울</th>
+      <th>경기</th>
+      <th>충청</th>
+      <th>경상</th>
+      <th>전라</th>
+      <th>제주</th>
+      <th>부산</th>
+      <th>수도권</th>
+      <th>강원</th>
+      <th>test</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1990</th>
+      <td>150</td>
+      <td>200</td>
+      <td>-10</td>
+      <td>10</td>
+      <td>5</td>
+      <td>1</td>
+      <td>5</td>
+      <td>NaN</td>
+      <td>9.0</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <th>1992</th>
+      <td>180</td>
+      <td>240</td>
+      <td>3</td>
+      <td>20</td>
+      <td>6</td>
+      <td>1</td>
+      <td>6</td>
+      <td>NaN</td>
+      <td>99.0</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <th>1993</th>
+      <td>300</td>
+      <td>450</td>
+      <td>-13</td>
+      <td>30</td>
+      <td>7</td>
+      <td>1</td>
+      <td>7</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <th>1994</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1995</th>
+      <td>0</td>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>5</td>
+      <td>6</td>
+      <td>7.0</td>
+      <td>8.0</td>
+      <td>9</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sample</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">1996</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'서울'</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span> <span class="s1">'경기'</span><span class="p">:</span><span class="mi">20</span><span class="p">,</span> <span class="s1">'충청'</span><span class="p">:</span><span class="mi">40</span><span class="p">,</span> <span class="s1">'경상'</span><span class="p">:</span><span class="mi">21</span><span class="p">,</span> <span class="s1">'전라'</span><span class="p">:</span><span class="mi">37</span><span class="p">,</span>
+                   <span class="s1">'제주'</span><span class="p">:</span><span class="mi">103</span><span class="p">,</span> <span class="s1">'부산'</span><span class="p">:</span><span class="mi">28</span><span class="p">,</span> <span class="s1">'수도권'</span><span class="p">:</span><span class="mi">30</span><span class="p">,</span> <span class="s1">'강원'</span><span class="p">:</span><span class="mi">15</span><span class="p">,</span> <span class="s1">'test'</span><span class="p">:</span><span class="mi">0</span><span class="p">}</span>
+<span class="n">sample</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>location</th>
+      <th>서울</th>
+      <th>경기</th>
+      <th>충청</th>
+      <th>경상</th>
+      <th>전라</th>
+      <th>제주</th>
+      <th>부산</th>
+      <th>수도권</th>
+      <th>강원</th>
+      <th>test</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1990</th>
+      <td>150</td>
+      <td>200</td>
+      <td>-10</td>
+      <td>10</td>
+      <td>5</td>
+      <td>1</td>
+      <td>5</td>
+      <td>NaN</td>
+      <td>9.0</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <th>1992</th>
+      <td>180</td>
+      <td>240</td>
+      <td>3</td>
+      <td>20</td>
+      <td>6</td>
+      <td>1</td>
+      <td>6</td>
+      <td>NaN</td>
+      <td>99.0</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <th>1993</th>
+      <td>300</td>
+      <td>450</td>
+      <td>-13</td>
+      <td>30</td>
+      <td>7</td>
+      <td>1</td>
+      <td>7</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <th>1994</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1995</th>
+      <td>0</td>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>5</td>
+      <td>6</td>
+      <td>7.0</td>
+      <td>8.0</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <th>1996</th>
+      <td>10</td>
+      <td>20</td>
+      <td>40</td>
+      <td>21</td>
+      <td>37</td>
+      <td>103</td>
+      <td>28</td>
+      <td>30.0</td>
+      <td>15.0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sample</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">1997</span><span class="p">]</span> <span class="o">=</span> <span class="n">sample</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">1995</span><span class="p">]</span> <span class="o">+</span> <span class="n">sample</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">1996</span><span class="p">]</span>
+<span class="n">sample</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>location</th>
+      <th>서울</th>
+      <th>경기</th>
+      <th>충청</th>
+      <th>경상</th>
+      <th>전라</th>
+      <th>제주</th>
+      <th>부산</th>
+      <th>수도권</th>
+      <th>강원</th>
+      <th>test</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1990</th>
+      <td>150.0</td>
+      <td>200.0</td>
+      <td>-10.0</td>
+      <td>10.0</td>
+      <td>5.0</td>
+      <td>1.0</td>
+      <td>5.0</td>
+      <td>NaN</td>
+      <td>9.0</td>
+      <td>100.0</td>
+    </tr>
+    <tr>
+      <th>1992</th>
+      <td>180.0</td>
+      <td>240.0</td>
+      <td>3.0</td>
+      <td>20.0</td>
+      <td>6.0</td>
+      <td>1.0</td>
+      <td>6.0</td>
+      <td>NaN</td>
+      <td>99.0</td>
+      <td>100.0</td>
+    </tr>
+    <tr>
+      <th>1993</th>
+      <td>300.0</td>
+      <td>450.0</td>
+      <td>-13.0</td>
+      <td>30.0</td>
+      <td>7.0</td>
+      <td>1.0</td>
+      <td>7.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>100.0</td>
+    </tr>
+    <tr>
+      <th>1994</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>1995</th>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>3.0</td>
+      <td>4.0</td>
+      <td>5.0</td>
+      <td>6.0</td>
+      <td>7.0</td>
+      <td>8.0</td>
+      <td>9.0</td>
+    </tr>
+    <tr>
+      <th>1996</th>
+      <td>10.0</td>
+      <td>20.0</td>
+      <td>40.0</td>
+      <td>21.0</td>
+      <td>37.0</td>
+      <td>103.0</td>
+      <td>28.0</td>
+      <td>30.0</td>
+      <td>15.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>1997</th>
+      <td>10.0</td>
+      <td>21.0</td>
+      <td>42.0</td>
+      <td>24.0</td>
+      <td>41.0</td>
+      <td>108.0</td>
+      <td>34.0</td>
+      <td>37.0</td>
+      <td>23.0</td>
+      <td>9.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+</div>
+
+
+
+  </div>
+<!-- from https://github.com/utterance/utterances 
+<script src="https://utteranc.es/client.js"
+        repo="dorae222/dorae22_blog"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script> -->
+
+<div id="disqus_thread"></div>
+<script>
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+    /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://dorae222-blog.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+<a class="u-url" href="/dorae222/pandas/datafrmae/df/2022/10/21/DA-Pandas-DataFarme-1.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/dorae222/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/dorae222/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/dorae222/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>HYU BIZ &amp; BIG DATA</p>
+      </div>
+    </div>
+
+    <div class="social-links">
+<ul class="social-media-list">
+<li>
+  <a rel="me" href="dorae222" target="_blank" title="github">
+    <svg class="svg-icon grey">
+      <use xlink:href="/dorae222/assets/minima-social-icons.svg#github"></use>
+    </svg>
+  </a>
+</li>
+</ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

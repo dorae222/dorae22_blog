@@ -1,0 +1,3594 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>[Marketing] Caculating_RFM_SCORE | Dorae222’s BLOG</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="[Marketing] Caculating_RFM_SCORE" />
+<meta name="author" content="도형준" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="RFM 모형을 이용한 충성고객 판단 및 구매기여도 확인" />
+<meta property="og:description" content="RFM 모형을 이용한 충성고객 판단 및 구매기여도 확인" />
+<meta property="og:site_name" content="Dorae222’s BLOG" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-11-13T00:00:00-06:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="[Marketing] Caculating_RFM_SCORE" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"도형준"},"dateModified":"2022-11-13T00:00:00-06:00","datePublished":"2022-11-13T00:00:00-06:00","description":"RFM 모형을 이용한 충성고객 판단 및 구매기여도 확인","headline":"[Marketing] Caculating_RFM_SCORE","mainEntityOfPage":{"@type":"WebPage","@id":"/dorae222/rfm/marekting/2022/11/13/Marketing-Caculating_RFM_SCORE.html"},"url":"/dorae222/rfm/marekting/2022/11/13/Marketing-Caculating_RFM_SCORE.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/dorae222/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="/dorae222/feed.xml" title="Dorae222's BLOG" /><link rel="shortcut icon" type="image/x-icon" href="/dorae222/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/dorae222/">Dorae222&#39;s BLOG</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/dorae222/about/">About Me</a><a class="page-link" href="/dorae222/gitInfo/">gitInfo</a><a class="page-link" href="/dorae222/search/">Search</a><a class="page-link" href="/dorae222/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">[Marketing] Caculating_RFM_SCORE</h1><p class="page-description">RFM 모형을 이용한 충성고객 판단 및 구매기여도 확인</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2022-11-13T00:00:00-06:00" itemprop="datePublished">
+        Nov 13, 2022
+      </time>• 
+          <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+            <span class="p-author h-card" itemprop="name">도형준</span></span>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      14 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="dorae222/categories/#RFM">RFM</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="dorae222/categories/#Marekting">Marekting</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-justify-center">
+          <div class="px-2">
+
+    <a href="https://github.com/dorae222/dorae22_blog/tree/master/_notebooks/2022-11-13-[Marketing] Caculating_RFM_SCORE.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/dorae222/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/dorae222/dorae22_blog/master?filepath=_notebooks%2F2022-11-13-%5BMarketing%5D+Caculating_RFM_SCORE.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/dorae222/assets/badges/binder.svg" alt="Open In Binder"/>
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/dorae222/dorae22_blog/blob/master/_notebooks/2022-11-13-[Marketing] Caculating_RFM_SCORE.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/dorae222/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+          <div class="px-2">
+  <a href="https://deepnote.com/launch?url=https%3A%2F%2Fgithub.com%2Fdorae222%2Fdorae22_blog%2Fblob%2Fmaster%2F_notebooks%2F2022-11-13-%5BMarketing%5D+Caculating_RFM_SCORE.ipynb" target="_blank">
+      <img class="notebook-badge-image" src="/dorae222/assets/badges/deepnote.svg" alt="Launch in Deepnote"/>
+  </a>
+</div>
+
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h1"><a href="#주제-선정-계기">주제 선정 계기 </a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#주제:-RFM모형을-이용한-충성고객-판단하기">주제: RFM모형을 이용한 충성고객 판단하기 </a></li>
+<li class="toc-entry toc-h2"><a href="#EDA">EDA </a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#데이터-적재">데이터 적재 </a></li>
+<li class="toc-entry toc-h3"><a href="#RFM-모형에-필요한-컬럼-형식으로-전처리-및-변형하기">RFM 모형에 필요한 컬럼 형식으로 전처리 및 변형하기 </a></li>
+<li class="toc-entry toc-h3"><a href="#결측치-제거">결측치 제거 </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#고객별-R,F,M값-산출을-위해-점수화하기">고객별 R,F,M값 산출을 위해 점수화하기 </a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#Monetary">Monetary </a></li>
+<li class="toc-entry toc-h3"><a href="#Frequency">Frequency </a></li>
+<li class="toc-entry toc-h3"><a href="#Recency">Recency </a></li>
+<li class="toc-entry toc-h3"><a href="#R,F,M을-산출한-데이터-프레임(rfm_df)-생성">R,F,M을 산출한 데이터 프레임(rfm_df) 생성 </a></li>
+<li class="toc-entry toc-h3"><a href="#각-컬럼은-min-max-스케일링-진행-후,-최종-스코어-산출하기">각 컬럼은 min-max 스케일링 진행 후, 최종 스코어 산출하기 </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#점수화-퍼센타일-형식으로-다르게-진행">점수화 퍼센타일 형식으로 다르게 진행 </a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#가중치-업데이트">가중치 업데이트 </a></li>
+<li class="toc-entry toc-h3"><a href="#최종-가중치-업데이트">최종 가중치 업데이트 </a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul><!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2022-11-13-[Marketing] Caculating_RFM_SCORE.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="주제-선정-계기">
+<a class="anchor" href="#%EC%A3%BC%EC%A0%9C-%EC%84%A0%EC%A0%95-%EA%B3%84%EA%B8%B0" aria-hidden="true"><span class="octicon octicon-link"></span></a>주제 선정 계기<a class="anchor-link" href="#%EC%A3%BC%EC%A0%9C-%EC%84%A0%EC%A0%95-%EA%B3%84%EA%B8%B0"> </a>
+</h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote>
+<p>평소 마케팅 분야에 많은 관심을 가지고 있습니다.<br>
+그래서 고객 데이터를 다뤄보고 싶어 Kaggle에서 ecommerce 데이터셋을 선정하였습니다.<br>
+고객의 충성도를 평가하기 위해, 마케팅 기법 중 하나인 RFM 모형을 통해 고객 등급을 매기고<br>
+등급별 구매 기여도를 계산하였습니다.</p>
+<hr>
+</blockquote>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="주제:-RFM모형을-이용한-충성고객-판단하기">
+<a class="anchor" href="#%EC%A3%BC%EC%A0%9C:-RFM%EB%AA%A8%ED%98%95%EC%9D%84-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EC%B6%A9%EC%84%B1%EA%B3%A0%EA%B0%9D-%ED%8C%90%EB%8B%A8%ED%95%98%EA%B8%B0" aria-hidden="true"><span class="octicon octicon-link"></span></a>주제: RFM모형을 이용한 충성고객 판단하기<a class="anchor-link" href="#%EC%A3%BC%EC%A0%9C:-RFM%EB%AA%A8%ED%98%95%EC%9D%84-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EC%B6%A9%EC%84%B1%EA%B3%A0%EA%B0%9D-%ED%8C%90%EB%8B%A8%ED%95%98%EA%B8%B0"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote>
+<p>RFM모형이란?</p>
+<ul>
+<li>Recency :얼마나 최근에 구매했는가    - InvoiceDate 컬럼 확인<ul>
+<li>최근성(R)</li>
+</ul>
+</li>
+<li>Frequency : 얼마나 자주 구매했는가<ul>
+<li>CustomerID별 합</li>
+<li>빈도(F)</li>
+</ul>
+</li>
+<li>Monetary : 얼마나 많은 금액을 지출했는가<ul>
+<li>CustomerID별 Quantity * UnitPrice =&gt; 'PurchaseAmount'로 먼저 정의 예정</li>
+<li>총금액(M)
+R,F,M 점수를 산출하고, 이를 특정 기준에 따라 고객 점수를 산출하는 방식<br>
+이 파일은 차후 웹의 알고리즘으로 활용할 때 참고할 예정</li>
+</ul>
+</li>
+</ul>
+<hr>
+</blockquote>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="EDA">
+<a class="anchor" href="#EDA" aria-hidden="true"><span class="octicon octicon-link"></span></a>EDA<a class="anchor-link" href="#EDA"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote>
+<p>처음보는 고객 데이터로 어떻게 RFM 스코어를 도출 할 수 있을까 고민하고, RFM 스코어를 산출하는 것이 목적</p>
+</blockquote>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="데이터-적재">
+<a class="anchor" href="#%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%A0%81%EC%9E%AC" aria-hidden="true"><span class="octicon octicon-link"></span></a>데이터 적재<a class="anchor-link" href="#%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%A0%81%EC%9E%AC"> </a>
+</h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote>
+<p>자료출처:<a href="https://www.kaggle.com/datasets/carrie1/ecommerce-data?resource=download">https://www.kaggle.com/datasets/carrie1/ecommerce-data?resource=download</a></p>
+</blockquote>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Column Info<blockquote>
+<p>1.InvoiceNo:Invoice number. Nominal, a 6-digit integral number uniquely assigned to each transaction. If this code starts with letter 'c', it indicates a cancellation.<br>2.StockCode: Product (item) code. Nominal, a 5-digit integral number uniquely assigned to each distinct product.<br>
+3.Description: Product (item) name. Nominal.<br>
+4.Quantity: The quantities of each product (item) per transaction. Numeric.<br>
+5.InvoiceDate: Invice Date and time. Numeric, the day and time when each transaction was generated.<br>
+6.UnitPrice: Unit price. Numeric, Product price per unit in sterling.<br>
+7.CustomerID: Customer number. Nominal, a 5-digit integral number uniquely assigned to each customer.<br>
+8.Country: Country name. Nominal, the name of the country where each customer resides.</p>
+</blockquote>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"commerce_data.csv"</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>InvoiceNo</th>
+      <th>StockCode</th>
+      <th>Description</th>
+      <th>Quantity</th>
+      <th>InvoiceDate</th>
+      <th>UnitPrice</th>
+      <th>CustomerID</th>
+      <th>Country</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>536365</td>
+      <td>85123A</td>
+      <td>WHITE HANGING HEART T-LIGHT HOLDER</td>
+      <td>6</td>
+      <td>12/1/2010 8:26</td>
+      <td>2.55</td>
+      <td>17850.0</td>
+      <td>United Kingdom</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>536365</td>
+      <td>71053</td>
+      <td>WHITE METAL LANTERN</td>
+      <td>6</td>
+      <td>12/1/2010 8:26</td>
+      <td>3.39</td>
+      <td>17850.0</td>
+      <td>United Kingdom</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>536365</td>
+      <td>84406B</td>
+      <td>CREAM CUPID HEARTS COAT HANGER</td>
+      <td>8</td>
+      <td>12/1/2010 8:26</td>
+      <td>2.75</td>
+      <td>17850.0</td>
+      <td>United Kingdom</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>536365</td>
+      <td>84029G</td>
+      <td>KNITTED UNION FLAG HOT WATER BOTTLE</td>
+      <td>6</td>
+      <td>12/1/2010 8:26</td>
+      <td>3.39</td>
+      <td>17850.0</td>
+      <td>United Kingdom</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>536365</td>
+      <td>84029E</td>
+      <td>RED WOOLLY HOTTIE WHITE HEART.</td>
+      <td>6</td>
+      <td>12/1/2010 8:26</td>
+      <td>3.39</td>
+      <td>17850.0</td>
+      <td>United Kingdom</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="RFM-모형에-필요한-컬럼-형식으로-전처리-및-변형하기">
+<a class="anchor" href="#RFM-%EB%AA%A8%ED%98%95%EC%97%90-%ED%95%84%EC%9A%94%ED%95%9C-%EC%BB%AC%EB%9F%BC-%ED%98%95%EC%8B%9D%EC%9C%BC%EB%A1%9C-%EC%A0%84%EC%B2%98%EB%A6%AC-%EB%B0%8F-%EB%B3%80%ED%98%95%ED%95%98%EA%B8%B0" aria-hidden="true"><span class="octicon octicon-link"></span></a>RFM 모형에 필요한 컬럼 형식으로 전처리 및 변형하기<a class="anchor-link" href="#RFM-%EB%AA%A8%ED%98%95%EC%97%90-%ED%95%84%EC%9A%94%ED%95%9C-%EC%BB%AC%EB%9F%BC-%ED%98%95%EC%8B%9D%EC%9C%BC%EB%A1%9C-%EC%A0%84%EC%B2%98%EB%A6%AC-%EB%B0%8F-%EB%B3%80%ED%98%95%ED%95%98%EA%B8%B0"> </a>
+</h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'InvoiceNo'</span><span class="p">,</span><span class="s1">'StockCode'</span><span class="p">,</span><span class="s1">'Description'</span><span class="p">],</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">'InvoiceDate'</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">'InvoiceDate'</span><span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">'PurchaseAmount'</span><span class="p">]</span> <span class="o">=</span>  <span class="n">df</span><span class="p">[</span><span class="s1">'Quantity'</span><span class="p">]</span> <span class="o">*</span> <span class="n">df</span><span class="p">[</span><span class="s1">'UnitPrice'</span><span class="p">]</span>
+<span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'Quantity'</span><span class="p">,</span><span class="s1">'UnitPrice'</span><span class="p">],</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>InvoiceDate</th>
+      <th>CustomerID</th>
+      <th>Country</th>
+      <th>PurchaseAmount</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2010-12-01 08:26:00</td>
+      <td>17850.0</td>
+      <td>United Kingdom</td>
+      <td>15.30</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2010-12-01 08:26:00</td>
+      <td>17850.0</td>
+      <td>United Kingdom</td>
+      <td>20.34</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2010-12-01 08:26:00</td>
+      <td>17850.0</td>
+      <td>United Kingdom</td>
+      <td>22.00</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2010-12-01 08:26:00</td>
+      <td>17850.0</td>
+      <td>United Kingdom</td>
+      <td>20.34</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2010-12-01 08:26:00</td>
+      <td>17850.0</td>
+      <td>United Kingdom</td>
+      <td>20.34</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 환불일 것이라고 예상</span>
+<span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">'PurchaseAmount'</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>541909</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&lt;class 'pandas.core.frame.DataFrame'&gt;
+RangeIndex: 541909 entries, 0 to 541908
+Data columns (total 4 columns):
+ #   Column          Non-Null Count   Dtype         
+---  ------          --------------   -----         
+ 0   InvoiceDate     541909 non-null  datetime64[ns]
+ 1   CustomerID      406829 non-null  float64       
+ 2   Country         541909 non-null  object        
+ 3   PurchaseAmount  541909 non-null  float64       
+dtypes: datetime64[ns](1), float64(2), object(1)
+memory usage: 16.5+ MB
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 그래서 결측치 제거 후, 타입 변경 예정.</span>
+<span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>CustomerID</th>
+      <th>PurchaseAmount</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>406829.000000</td>
+      <td>541909.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>15287.690570</td>
+      <td>17.987795</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>1713.600303</td>
+      <td>378.810824</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>12346.000000</td>
+      <td>-168469.600000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>13953.000000</td>
+      <td>3.400000</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>15152.000000</td>
+      <td>9.750000</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>16791.000000</td>
+      <td>17.400000</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>18287.000000</td>
+      <td>168469.600000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>InvoiceDate            0
+CustomerID        135080
+Country                0
+PurchaseAmount         0
+dtype: int64</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="결측치-제거">
+<a class="anchor" href="#%EA%B2%B0%EC%B8%A1%EC%B9%98-%EC%A0%9C%EA%B1%B0" aria-hidden="true"><span class="octicon octicon-link"></span></a>결측치 제거<a class="anchor-link" href="#%EA%B2%B0%EC%B8%A1%EC%B9%98-%EC%A0%9C%EA%B1%B0"> </a>
+</h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>RFM 모형은 고객에 대한 PK가 반드시 필요하다.</li>
+<li>이에 따라 PK가 없는 row는 모두 버린다.</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">'CustomerID'</span><span class="p">],</span> <span class="n">how</span><span class="o">=</span><span class="s1">'any'</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>InvoiceDate       0
+CustomerID        0
+Country           0
+PurchaseAmount    0
+dtype: int64</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">'CustomerID'</span><span class="p">]</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">'CustomerID'</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">'int'</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">'str'</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&lt;class 'pandas.core.frame.DataFrame'&gt;
+Int64Index: 406829 entries, 0 to 541908
+Data columns (total 4 columns):
+ #   Column          Non-Null Count   Dtype         
+---  ------          --------------   -----         
+ 0   InvoiceDate     406829 non-null  datetime64[ns]
+ 1   CustomerID      406829 non-null  object        
+ 2   Country         406829 non-null  object        
+ 3   PurchaseAmount  406829 non-null  float64       
+dtypes: datetime64[ns](1), float64(1), object(2)
+memory usage: 15.5+ MB
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>InvoiceDate</th>
+      <th>CustomerID</th>
+      <th>Country</th>
+      <th>PurchaseAmount</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>541904</th>
+      <td>2011-12-09 12:50:00</td>
+      <td>12680</td>
+      <td>France</td>
+      <td>10.20</td>
+    </tr>
+    <tr>
+      <th>541905</th>
+      <td>2011-12-09 12:50:00</td>
+      <td>12680</td>
+      <td>France</td>
+      <td>12.60</td>
+    </tr>
+    <tr>
+      <th>541906</th>
+      <td>2011-12-09 12:50:00</td>
+      <td>12680</td>
+      <td>France</td>
+      <td>16.60</td>
+    </tr>
+    <tr>
+      <th>541907</th>
+      <td>2011-12-09 12:50:00</td>
+      <td>12680</td>
+      <td>France</td>
+      <td>16.60</td>
+    </tr>
+    <tr>
+      <th>541908</th>
+      <td>2011-12-09 12:50:00</td>
+      <td>12680</td>
+      <td>France</td>
+      <td>14.85</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="고객별-R,F,M값-산출을-위해-점수화하기">
+<a class="anchor" href="#%EA%B3%A0%EA%B0%9D%EB%B3%84-R,F,M%EA%B0%92-%EC%82%B0%EC%B6%9C%EC%9D%84-%EC%9C%84%ED%95%B4-%EC%A0%90%EC%88%98%ED%99%94%ED%95%98%EA%B8%B0" aria-hidden="true"><span class="octicon octicon-link"></span></a>고객별 R,F,M값 산출을 위해 점수화하기<a class="anchor-link" href="#%EA%B3%A0%EA%B0%9D%EB%B3%84-R,F,M%EA%B0%92-%EC%82%B0%EC%B6%9C%EC%9D%84-%EC%9C%84%ED%95%B4-%EC%A0%90%EC%88%98%ED%99%94%ED%95%98%EA%B8%B0"> </a>
+</h2>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">'InvoiceDate unique'</span><span class="p">,</span><span class="n">df</span><span class="p">[</span><span class="s1">'InvoiceDate'</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">(),</span><span class="s1">'</span><span class="se">\n</span><span class="s1">'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'총 개수: '</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">'InvoiceDate'</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>InvoiceDate unique ['2010-12-01T08:26:00.000000000' '2010-12-01T08:28:00.000000000'
+ '2010-12-01T08:34:00.000000000' ... '2011-12-09T12:31:00.000000000'
+ '2011-12-09T12:49:00.000000000' '2011-12-09T12:50:00.000000000'] 
+
+총 개수:  20460
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">'CustomerID unique'</span><span class="p">,</span><span class="n">df</span><span class="p">[</span><span class="s1">'CustomerID'</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">(),</span><span class="s1">'</span><span class="se">\n</span><span class="s1">'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'총 개수: '</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">'CustomerID'</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>CustomerID unique ['17850' '13047' '12583' ... '13298' '14569' '12713'] 
+
+총 개수:  4372
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Monetary">
+<a class="anchor" href="#Monetary" aria-hidden="true"><span class="octicon octicon-link"></span></a>Monetary<a class="anchor-link" href="#Monetary"> </a>
+</h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">'CustomerID'</span><span class="p">)[[</span><span class="s1">'PurchaseAmount'</span><span class="p">]]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>PurchaseAmount</th>
+    </tr>
+    <tr>
+      <th>CustomerID</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>12346</th>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>12347</th>
+      <td>4310.00</td>
+    </tr>
+    <tr>
+      <th>12348</th>
+      <td>1797.24</td>
+    </tr>
+    <tr>
+      <th>12349</th>
+      <td>1757.55</td>
+    </tr>
+    <tr>
+      <th>12350</th>
+      <td>334.40</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>18280</th>
+      <td>180.60</td>
+    </tr>
+    <tr>
+      <th>18281</th>
+      <td>80.82</td>
+    </tr>
+    <tr>
+      <th>18282</th>
+      <td>176.60</td>
+    </tr>
+    <tr>
+      <th>18283</th>
+      <td>2094.88</td>
+    </tr>
+    <tr>
+      <th>18287</th>
+      <td>1837.28</td>
+    </tr>
+  </tbody>
+</table>
+<p>4372 rows × 1 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Frequency">
+<a class="anchor" href="#Frequency" aria-hidden="true"><span class="octicon octicon-link"></span></a>Frequency<a class="anchor-link" href="#Frequency"> </a>
+</h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">'CustomerID'</span><span class="p">)[[</span><span class="s1">'PurchaseAmount'</span><span class="p">]]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>PurchaseAmount</th>
+    </tr>
+    <tr>
+      <th>CustomerID</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>12346</th>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>12347</th>
+      <td>182</td>
+    </tr>
+    <tr>
+      <th>12348</th>
+      <td>31</td>
+    </tr>
+    <tr>
+      <th>12349</th>
+      <td>73</td>
+    </tr>
+    <tr>
+      <th>12350</th>
+      <td>17</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>18280</th>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>18281</th>
+      <td>7</td>
+    </tr>
+    <tr>
+      <th>18282</th>
+      <td>13</td>
+    </tr>
+    <tr>
+      <th>18283</th>
+      <td>756</td>
+    </tr>
+    <tr>
+      <th>18287</th>
+      <td>70</td>
+    </tr>
+  </tbody>
+</table>
+<p>4372 rows × 1 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Recency">
+<a class="anchor" href="#Recency" aria-hidden="true"><span class="octicon octicon-link"></span></a>Recency<a class="anchor-link" href="#Recency"> </a>
+</h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">'CustomerID'</span><span class="p">)[[</span><span class="s1">'InvoiceDate'</span><span class="p">]]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>InvoiceDate</th>
+    </tr>
+    <tr>
+      <th>CustomerID</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>12346</th>
+      <td>2011-01-18 10:17:00</td>
+    </tr>
+    <tr>
+      <th>12347</th>
+      <td>2011-12-07 15:52:00</td>
+    </tr>
+    <tr>
+      <th>12348</th>
+      <td>2011-09-25 13:13:00</td>
+    </tr>
+    <tr>
+      <th>12349</th>
+      <td>2011-11-21 09:51:00</td>
+    </tr>
+    <tr>
+      <th>12350</th>
+      <td>2011-02-02 16:01:00</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>18280</th>
+      <td>2011-03-07 09:52:00</td>
+    </tr>
+    <tr>
+      <th>18281</th>
+      <td>2011-06-12 10:53:00</td>
+    </tr>
+    <tr>
+      <th>18282</th>
+      <td>2011-12-02 11:43:00</td>
+    </tr>
+    <tr>
+      <th>18283</th>
+      <td>2011-12-06 12:02:00</td>
+    </tr>
+    <tr>
+      <th>18287</th>
+      <td>2011-10-28 09:29:00</td>
+    </tr>
+  </tbody>
+</table>
+<p>4372 rows × 1 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="R,F,M을-산출한-데이터-프레임(rfm_df)-생성">
+<a class="anchor" href="#R,F,M%EC%9D%84-%EC%82%B0%EC%B6%9C%ED%95%9C-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%94%84%EB%A0%88%EC%9E%84(rfm_df)-%EC%83%9D%EC%84%B1" aria-hidden="true"><span class="octicon octicon-link"></span></a>R,F,M을 산출한 데이터 프레임(rfm_df) 생성<a class="anchor-link" href="#R,F,M%EC%9D%84-%EC%82%B0%EC%B6%9C%ED%95%9C-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%94%84%EB%A0%88%EC%9E%84(rfm_df)-%EC%83%9D%EC%84%B1"> </a>
+</h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>원래 컬럼명을 영어로만 짓는게 낫지만, 이해를 위해 컬럼명을 아래와 같이 생성</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">rfm_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+<span class="n">rfm_df</span><span class="p">[</span><span class="s1">'최근성_R'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">'CustomerID'</span><span class="p">)[[</span><span class="s1">'InvoiceDate'</span><span class="p">]]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+<span class="n">rfm_df</span><span class="p">[</span><span class="s1">'빈도_F'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">'CustomerID'</span><span class="p">)[[</span><span class="s1">'PurchaseAmount'</span><span class="p">]]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+<span class="n">rfm_df</span><span class="p">[</span><span class="s1">'총금액_M'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">'CustomerID'</span><span class="p">)[[</span><span class="s1">'PurchaseAmount'</span><span class="p">]]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">rfm_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>최근성_R</th>
+      <th>빈도_F</th>
+      <th>총금액_M</th>
+    </tr>
+    <tr>
+      <th>CustomerID</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>12346</th>
+      <td>2011-01-18 10:17:00</td>
+      <td>2</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>12347</th>
+      <td>2011-12-07 15:52:00</td>
+      <td>182</td>
+      <td>4310.00</td>
+    </tr>
+    <tr>
+      <th>12348</th>
+      <td>2011-09-25 13:13:00</td>
+      <td>31</td>
+      <td>1797.24</td>
+    </tr>
+    <tr>
+      <th>12349</th>
+      <td>2011-11-21 09:51:00</td>
+      <td>73</td>
+      <td>1757.55</td>
+    </tr>
+    <tr>
+      <th>12350</th>
+      <td>2011-02-02 16:01:00</td>
+      <td>17</td>
+      <td>334.40</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote>
+<p>여기서 컬럼 R의 datime을 점수화를 하기 위해 실수화 해야한다고 생각함</p>
+</blockquote>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">rfm_df</span><span class="p">[</span><span class="s1">'최근성_R'</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>Timestamp('2011-12-09 12:50:00')</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">rfm_df</span><span class="p">[</span><span class="s1">'최근성_R'</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>Timestamp('2010-12-01 09:53:00')</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="sd">'''</span>
+<span class="sd">값이 클수록 더 최근에 산 것임을 의미한다.</span>
+<span class="sd">t1,t2,t3의 순차적인 시점이 있다고 가정해보자.</span>
+<span class="sd">t3-t1 &gt; t3-t2이므로, 최근 값에 더 큰 점수가 부여 된다.</span>
+<span class="sd">'''</span>
+<span class="n">current_day</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="s1">'20101201'</span><span class="p">)</span> <span class="c1"># 가장 빠른 날짜인 20101201을 기준으로 R 값 변경</span>
+<span class="n">time_diff</span> <span class="o">=</span> <span class="n">rfm_df</span><span class="p">[</span><span class="s1">'최근성_R'</span><span class="p">]</span><span class="o">-</span><span class="n">current_day</span> <span class="c1"># 최근방문일과 기준 날짜의 시간 차이</span>
+<span class="n">time_in_seconds</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">time_diff</span><span class="p">]</span> <span class="c1"># 시간 차이를 초단위로 계산</span>
+<span class="n">rfm_df</span><span class="p">[</span><span class="s1">'최근성_R'</span><span class="p">]</span> <span class="o">=</span> <span class="n">time_in_seconds</span> <span class="c1"># 변환된 데이터를 다시 삽입한다.</span>
+<span class="n">rfm_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>최근성_R</th>
+      <th>빈도_F</th>
+      <th>총금액_M</th>
+    </tr>
+    <tr>
+      <th>CustomerID</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>12346</th>
+      <td>4184220.0</td>
+      <td>2</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>12347</th>
+      <td>32111520.0</td>
+      <td>182</td>
+      <td>4310.00</td>
+    </tr>
+    <tr>
+      <th>12348</th>
+      <td>25794780.0</td>
+      <td>31</td>
+      <td>1797.24</td>
+    </tr>
+    <tr>
+      <th>12349</th>
+      <td>30707460.0</td>
+      <td>73</td>
+      <td>1757.55</td>
+    </tr>
+    <tr>
+      <th>12350</th>
+      <td>5500860.0</td>
+      <td>17</td>
+      <td>334.40</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">rfm_df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&lt;class 'pandas.core.frame.DataFrame'&gt;
+Index: 4372 entries, 12346 to 18287
+Data columns (total 3 columns):
+ #   Column  Non-Null Count  Dtype  
+---  ------  --------------  -----  
+ 0   최근성_R   4372 non-null   float64
+ 1   빈도_F    4372 non-null   int64  
+ 2   총금액_M   4372 non-null   float64
+dtypes: float64(2), int64(1)
+memory usage: 136.6+ KB
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="각-컬럼은-min-max-스케일링-진행-후,-최종-스코어-산출하기">
+<a class="anchor" href="#%EA%B0%81-%EC%BB%AC%EB%9F%BC%EC%9D%80-min-max-%EC%8A%A4%EC%BC%80%EC%9D%BC%EB%A7%81-%EC%A7%84%ED%96%89-%ED%9B%84,-%EC%B5%9C%EC%A2%85-%EC%8A%A4%EC%BD%94%EC%96%B4-%EC%82%B0%EC%B6%9C%ED%95%98%EA%B8%B0" aria-hidden="true"><span class="octicon octicon-link"></span></a>각 컬럼은 min-max 스케일링 진행 후, 최종 스코어 산출하기<a class="anchor-link" href="#%EA%B0%81-%EC%BB%AC%EB%9F%BC%EC%9D%80-min-max-%EC%8A%A4%EC%BC%80%EC%9D%BC%EB%A7%81-%EC%A7%84%ED%96%89-%ED%9B%84,-%EC%B5%9C%EC%A2%85-%EC%8A%A4%EC%BD%94%EC%96%B4-%EC%82%B0%EC%B6%9C%ED%95%98%EA%B8%B0"> </a>
+</h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote>
+<p>컬럼별 Min-Man 스케일링으로 점수화를 진행 예정<br></p>
+
+<pre><code>- 참고) 점수화 RFM SCORE를 20 퍼센트씩 등급 부여
+</code></pre>
+<p><br></p>
+</blockquote>
+<p>$x_i-min(x)\over max(x)-min(x)$</p>
+<ul>
+<li>$x_i$ :변수의 i번째 값* $min(x)$ : 최솟값</li>
+<li>$max(x)$ : 최댓값</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">MinMaxScaler</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">min_max_scaler</span> <span class="o">=</span> <span class="n">MinMaxScaler</span><span class="p">()</span>
+<span class="n">fitted</span> <span class="o">=</span> <span class="n">min_max_scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">rfm_df</span><span class="p">)</span>
+<span class="n">fitted</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([[1.28688602e-01, 1.25281884e-04, 1.51091712e-02],
+       [9.94978569e-01, 2.26760210e-02, 3.02971721e-02],
+       [7.99036659e-01, 3.75845653e-03, 2.14424619e-02],
+       ...,
+       [9.81114728e-01, 1.50338261e-03, 1.57314917e-02],
+       [9.91870418e-01, 9.45878226e-02, 2.24913149e-02],
+       [8.87062463e-01, 8.64445001e-03, 2.15835588e-02]])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fit_rfm</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">fitted</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">rfm_df</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">rfm_df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">values</span><span class="p">))</span>
+<span class="n">fit_rfm</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>최근성_R</th>
+      <th>빈도_F</th>
+      <th>총금액_M</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>12346</th>
+      <td>0.128689</td>
+      <td>0.000125</td>
+      <td>0.015109</td>
+    </tr>
+    <tr>
+      <th>12347</th>
+      <td>0.994979</td>
+      <td>0.022676</td>
+      <td>0.030297</td>
+    </tr>
+    <tr>
+      <th>12348</th>
+      <td>0.799037</td>
+      <td>0.003758</td>
+      <td>0.021442</td>
+    </tr>
+    <tr>
+      <th>12349</th>
+      <td>0.951425</td>
+      <td>0.009020</td>
+      <td>0.021303</td>
+    </tr>
+    <tr>
+      <th>12350</th>
+      <td>0.169530</td>
+      <td>0.002005</td>
+      <td>0.016288</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote>
+<p>여기서 파레토 법칙을 적용할 예정<br>
+파레토 법칙이란 가장 중요한 20 퍼센트가 나머지 80 퍼센트를 결정할 예정<br>
+한 논문에서 총금액이 가장 중요하다라는 결론에 따라 총금액에 가장 큰 비중을 준다.</p>
+</blockquote>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">total</span> <span class="o">=</span> <span class="n">fit_rfm</span><span class="p">[</span><span class="s1">'최근성_R'</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">+</span><span class="n">fit_rfm</span><span class="p">[</span><span class="s1">'빈도_F'</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">+</span><span class="n">fit_rfm</span><span class="p">[</span><span class="s1">'총금액_M'</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">total</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>3444.7953043720886</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">fit_rfm</span><span class="p">[</span><span class="s1">'최근성_R'</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">/</span><span class="n">total</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">fit_rfm</span><span class="p">[</span><span class="s1">'빈도_F'</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">/</span><span class="n">total</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">fit_rfm</span><span class="p">[</span><span class="s1">'총금액_M'</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">/</span><span class="n">total</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>0.9576966288829607
+0.0146367394374345
+0.027666631679604706
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fit_rfm</span><span class="p">[</span><span class="s1">'최근성_R'</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">fit_rfm</span><span class="p">[</span><span class="s1">'최근성_R'</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.1</span><span class="o">/</span><span class="p">(</span><span class="n">fit_rfm</span><span class="p">[</span><span class="s1">'최근성_R'</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">/</span><span class="n">total</span><span class="p">))</span>
+<span class="n">fit_rfm</span><span class="p">[</span><span class="s1">'빈도_F'</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">fit_rfm</span><span class="p">[</span><span class="s1">'빈도_F'</span><span class="p">]</span> <span class="o">*</span>  <span class="mf">0.1</span><span class="o">/</span><span class="p">(</span><span class="n">fit_rfm</span><span class="p">[</span><span class="s1">'빈도_F'</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">/</span><span class="n">total</span><span class="p">))</span>
+<span class="n">fit_rfm</span><span class="p">[</span><span class="s1">'총금액_M'</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">fit_rfm</span><span class="p">[</span><span class="s1">'총금액_M'</span><span class="p">]</span> <span class="o">*</span>  <span class="mf">0.8</span><span class="o">/</span><span class="p">(</span><span class="n">fit_rfm</span><span class="p">[</span><span class="s1">'총금액_M'</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">/</span><span class="n">total</span><span class="p">))</span>
+<span class="n">fit_rfm</span><span class="p">[</span><span class="s1">'RFM_SCORE'</span><span class="p">]</span> <span class="o">=</span><span class="n">fit_rfm</span><span class="p">[</span><span class="s1">'최근성_R'</span><span class="p">]</span> <span class="o">+</span> <span class="n">fit_rfm</span><span class="p">[</span><span class="s1">'빈도_F'</span><span class="p">]</span> <span class="o">+</span> <span class="n">fit_rfm</span><span class="p">[</span><span class="s1">'총금액_M'</span><span class="p">]</span>
+<span class="n">fit_rfm</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>최근성_R</th>
+      <th>빈도_F</th>
+      <th>총금액_M</th>
+      <th>RFM_SCORE</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>12346</th>
+      <td>0.013437</td>
+      <td>0.000856</td>
+      <td>0.436892</td>
+      <td>0.451185</td>
+    </tr>
+    <tr>
+      <th>12347</th>
+      <td>0.103893</td>
+      <td>0.154925</td>
+      <td>0.876064</td>
+      <td>1.134882</td>
+    </tr>
+    <tr>
+      <th>12348</th>
+      <td>0.083433</td>
+      <td>0.025678</td>
+      <td>0.620024</td>
+      <td>0.729135</td>
+    </tr>
+    <tr>
+      <th>12349</th>
+      <td>0.099345</td>
+      <td>0.061628</td>
+      <td>0.615980</td>
+      <td>0.776952</td>
+    </tr>
+    <tr>
+      <th>12350</th>
+      <td>0.017702</td>
+      <td>0.013695</td>
+      <td>0.470966</td>
+      <td>0.502363</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fit_rfm</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>최근성_R</th>
+      <th>빈도_F</th>
+      <th>총금액_M</th>
+      <th>RFM_SCORE</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>12346</th>
+      <td>0.013437</td>
+      <td>0.000856</td>
+      <td>0.436892</td>
+      <td>0.451185</td>
+    </tr>
+    <tr>
+      <th>12347</th>
+      <td>0.103893</td>
+      <td>0.154925</td>
+      <td>0.876064</td>
+      <td>1.134882</td>
+    </tr>
+    <tr>
+      <th>12348</th>
+      <td>0.083433</td>
+      <td>0.025678</td>
+      <td>0.620024</td>
+      <td>0.729135</td>
+    </tr>
+    <tr>
+      <th>12349</th>
+      <td>0.099345</td>
+      <td>0.061628</td>
+      <td>0.615980</td>
+      <td>0.776952</td>
+    </tr>
+    <tr>
+      <th>12350</th>
+      <td>0.017702</td>
+      <td>0.013695</td>
+      <td>0.470966</td>
+      <td>0.502363</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">min_max_scaler</span> <span class="o">=</span> <span class="n">MinMaxScaler</span><span class="p">()</span>
+<span class="n">fitted2</span> <span class="o">=</span> <span class="n">min_max_scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">fit_rfm</span><span class="p">)</span>
+<span class="n">fitted2</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([[1.28688602e-01, 1.25281884e-04, 1.51091712e-02, 1.25919722e-02],
+       [9.94978569e-01, 2.26760210e-02, 3.02971721e-02, 3.48336072e-02],
+       [7.99036659e-01, 3.75845653e-03, 2.14424619e-02, 2.16340751e-02],
+       ...,
+       [9.81114728e-01, 1.50338261e-03, 1.57314917e-02, 1.63792214e-02],
+       [9.91870418e-01, 9.45878226e-02, 2.24913149e-02, 4.34633483e-02],
+       [8.87062463e-01, 8.64445001e-03, 2.15835588e-02, 2.31517653e-02]])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fit_rfm2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">fitted2</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">fit_rfm</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">fit_rfm</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">values</span><span class="p">))</span>
+<span class="n">fit_rfm2</span><span class="p">[</span><span class="s1">'RFM_SCORE'</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">fit_rfm2</span><span class="p">[</span><span class="s1">'RFM_SCORE'</span><span class="p">]</span><span class="o">*</span><span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="n">fit_rfm2</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>최근성_R</th>
+      <th>빈도_F</th>
+      <th>총금액_M</th>
+      <th>RFM_SCORE</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>12346</th>
+      <td>0.128689</td>
+      <td>0.000125</td>
+      <td>0.015109</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>12347</th>
+      <td>0.994979</td>
+      <td>0.022676</td>
+      <td>0.030297</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>12348</th>
+      <td>0.799037</td>
+      <td>0.003758</td>
+      <td>0.021442</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>12349</th>
+      <td>0.951425</td>
+      <td>0.009020</td>
+      <td>0.021303</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>12350</th>
+      <td>0.169530</td>
+      <td>0.002005</td>
+      <td>0.016288</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fit_rfm2</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>최근성_R</th>
+      <th>빈도_F</th>
+      <th>총금액_M</th>
+      <th>RFM_SCORE</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>4372.000000</td>
+      <td>4372.000000</td>
+      <td>4372.000000</td>
+      <td>4372.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>0.754590</td>
+      <td>0.011533</td>
+      <td>0.021799</td>
+      <td>1.805124</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>0.270074</td>
+      <td>0.029124</td>
+      <td>0.028964</td>
+      <td>3.097662</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>0.617030</td>
+      <td>0.002005</td>
+      <td>0.016143</td>
+      <td>1.000000</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>0.866343</td>
+      <td>0.005137</td>
+      <td>0.017393</td>
+      <td>1.000000</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>0.956746</td>
+      <td>0.012653</td>
+      <td>0.020789</td>
+      <td>2.000000</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>99.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>여기까지 진행하고 상관관계를 봤을 때, 파레토 법칙을 잘못 적용하고 있음을 깨달았음.<blockquote>
+<p>그래서 파레토의 법칙이 아니라 (R,F,M)을 각각 5구간으로 나눠 점수를 부여하는 방식을 택했다.<br>
+파레토 법칙을 어떻게 적용해야할지 고민을 해볼 예정<br></p>
+</blockquote>
+</li>
+<li>
+<a href="https://zephyrus1111.tistory.com/16">https://zephyrus1111.tistory.com/16</a> 참고</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="점수화-퍼센타일-형식으로-다르게-진행">
+<a class="anchor" href="#%EC%A0%90%EC%88%98%ED%99%94-%ED%8D%BC%EC%84%BC%ED%83%80%EC%9D%BC-%ED%98%95%EC%8B%9D%EC%9C%BC%EB%A1%9C-%EB%8B%A4%EB%A5%B4%EA%B2%8C-%EC%A7%84%ED%96%89" aria-hidden="true"><span class="octicon octicon-link"></span></a>점수화 퍼센타일 형식으로 다르게 진행<a class="anchor-link" href="#%EC%A0%90%EC%88%98%ED%99%94-%ED%8D%BC%EC%84%BC%ED%83%80%EC%9D%BC-%ED%98%95%EC%8B%9D%EC%9C%BC%EB%A1%9C-%EB%8B%A4%EB%A5%B4%EA%B2%8C-%EC%A7%84%ED%96%89"> </a>
+</h2>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_score</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+    <span class="sd">'''</span>
+<span class="sd">    Description :</span>
+<span class="sd">    level안에 있는 원소를 기준으로</span>
+<span class="sd">    1 ~ len(level)+ 1 까지 점수를 부여하는 함수</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters :</span>
+<span class="sd">    level = 튜플 또는 리스트 타입의 숫자형 데이터이며 반드시 오름차순으로 정렬되어 있어야함.</span>
+<span class="sd">    예 - [1,2,3,4,5] O, [5,4,3,2,1] X, [1,3,2,10,4] X </span>
+<span class="sd">    data = 점수를 부여할 데이터. 순회가능한(iterable) 데이터 형식</span>
+<span class="sd">    return :</span>
+<span class="sd">    점수를 담고 있는 리스트 반환</span>
+<span class="sd">    '''</span>
+    <span class="n">score</span> <span class="o">=</span> <span class="p">[]</span> 
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)):</span> 
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">level</span><span class="p">)):</span> 
+            <span class="k">if</span> <span class="n">data</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">level</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span> 
+                <span class="n">score</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> 
+                <span class="k">break</span> 
+            <span class="k">elif</span> <span class="n">data</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="nb">max</span><span class="p">(</span><span class="n">level</span><span class="p">):</span> 
+                <span class="n">score</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">level</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> 
+                <span class="k">break</span> 
+            <span class="k">else</span><span class="p">:</span> 
+                <span class="k">continue</span> 
+    <span class="k">return</span> <span class="n">score</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_rfm_grade</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">num_class</span><span class="p">,</span> <span class="n">rfm_tick_point</span><span class="p">,</span> <span class="n">rfm_col_map</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">'''</span>
+<span class="sd">    Description :</span>
+<span class="sd">    개별 고객에 대한 최근방문일/방문횟수/구매금액 데이터가 주어졌을때</span>
+<span class="sd">    최근방문일/방문횟수/구매금액 점수를 계산하여 주어진 데이터 오른쪽에 붙여줍니다.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters :</span>
+<span class="sd">    df = pandas.DataFrame 데이터</span>
+<span class="sd">    num_class = 등급(점수) 개수</span>
+<span class="sd">    rfm_tick_point = 최근방문일/방문횟수/구매금액에 대해서 등급을 나눌 기준이 되는 값</span>
+<span class="sd">                    'quantile', 'min_max' 또는 리스트를 통하여 직접 값을 정할 수 있음.</span>
+<span class="sd">                    단, 리스트 사용시 원소의 개수는 반드시 num_class - 1 이어야함.</span>
+<span class="sd">                    quatile = 데이터의 분위수를 기준으로 점수를 매김</span>
+<span class="sd">                    min_max = 데이터의 최소값과 최대값을 동일 간격으로 나누어 점수를 매김</span>
+<span class="sd">    rfm_col_map = 최근방문일/방문횟수/구매금액에 대응하는 칼럼명</span>
+<span class="sd">    예 - {'R':'Recency','F':'Frequency','M':'Monetary'}</span>
+<span class="sd">    suffix = 최근방문일/방문횟수/구매금액에 대응하는 칼럼명 뒤에 붙는 접미사</span>
+<span class="sd">    Return : </span>
+<span class="sd">    pandas.DataFrame</span>
+<span class="sd">    '''</span>
+    <span class="c1">##### 필요모듈 체크</span>
+    <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+    <span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">preprocessing</span>
+    
+    <span class="c1">##### 파라미터 체크</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span> <span class="c1">## 데이터는 pd.DataFrame이어야 함.</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">'데이터는 pandas.DataFrame 객체여야 합니다.'</span><span class="p">)</span>
+        <span class="k">return</span>
+    
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">rfm_tick_point</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">==</span> <span class="kc">False</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">rfm_col_map</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span> <span class="c1">## rfm_tick_point와 rfm_col_map은 모두 딕셔너리</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'rfm_tick_point와 rfm_col_map은 모두 딕셔너리여야합니다.'</span><span class="p">)</span>
+        <span class="k">return</span>
+    
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">rfm_col_map</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">:</span> <span class="c1">## rfm_col_map에는 반드시 3개의 키를 가져아함.</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'rfm_col_map인자는 반드시 3개의 키를 가져야합니다. </span><span class="se">\n</span><span class="s1">현재 rfm_col_map에는 </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">rfm_col_map</span><span class="p">)</span><span class="si">}</span><span class="s1">개의 키가 있습니다.'</span><span class="p">)</span>
+        <span class="k">return</span>
+    
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">rfm_tick_point</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">:</span> <span class="c1">## rfm_tick_point에는 반드시 3개의 키를 가져아함.</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'rfm_tick_point인자는 반드시 3개의 키를 가져야합니다. </span><span class="se">\n</span><span class="s1">현재 rfm_col_map에는 </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">rfm_col_map</span><span class="p">)</span><span class="si">}</span><span class="s1">개의 키가 있습니다.'</span><span class="p">)</span>
+        <span class="k">return</span>
+    
+    <span class="k">if</span> <span class="nb">set</span><span class="p">(</span><span class="n">rfm_tick_point</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">!=</span> <span class="nb">set</span><span class="p">(</span><span class="n">rfm_col_map</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span> <span class="c1">## rfm_tick_point와 rfm_col_map은 같은 키를 가져야함.</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'rfm_tick_point와 rfm_col_map은 같은 키를 가져야 합니다.'</span><span class="p">)</span>
+        <span class="k">return</span>
+    
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">set</span><span class="p">(</span><span class="n">rfm_col_map</span><span class="o">.</span><span class="n">values</span><span class="p">())</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)):</span>
+        <span class="n">not_in_df</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">rfm_col_map</span><span class="o">.</span><span class="n">values</span><span class="p">())</span><span class="o">-</span><span class="nb">set</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">not_in_df</span><span class="si">}</span><span class="s1">이 데이터 칼럼에 있어야 합니다.'</span><span class="p">)</span>
+        <span class="k">return</span>
+    
+    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">rfm_tick_point</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">v</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">'quantile'</span><span class="p">,</span><span class="s1">'min_max'</span><span class="p">]:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">의 값은 "quantile" 또는 "min_max"중에 하나여야 합니다.'</span><span class="p">)</span>
+                <span class="k">return</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="nb">list</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="nb">tuple</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="o">!=</span> <span class="n">num_class</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">에 대응하는 리스트(튜플)의 원소는 </span><span class="si">{</span><span class="n">num_class</span><span class="o">-</span><span class="mi">1</span><span class="si">}</span><span class="s1">개여야 합니다.'</span><span class="p">)</span>
+                <span class="k">return</span>
+    
+    <span class="k">if</span> <span class="n">suffix</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">suffix</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">'suffix인자는 문자열이어야합니다.'</span><span class="p">)</span>
+            <span class="k">return</span>
+        
+    <span class="c1">##### 최근방문일/방문횟수/구매금액 점수 부여</span>
+    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">rfm_tick_point</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="nb">str</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">v</span> <span class="o">==</span> <span class="s1">'quantile'</span><span class="p">:</span>
+                <span class="c1">## 데이터 변환</span>
+                <span class="n">scale</span> <span class="o">=</span> <span class="n">preprocessing</span><span class="o">.</span><span class="n">StandardScaler</span><span class="p">()</span> <span class="c1">## 데이터의 범위 조작하기 쉽게 해주는 클래스 </span>
+                <span class="n">temp_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">rfm_col_map</span><span class="p">[</span><span class="n">k</span><span class="p">]])</span> <span class="c1">## 데이터를 Numpy 배열로 변환</span>
+                <span class="n">temp_data</span> <span class="o">=</span> <span class="n">temp_data</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span> <span class="c1">## scale을 적용하기위해 1차원 배열을 2차원으로 변환</span>
+                <span class="n">temp_data</span> <span class="o">=</span> <span class="n">scale</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">temp_data</span><span class="p">)</span> <span class="c1">## 데이터를 평균은 0, 표준편차는 1을 갖도록 변환 </span>
+                <span class="n">temp_data</span> <span class="o">=</span> <span class="n">temp_data</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span> <span class="c1">## 데이터를 다시 1차원으로 변환</span>
+ 
+                <span class="c1">## 분위수 벡터</span>
+                <span class="n">quantiles_level</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">num_class</span><span class="o">+</span><span class="mi">1</span><span class="p">)[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="c1">## 분위수를 구할 기준값을 지정 0과 1은 제외</span>
+                <span class="n">quantiles</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1">## 분위수를 담을 리스트</span>
+                <span class="k">for</span> <span class="n">ql</span> <span class="ow">in</span> <span class="n">quantiles_level</span><span class="p">:</span>
+                    <span class="n">quantiles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">temp_data</span><span class="p">,</span><span class="n">ql</span><span class="p">))</span> <span class="c1">## 분위수를 계산하고 리스트에 삽입</span>
+            <span class="k">else</span><span class="p">:</span> <span class="c1">## min_max인 경우</span>
+                <span class="c1">## 데이터 변환</span>
+                <span class="n">temp_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">rfm_col_map</span><span class="p">[</span><span class="n">k</span><span class="p">]])</span>
+ 
+                <span class="c1">## 등분점 계산</span>
+                <span class="n">quantiles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">temp_data</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">temp_data</span><span class="p">),</span><span class="n">num_class</span><span class="o">+</span><span class="mi">1</span><span class="p">)[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="c1">## 최소값과 최대값을 점수 개수만큼 등간격으로 분할하는 점</span>
+        <span class="k">else</span><span class="p">:</span> <span class="c1">## 직접 구분값을 넣어주는 경우</span>
+            <span class="n">temp_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">rfm_col_map</span><span class="p">[</span><span class="n">k</span><span class="p">]])</span>
+            <span class="n">quantiles</span> <span class="o">=</span> <span class="n">v</span> <span class="c1">## 직접 구분값을 넣어줌</span>
+        <span class="n">score</span> <span class="o">=</span> <span class="n">get_score</span><span class="p">(</span><span class="n">quantiles</span><span class="p">,</span> <span class="n">temp_data</span><span class="p">)</span> <span class="c1">## 구분값을 기준으로 점수를 부여하고 리스트로 저장한다.</span>
+        <span class="n">new_col_name</span> <span class="o">=</span> <span class="n">rfm_col_map</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">+</span><span class="s1">'_'</span><span class="o">+</span><span class="n">k</span> <span class="c1">## 점수값을 담는 변수의 이름</span>
+        <span class="k">if</span> <span class="n">suffix</span><span class="p">:</span>
+            <span class="n">new_col_name</span> <span class="o">=</span> <span class="n">rfm_col_map</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">+</span><span class="s1">'_'</span><span class="o">+</span><span class="n">suffix</span>
+        <span class="n">df</span><span class="p">[</span><span class="n">new_col_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">score</span> <span class="c1">## 기존데이터 옆에 점수 데이터를 추가한다.</span>
+    <span class="k">return</span> <span class="n">df</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">rfm_tick_point</span><span class="o">=</span><span class="p">{</span><span class="s1">'R'</span><span class="p">:</span><span class="s1">'quantile'</span><span class="p">,</span><span class="s1">'F'</span><span class="p">:</span><span class="s1">'quantile'</span><span class="p">,</span><span class="s1">'M'</span><span class="p">:</span><span class="s1">'quantile'</span><span class="p">}</span>
+<span class="n">rfm_col_map</span><span class="o">=</span><span class="p">{</span><span class="s1">'R'</span><span class="p">:</span><span class="s1">'최근성_R'</span><span class="p">,</span><span class="s1">'F'</span><span class="p">:</span><span class="s1">'빈도_F'</span><span class="p">,</span><span class="s1">'M'</span><span class="p">:</span><span class="s1">'총금액_M'</span><span class="p">}</span>
+ 
+<span class="n">result</span> <span class="o">=</span> <span class="n">get_rfm_grade</span><span class="p">(</span><span class="n">df</span><span class="o">=</span><span class="n">fit_rfm2</span><span class="p">,</span> <span class="n">num_class</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">rfm_tick_point</span><span class="o">=</span><span class="n">rfm_tick_point</span><span class="p">,</span> <span class="n">rfm_col_map</span><span class="o">=</span><span class="n">rfm_col_map</span><span class="p">)</span>
+<span class="n">result</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">'result.csv'</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">result</span><span class="p">[</span><span class="s1">'Monetary'</span><span class="p">]</span> <span class="o">=</span> <span class="n">rfm_df</span><span class="p">[</span><span class="s1">'총금액_M'</span><span class="p">]</span>
+<span class="n">result</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>최근성_R</th>
+      <th>빈도_F</th>
+      <th>총금액_M</th>
+      <th>RFM_SCORE</th>
+      <th>최근성_R_R</th>
+      <th>빈도_F_F</th>
+      <th>총금액_M_M</th>
+      <th>Monetary</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>12346</th>
+      <td>0.128689</td>
+      <td>0.000125</td>
+      <td>0.015109</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>12347</th>
+      <td>0.994979</td>
+      <td>0.022676</td>
+      <td>0.030297</td>
+      <td>3</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>4310.00</td>
+    </tr>
+    <tr>
+      <th>12348</th>
+      <td>0.799037</td>
+      <td>0.003758</td>
+      <td>0.021442</td>
+      <td>2</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>1797.24</td>
+    </tr>
+    <tr>
+      <th>12349</th>
+      <td>0.951425</td>
+      <td>0.009020</td>
+      <td>0.021303</td>
+      <td>2</td>
+      <td>4</td>
+      <td>4</td>
+      <td>4</td>
+      <td>1757.55</td>
+    </tr>
+    <tr>
+      <th>12350</th>
+      <td>0.169530</td>
+      <td>0.002005</td>
+      <td>0.016288</td>
+      <td>1</td>
+      <td>1</td>
+      <td>2</td>
+      <td>2</td>
+      <td>334.40</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>18280</th>
+      <td>0.257286</td>
+      <td>0.001128</td>
+      <td>0.015746</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>180.60</td>
+    </tr>
+    <tr>
+      <th>18281</th>
+      <td>0.517367</td>
+      <td>0.000752</td>
+      <td>0.015394</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>80.82</td>
+    </tr>
+    <tr>
+      <th>18282</th>
+      <td>0.981115</td>
+      <td>0.001503</td>
+      <td>0.015731</td>
+      <td>1</td>
+      <td>5</td>
+      <td>1</td>
+      <td>1</td>
+      <td>176.60</td>
+    </tr>
+    <tr>
+      <th>18283</th>
+      <td>0.991870</td>
+      <td>0.094588</td>
+      <td>0.022491</td>
+      <td>4</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>2094.88</td>
+    </tr>
+    <tr>
+      <th>18287</th>
+      <td>0.887062</td>
+      <td>0.008644</td>
+      <td>0.021584</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>4</td>
+      <td>1837.28</td>
+    </tr>
+  </tbody>
+</table>
+<p>4372 rows × 8 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">rfm_score</span> <span class="o">=</span> <span class="n">result</span><span class="p">[[</span><span class="s1">'최근성_R_R'</span><span class="p">,</span><span class="s1">'빈도_F_F'</span><span class="p">,</span><span class="s1">'총금액_M_M'</span><span class="p">,</span><span class="s1">'Monetary'</span><span class="p">]]</span>
+<span class="n">rfm_score</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>최근성_R_R</th>
+      <th>빈도_F_F</th>
+      <th>총금액_M_M</th>
+      <th>Monetary</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>12346</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>12347</th>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>4310.00</td>
+    </tr>
+    <tr>
+      <th>12348</th>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>1797.24</td>
+    </tr>
+    <tr>
+      <th>12349</th>
+      <td>4</td>
+      <td>4</td>
+      <td>4</td>
+      <td>1757.55</td>
+    </tr>
+    <tr>
+      <th>12350</th>
+      <td>1</td>
+      <td>2</td>
+      <td>2</td>
+      <td>334.40</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>18280</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>180.60</td>
+    </tr>
+    <tr>
+      <th>18281</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>80.82</td>
+    </tr>
+    <tr>
+      <th>18282</th>
+      <td>5</td>
+      <td>1</td>
+      <td>1</td>
+      <td>176.60</td>
+    </tr>
+    <tr>
+      <th>18283</th>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>2094.88</td>
+    </tr>
+    <tr>
+      <th>18287</th>
+      <td>3</td>
+      <td>4</td>
+      <td>4</td>
+      <td>1837.28</td>
+    </tr>
+  </tbody>
+</table>
+<p>4372 rows × 4 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
+
+<span class="k">def</span> <span class="nf">get_score</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">reverse</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+    <span class="sd">'''</span>
+<span class="sd">    Description :</span>
+<span class="sd">    level안에 있는 원소를 기준으로</span>
+<span class="sd">    1 ~ len(level)+ 1 까지 점수를 부여하는 함수</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters :</span>
+<span class="sd">    level = 튜플 또는 리스트 타입의 숫자형 데이터이며 반드시 오름차순으로 정렬되어 있어야함.</span>
+<span class="sd">    예 - [1,2,3,4,5] O, [5,4,3,2,1] X, [1,3,2,10,4] X </span>
+<span class="sd">    data = 점수를 부여할 데이터. 순회가능한(iterable) 데이터 형식</span>
+<span class="sd">    reverse = 점수가 높을 때 그에 해당하는 값을 낮게 설정하고 싶을 때 True</span>
+<span class="sd">    return :</span>
+<span class="sd">    점수를 담고 있는 리스트 반환</span>
+<span class="sd">    '''</span>
+    <span class="n">score</span> <span class="o">=</span> <span class="p">[]</span> 
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)):</span> 
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">level</span><span class="p">)):</span> 
+            <span class="k">if</span> <span class="n">data</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">level</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span> 
+                <span class="n">score</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> 
+                <span class="k">break</span> 
+            <span class="k">elif</span> <span class="n">data</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="nb">max</span><span class="p">(</span><span class="n">level</span><span class="p">):</span> 
+                <span class="n">score</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">level</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> 
+                <span class="k">break</span> 
+            <span class="k">else</span><span class="p">:</span> 
+                <span class="k">continue</span>
+    <span class="k">if</span> <span class="n">reverse</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">level</span><span class="p">)</span><span class="o">+</span><span class="mi">2</span><span class="o">-</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">score</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">score</span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">grid_number</span> <span class="o">=</span> <span class="mi">100</span> <span class="c1">## 눈금 개수, 너무 크게 잡으면 메모리 문제가 발생할 수 있음.</span>
+<span class="n">weights</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">grid_number</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">weights</span> <span class="o">+=</span> <span class="p">[(</span><span class="n">i</span><span class="o">/</span><span class="n">grid_number</span><span class="p">,</span><span class="n">j</span><span class="o">/</span><span class="n">grid_number</span><span class="p">,(</span><span class="n">grid_number</span><span class="o">-</span><span class="n">i</span><span class="o">-</span><span class="n">j</span><span class="p">)</span><span class="o">/</span><span class="n">grid_number</span><span class="p">)</span>
+                  <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">grid_number</span><span class="o">+</span><span class="mi">1</span><span class="o">-</span><span class="n">j</span><span class="p">)]</span>
+<span class="n">num_class</span> <span class="o">=</span> <span class="mi">5</span> <span class="c1">## 클래스 개수</span>
+<span class="n">class_level</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="n">num_class</span><span class="o">+</span><span class="mi">1</span><span class="p">)[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="c1">## 클래스를 나누는 지점을 정한다.</span>
+<span class="n">total_amount_of_sales</span> <span class="o">=</span> <span class="n">rfm_score</span><span class="p">[</span><span class="s1">'Monetary'</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="c1">## 구매금액 총합 = 총 매출</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="가중치-업데이트">
+<a class="anchor" href="#%EA%B0%80%EC%A4%91%EC%B9%98-%EC%97%85%EB%8D%B0%EC%9D%B4%ED%8A%B8" aria-hidden="true"><span class="octicon octicon-link"></span></a>가중치 업데이트<a class="anchor-link" href="#%EA%B0%80%EC%A4%91%EC%B9%98-%EC%97%85%EB%8D%B0%EC%9D%B4%ED%8A%B8"> </a>
+</h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">max_std</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1">## 표준편차 초기값</span>
+<span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span><span class="n">position</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">desc</span> <span class="o">=</span> <span class="s1">'[Finding Optimal weights]'</span><span class="p">):</span>
+    <span class="c1">## 주어진 가중치에 따른 고객별 점수 계산</span>
+    <span class="n">score</span> <span class="o">=</span> <span class="n">w</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">rfm_score</span><span class="p">[</span><span class="s1">'최근성_R_R'</span><span class="p">]</span> <span class="o">+</span> \
+                        <span class="n">w</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">rfm_score</span><span class="p">[</span><span class="s1">'빈도_F_F'</span><span class="p">]</span> <span class="o">+</span> \
+                        <span class="n">w</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="n">rfm_score</span><span class="p">[</span><span class="s1">'총금액_M_M'</span><span class="p">]</span> 
+    <span class="n">rfm_score</span><span class="p">[</span><span class="s1">'Class'</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_score</span><span class="p">(</span><span class="n">class_level</span><span class="p">,</span><span class="n">score</span><span class="p">,</span><span class="kc">True</span><span class="p">)</span> <span class="c1">## 점수를 이용하여 고객별 등급 부여</span>
+    <span class="c1">## 등급별로 구매금액을 집계한다.</span>
+    <span class="n">grouped_rfm_score</span> <span class="o">=</span> <span class="n">rfm_score</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">'Class'</span><span class="p">)[</span><span class="s1">'Monetary'</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+        
+    <span class="c1">## 클래스별 구매금액을 총구매금액으로 나누어 클래스별 매출 기여도 계산</span>
+    <span class="n">grouped_rfm_score</span><span class="p">[</span><span class="s1">'Monetary'</span><span class="p">]</span> <span class="o">=</span> <span class="n">grouped_rfm_score</span><span class="p">[</span><span class="s1">'Monetary'</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="n">x</span><span class="o">/</span><span class="n">total_amount_of_sales</span><span class="p">)</span>
+    <span class="n">std_sales</span> <span class="o">=</span> <span class="n">grouped_rfm_score</span><span class="p">[</span><span class="s1">'Monetary'</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span> <span class="c1">## 매출 기여도의 표준편차 계산</span>
+    <span class="k">if</span> <span class="n">max_std</span> <span class="o">&lt;=</span> <span class="n">std_sales</span><span class="p">:</span>
+        <span class="n">max_std</span> <span class="o">=</span> <span class="n">std_sales</span> <span class="c1">## 표준편차 최대값 업데이트</span>
+        <span class="n">optimal_weights</span> <span class="o">=</span> <span class="n">w</span>  <span class="c1">## 가중치 업데이트</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>[Finding Optimal weights]:   0%|                                                              | 0/5151 [00:00&lt;?, ?it/s]C:\Anaconda3\lib\site-packages\ipykernel_launcher.py:7: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  import sys
+[Finding Optimal weights]: 100%|███████████████████████████████████████████████████| 5151/5151 [05:45&lt;00:00, 14.89it/s]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">optimal_weights</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>(0.25, 0.01, 0.74)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">score</span> <span class="o">=</span> <span class="n">optimal_weights</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">rfm_score</span><span class="p">[</span><span class="s1">'최근성_R_R'</span><span class="p">]</span> <span class="o">+</span> \
+        <span class="n">optimal_weights</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">rfm_score</span><span class="p">[</span><span class="s1">'빈도_F_F'</span><span class="p">]</span> <span class="o">+</span> \
+        <span class="n">optimal_weights</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="n">rfm_score</span><span class="p">[</span><span class="s1">'총금액_M_M'</span><span class="p">]</span> <span class="c1">## 고객별 점수 계산</span>
+ 
+<span class="n">rfm_score</span><span class="p">[</span><span class="s1">'Class'</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_score</span><span class="p">(</span><span class="n">class_level</span><span class="p">,</span><span class="n">score</span><span class="p">,</span><span class="kc">True</span><span class="p">)</span> <span class="c1">## 고객별 등급 부여</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>C:\Anaconda3\lib\site-packages\ipykernel_launcher.py:5: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  """
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">rfm_score</span><span class="p">[</span><span class="s1">'CustomerID'</span><span class="p">]</span> <span class="o">=</span> <span class="n">rfm_score</span><span class="o">.</span><span class="n">index</span>
+<span class="n">temp_rfm_score1</span> <span class="o">=</span> <span class="n">rfm_score</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">'Class'</span><span class="p">)[</span><span class="s1">'CustomerID'</span><span class="p">]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">'CustomerID'</span><span class="p">:</span><span class="s1">'Count'</span><span class="p">})</span>
+ 
+<span class="c1">## 클래스별 구매금액(매출)계산</span>
+<span class="n">temp_rfm_score2</span> <span class="o">=</span> <span class="n">rfm_score</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">'Class'</span><span class="p">)[</span><span class="s1">'Monetary'</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+ 
+<span class="c1">## 클래스별 매출 기여도 계산</span>
+<span class="n">temp_rfm_score2</span><span class="p">[</span><span class="s1">'Monetary'</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp_rfm_score2</span><span class="p">[</span><span class="s1">'Monetary'</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="n">x</span><span class="o">/</span><span class="n">total_amount_of_sales</span><span class="p">)</span>
+ 
+<span class="c1">## 데이터 결합</span>
+<span class="n">result_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">temp_rfm_score1</span><span class="p">,</span><span class="n">temp_rfm_score2</span><span class="p">,</span><span class="n">how</span><span class="o">=</span><span class="s1">'left'</span><span class="p">,</span><span class="n">on</span><span class="o">=</span><span class="p">(</span><span class="s1">'Class'</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>C:\Anaconda3\lib\site-packages\ipykernel_launcher.py:2: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">result_df</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Class</th>
+      <th>Count</th>
+      <th>Monetary</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>1072</td>
+      <td>0.764354</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>730</td>
+      <td>0.116853</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>770</td>
+      <td>0.063161</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>697</td>
+      <td>0.032225</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>1103</td>
+      <td>0.023407</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="최종-가중치-업데이트">
+<a class="anchor" href="#%EC%B5%9C%EC%A2%85-%EA%B0%80%EC%A4%91%EC%B9%98-%EC%97%85%EB%8D%B0%EC%9D%B4%ED%8A%B8" aria-hidden="true"><span class="octicon octicon-link"></span></a>최종 가중치 업데이트<a class="anchor-link" href="#%EC%B5%9C%EC%A2%85-%EA%B0%80%EC%A4%91%EC%B9%98-%EC%97%85%EB%8D%B0%EC%9D%B4%ED%8A%B8"> </a>
+</h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">max_std</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1">## 표준편차 초기값</span>
+<span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span><span class="n">position</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">desc</span> <span class="o">=</span> <span class="s1">'[Finding Optimal weights]'</span><span class="p">):</span>
+    <span class="c1">## 주어진 가중치에 따른 고객별 점수 계산</span>
+    <span class="n">score</span> <span class="o">=</span> <span class="n">w</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">rfm_score</span><span class="p">[</span><span class="s1">'최근성_R_R'</span><span class="p">]</span> <span class="o">+</span> \
+                        <span class="n">w</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">rfm_score</span><span class="p">[</span><span class="s1">'빈도_F_F'</span><span class="p">]</span> <span class="o">+</span> \
+                        <span class="n">w</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="n">rfm_score</span><span class="p">[</span><span class="s1">'총금액_M_M'</span><span class="p">]</span> 
+    <span class="n">rfm_score</span><span class="p">[</span><span class="s1">'Class'</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_score</span><span class="p">(</span><span class="n">class_level</span><span class="p">,</span><span class="n">score</span><span class="p">,</span><span class="kc">True</span><span class="p">)</span> <span class="c1">## 점수를 이용하여 고객별 등급 부여</span>
+    <span class="c1">## 등급별로 구매금액을 집계한다.</span>
+    <span class="n">grouped_rfm_score</span> <span class="o">=</span> <span class="n">rfm_score</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">'Class'</span><span class="p">)[</span><span class="s1">'Monetary'</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+    
+    <span class="c1">## 제약조건 추가 - 등급이 높은 고객들의 매출이 낮은 등급의 고객들보다 커야한다.</span>
+    <span class="n">grouped_rfm_score</span> <span class="o">=</span> <span class="n">grouped_rfm_score</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">'Class'</span><span class="p">)</span>
+    
+    <span class="n">temp_monetary</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">grouped_rfm_score</span><span class="p">[</span><span class="s1">'Monetary'</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">temp_monetary</span> <span class="o">!=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">temp_monetary</span><span class="p">,</span><span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="k">continue</span>
+    
+    <span class="c1">## 클래스별 구매금액을 총구매금액으로 나누어 클래스별 매출 기여도 계산</span>
+    <span class="n">grouped_rfm_score</span><span class="p">[</span><span class="s1">'Monetary'</span><span class="p">]</span> <span class="o">=</span> <span class="n">grouped_rfm_score</span><span class="p">[</span><span class="s1">'Monetary'</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="n">x</span><span class="o">/</span><span class="n">total_amount_of_sales</span><span class="p">)</span>
+    <span class="n">std_sales</span> <span class="o">=</span> <span class="n">grouped_rfm_score</span><span class="p">[</span><span class="s1">'Monetary'</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()</span> <span class="c1">## 매출 기여도의 표준편차 계산</span>
+    <span class="k">if</span> <span class="n">max_std</span> <span class="o">&lt;=</span> <span class="n">std_sales</span><span class="p">:</span>
+        <span class="n">max_std</span> <span class="o">=</span> <span class="n">std_sales</span> <span class="c1">## 표준편차 최대값 업데이트</span>
+        <span class="n">optimal_weights</span> <span class="o">=</span> <span class="n">w</span>  <span class="c1">## 가중치 업데이트</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>[Finding Optimal weights]:   0%|                                                              | 0/5151 [00:00&lt;?, ?it/s]C:\Anaconda3\lib\site-packages\ipykernel_launcher.py:7: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  import sys
+[Finding Optimal weights]: 100%|███████████████████████████████████████████████████| 5151/5151 [02:47&lt;00:00, 30.82it/s]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">optimal_weights</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>(0.25, 0.01, 0.74)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">result_df</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Class</th>
+      <th>Count</th>
+      <th>Monetary</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>1072</td>
+      <td>0.764354</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>730</td>
+      <td>0.116853</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>770</td>
+      <td>0.063161</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>697</td>
+      <td>0.032225</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>1103</td>
+      <td>0.023407</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote>
+<p>파레토 법칙을 (R,F,M)의 가중치로 적용하기 위해서는 어떻게 해야할지 추가적으로 고민해볼 필요가 있다.</p>
+</blockquote>
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+  </div><!-- from https://github.com/utterance/utterances 
+<script src="https://utteranc.es/client.js"
+        repo="dorae222/dorae22_blog"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script> -->
+
+<div id="disqus_thread"></div>
+<script>
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+    /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://dorae222-blog.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a class="u-url" href="/dorae222/rfm/marekting/2022/11/13/Marketing-Caculating_RFM_SCORE.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/dorae222/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/dorae222/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/dorae222/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>HYU BIZ &amp; BIG DATA</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li>
+  <a rel="me" href="dorae222" target="_blank" title="github">
+    <svg class="svg-icon grey">
+      <use xlink:href="/dorae222/assets/minima-social-icons.svg#github"></use>
+    </svg>
+  </a>
+</li>
+</ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

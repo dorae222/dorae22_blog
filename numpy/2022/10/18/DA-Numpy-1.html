@@ -1,0 +1,2232 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>[DA] Numpy 기본 1 | Dorae222’s BLOG</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="[DA] Numpy 기본 1" />
+<meta name="author" content="도형준" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Numpy 기본" />
+<meta property="og:description" content="Numpy 기본" />
+<meta property="og:site_name" content="Dorae222’s BLOG" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-10-18T00:00:00-05:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="[DA] Numpy 기본 1" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"도형준"},"dateModified":"2022-10-18T00:00:00-05:00","datePublished":"2022-10-18T00:00:00-05:00","description":"Numpy 기본","headline":"[DA] Numpy 기본 1","mainEntityOfPage":{"@type":"WebPage","@id":"/dorae222/numpy/2022/10/18/DA-Numpy-1.html"},"url":"/dorae222/numpy/2022/10/18/DA-Numpy-1.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/dorae222/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="/dorae222/feed.xml" title="Dorae222's BLOG" /><link rel="shortcut icon" type="image/x-icon" href="/dorae222/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/dorae222/">Dorae222&#39;s BLOG</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/dorae222/about/">About Me</a><a class="page-link" href="/dorae222/gitInfo/">gitInfo</a><a class="page-link" href="/dorae222/search/">Search</a><a class="page-link" href="/dorae222/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">[DA] Numpy 기본 1</h1><p class="page-description">Numpy 기본</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2022-10-18T00:00:00-05:00" itemprop="datePublished">
+        Oct 18, 2022
+      </time>• 
+          <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+            <span class="p-author h-card" itemprop="name">도형준</span></span>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      10 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="dorae222/categories/#numpy">numpy</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-justify-center">
+          <div class="px-2">
+
+    <a href="https://github.com/dorae222/dorae22_blog/tree/master/_notebooks/2022-10-18-[DA] Numpy 1.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/dorae222/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/dorae222/dorae22_blog/master?filepath=_notebooks%2F2022-10-18-%5BDA%5D+Numpy+1.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/dorae222/assets/badges/binder.svg" alt="Open In Binder"/>
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/dorae222/dorae22_blog/blob/master/_notebooks/2022-10-18-[DA] Numpy 1.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/dorae222/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+          <div class="px-2">
+  <a href="https://deepnote.com/launch?url=https%3A%2F%2Fgithub.com%2Fdorae222%2Fdorae22_blog%2Fblob%2Fmaster%2F_notebooks%2F2022-10-18-%5BDA%5D+Numpy+1.ipynb" target="_blank">
+      <img class="notebook-badge-image" src="/dorae222/assets/badges/deepnote.svg" alt="Launch in Deepnote"/>
+  </a>
+</div>
+
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h1"><a href="#Numpy">Numpy </a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#Numpy-배열-:-numpy.ndarray">Numpy 배열 : numpy.ndarray </a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#배열-생성">배열 생성 </a></li>
+<li class="toc-entry toc-h3"><a href="#생성-및-초기화">생성 및 초기화 </a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#np.zeros(shape(행,열),-dtype-=-float)">np.zeros(shape(행,열), dtype = float) </a></li>
+<li class="toc-entry toc-h4"><a href="#np.ones(shape(행,열),-dtype-=-float)">np.ones(shape(행,열), dtype = float) </a></li>
+<li class="toc-entry toc-h4"><a href="#np.full(shape(행,열),fill_value,dtype)">np.full(shape(행,열),fill_value,dtype) </a></li>
+<li class="toc-entry toc-h4"><a href="#np.eye(N,M=None,-dtype-=-float)">np.eye(N,M=None, dtype = float) </a></li>
+<li class="toc-entry toc-h4"><a href="#np.empty(shape(행,열),dtype=float)">np.empty(shape(행,열),dtype=float) </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h3"><a href="#like-함수">like 함수 </a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#np.ones_like()">np.ones_like() </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h3"><a href="#범위와-조건이-있는-데이터를-가지는-1차원-배열-생성">범위와 조건이 있는 데이터를 가지는 1차원 배열 생성 </a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#np.linspace(start,-stop,-num=50,-endpoint=True,-retstep=False,-dtype=None)">np.linspace(start, stop, num=50, endpoint=True, retstep=False, dtype=None) </a></li>
+<li class="toc-entry toc-h4"><a href="#np.arange(start=0,-stop,-step=1,--dtype=None)">np.arange(start=0, stop, step=1,  dtype=None) </a></li>
+<li class="toc-entry toc-h4"><a href="#np.logspace(start,-stop,-num-=-50.-endpoint-=-True,-dtype-=-None)">np.logspace(start, stop, num = 50. endpoint = True, dtype = None) </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h3"><a href="#난수(특정한-순서나-규칙을-가지지-않는-무작위의-수)를-데이터로-가지는-배열을-생성">난수(특정한 순서나 규칙을 가지지 않는 무작위의 수)를 데이터로 가지는 배열을 생성 </a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#분산과-표준편차">분산과 표준편차 </a></li>
+<li class="toc-entry toc-h4"><a href="#np.random.normal(loc=0.0,-scale=1.0,-size=None)">np.random.normal(loc=0.0, scale=1.0, size=None) </a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul><!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2022-10-18-[DA] Numpy 1.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Numpy">
+<a class="anchor" href="#Numpy" aria-hidden="true"><span class="octicon octicon-link"></span></a>Numpy<a class="anchor-link" href="#Numpy"> </a>
+</h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Numeriacal Python</li>
+<li>파이썬 머신러닝 패키지인 scikit-learn에서 기본 데이터 구조로 사용되어 Numpy 배열 형태의 데이터를 사용</li>
+<li>파이썬 기반 데이터 분석 환경에서 행렬 및 벡터 연산에 필요한 다양한 함수를 제공</li>
+<li>메모리 소모가 많은 반복문 없이 전체 데이터 배열에 빠른 연산을 처리할 수 있는 표준 수학 함수<blockquote>
+<p>배열 :동일한 특성(데이터 타입) 및 일정한 규칙을 가지는 여러 개의 요소가 나열되어 있는 데이터 집합- 파이썬 list 객체를 사용할 때 보다 Numpy의 ndarray 객체를 사용하면 연산 속도가 개선되어 더 많은 데이터를 더 빠르게 처리</p>
+</blockquote>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># as 별칭 선언 이후에는 별칭으로 해당 라이브러리의 기능을 호출 할 수 있다.</span>
+<span class="c1"># import 라이브러리명 as 별칭</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">__version__</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>'1.21.5'</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Numpy-배열-:-numpy.ndarray">
+<a class="anchor" href="#Numpy-%EB%B0%B0%EC%97%B4-:-numpy.ndarray" aria-hidden="true"><span class="octicon octicon-link"></span></a>Numpy 배열 : numpy.ndarray<a class="anchor-link" href="#Numpy-%EB%B0%B0%EC%97%B4-:-numpy.ndarray"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>다차원 배열(1차원, 2차원, 3차원)으로 입체적인 데이터 구조를 구성하고 여러 개의 데이터 방향을 가진다.</li>
+<li>배열 속성 : shape, ndim, dtype 등</li>
+<li>데이터 방향 : axis = 0(행/높이), 1(열/폭), 2(채널/깊이)</li>
+</ul>
+<p><img src="https://user-images.githubusercontent.com/105966480/196338865-cf6c926f-b894-4595-9874-4881bf8fee40.jpg" alt="nparr1"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="배열-생성">
+<a class="anchor" href="#%EB%B0%B0%EC%97%B4-%EC%83%9D%EC%84%B1" aria-hidden="true"><span class="octicon octicon-link"></span></a>배열 생성<a class="anchor-link" href="#%EB%B0%B0%EC%97%B4-%EC%83%9D%EC%84%B1"> </a>
+</h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>np.array(data)<ul>
+<li>파이썬 list객체를 전달받아 numpy list로 교환해주는 명령어</li>
+<li>배열 속성<ul>
+<li>shape : 구조 (행, 열, 차원)</li>
+<li>ndim : 차원</li>
+<li>dtype : 데이터 타입</li>
+<li>size : 요소 개수 = 행 <em> 열 </em> 차원</li>
+</ul>
+</li>
+<li>배열 메서드<ul>
+<li>astype() : 데이터 타입 변환(문자를 숫자로 라던지...)</li>
+</ul>
+</li>
+<li>파이썬 내장함수를 사용한 속성값<ul>
+<li>type() : 객체의 자료형 확인</li>
+<li>len() : 요소 내부의 자료 길이.</li>
+</ul>
+</li>
+<li>Numpy 함수를 사용한 속성<ul>
+<li>reshape(row, column) : 배열 재배치(1 <em> 12를 3 </em> 4 형태로 바꾼다던지...)</li>
+</ul>
+</li>
+<li>kind : 데이터 종류에 대한 구분 기호<ul>
+<li>b boolean</li>
+<li>i 정수(int)</li>
+<li>u 부호없는 정수(unsigned int, +- 개념 없이 절대값만 존재)</li>
+<li>f 실수</li>
+<li>c 복소 부동소수점</li>
+<li>O 객체</li>
+<li>S 바이트 문자열(ascii 코드, 영문자, 일부특문, 숫자)</li>
+<li>U 유니코드 문자열(한글, 중국어, 태국어, 아랍어 등 영어와 다른 문자)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">tmp</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">]</span>
+<span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>
+<span class="n">arr</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([1, 2, 3, 4, 5, 6])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">arr</span><span class="p">),</span><span class="nb">type</span><span class="p">(</span><span class="n">tmp</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&lt;class 'numpy.ndarray'&gt; &lt;class 'list'&gt;
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># (정수,): 정수 개수의 아이템을 가진 리스트가 배열로 변환된 결과물</span>
+<span class="n">arr</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(6,)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>6</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">arr</span><span class="o">.</span><span class="n">ndim</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>1</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">arr</span><span class="o">.</span><span class="n">size</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>6</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">arr</span><span class="o">.</span><span class="n">dtype</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>dtype('int32')</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">arr2</span> <span class="o">=</span> <span class="n">arr</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">arr2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[1 2 3 4 5 6]
+[1. 2. 3. 4. 5. 6.]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 기존 배열의 요소 총 개수(6개)와 변환하려는 구조의 총 개수(6개)는 일치해야 한다.</span>
+<span class="n">arr</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span> <span class="c1">#(2*3=6이므로), reshape(row,column)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([[1, 2, 3],
+       [4, 5, 6]])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 객체타입, 구조, 차원, 데이터타입, 내부자료</span>
+<span class="c1"># 를 확인하기 위해 정의하는 함수</span>
+<span class="k">def</span> <span class="nf">np_print</span><span class="p">(</span><span class="n">arr</span><span class="p">):</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="s1">'''</span>
+<span class="s1">    type : </span><span class="si">{}</span><span class="s1"></span>
+<span class="s1">    shape : </span><span class="si">{}</span><span class="s1"></span>
+<span class="s1">    ndim : </span><span class="si">{}</span><span class="s1"></span>
+<span class="s1">    dtype : </span><span class="si">{}</span><span class="s1"></span>
+<span class="s1">    array data : </span><span class="se">\n</span><span class="s1"> </span><span class="si">{}</span><span class="s1">'''</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">arr</span><span class="p">),</span> <span class="n">arr</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">arr</span><span class="o">.</span><span class="n">ndim</span><span class="p">,</span> <span class="n">arr</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">arr</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 우선순위 : str &gt; float &gt; int</span>
+<span class="c1"># 서로 다른 타입의 혼합 1: int + str = str로 통일</span>
+<span class="n">tmp</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="s2">"4"</span><span class="p">]</span>
+<span class="n">arr1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>
+<span class="n">np_print</span><span class="p">(</span><span class="n">arr1</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+    type : &lt;class 'numpy.ndarray'&gt;
+    shape : (4,)
+    ndim : 1
+    dtype : &lt;U11
+    array data : 
+ ['1' '2' '3' '4']
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">tmp</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mf">3.3</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span>
+<span class="n">arr1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>
+<span class="n">np_print</span><span class="p">(</span><span class="n">arr1</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+    type : &lt;class 'numpy.ndarray'&gt;
+    shape : (4,)
+    ndim : 1
+    dtype : float64
+    array data : 
+ [1.  2.  3.3 4. ]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">tmp</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'1'</span><span class="p">,</span><span class="mf">1.2</span><span class="p">,</span><span class="mf">0.3</span><span class="p">]</span>
+<span class="n">arr1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>
+<span class="n">np_print</span><span class="p">(</span><span class="n">arr1</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+    type : &lt;class 'numpy.ndarray'&gt;
+    shape : (3,)
+    ndim : 1
+    dtype : &lt;U32
+    array data : 
+ ['1' '1.2' '0.3']
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 2차원 배열의 shape 속성은 (eow, column)만 반환</span>
+<span class="n">tmp</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span>
+      <span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">]]</span>
+<span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>
+<span class="n">np_print</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+    type : &lt;class 'numpy.ndarray'&gt;
+    shape : (2, 4)
+    ndim : 2
+    dtype : int32
+    array data : 
+ [[1 2 3 4]
+ [5 6 7 8]]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">tmp</span> <span class="o">=</span> <span class="p">[[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">]],</span>
+      <span class="p">[[</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">],[</span><span class="mi">10</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">121</span><span class="p">]]]</span>
+<span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>
+<span class="n">np_print</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+    type : &lt;class 'numpy.ndarray'&gt;
+    shape : (2, 2, 3)
+    ndim : 3
+    dtype : int32
+    array data : 
+ [[[  1   2   3]
+  [  4   5   6]]
+
+ [[  7   8   9]
+  [ 10   1 121]]]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># np.array(data, dtype = '자료형')</span>
+<span class="n">tmp</span> <span class="o">=</span> <span class="p">[[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">]],</span>
+      <span class="p">[[</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">],[</span><span class="mi">10</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">121</span><span class="p">]]]</span>
+<span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">tmp</span><span class="p">,</span><span class="n">dtype</span> <span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+<span class="n">np_print</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+    type : &lt;class 'numpy.ndarray'&gt;
+    shape : (2, 2, 3)
+    ndim : 3
+    dtype : float64
+    array data : 
+ [[[  1.   2.   3.]
+  [  4.   5.   6.]]
+
+ [[  7.   8.   9.]
+  [ 10.   1. 121.]]]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="생성-및-초기화">
+<a class="anchor" href="#%EC%83%9D%EC%84%B1-%EB%B0%8F-%EC%B4%88%EA%B8%B0%ED%99%94" aria-hidden="true"><span class="octicon octicon-link"></span></a>생성 및 초기화<a class="anchor-link" href="#%EC%83%9D%EC%84%B1-%EB%B0%8F-%EC%B4%88%EA%B8%B0%ED%99%94"> </a>
+</h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>
+<ol>
+<li>
+<p>초기 값을 지정하여 데이터를 자동으로 가지는 배열을 생성</p>
+<ul>
+<li>np.zeros()</li>
+<li>np.ones()</li>
+<li>np.full()</li>
+<li>np.eye()</li>
+<li>np.empty()</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="np.zeros(shape(행,열),-dtype-=-float)">
+<a class="anchor" href="#np.zeros(shape(%ED%96%89,%EC%97%B4),-dtype-=-float)" aria-hidden="true"><span class="octicon octicon-link"></span></a>np.zeros(shape(행,열), dtype = float)<a class="anchor-link" href="#np.zeros(shape(%ED%96%89,%EC%97%B4),-dtype-=-float)"> </a>
+</h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>지정된 구조의 배열을 생성하고 모든 요소를 0으로 초기화(zeros)</li>
+<li>shape: tuple 형태로 행, 열 지정</li>
+<li>dtype: 배열에서 사용하는 데이터 타입을 지정, 기본값은 numpy.ndarray</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 구조는 튜플로 묶어서 넘김</span>
+<span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">np_print</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+    type : &lt;class 'numpy.ndarray'&gt;
+    shape : (3, 4)
+    ndim : 2
+    dtype : float64
+    array data : 
+ [[0. 0. 0. 0.]
+ [0. 0. 0. 0.]
+ [0. 0. 0. 0.]]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="n">dtype</span> <span class="o">=</span> <span class="nb">int</span><span class="p">)</span>
+<span class="n">np_print</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+    type : &lt;class 'numpy.ndarray'&gt;
+    shape : (3, 4)
+    ndim : 2
+    dtype : int32
+    array data : 
+ [[0 0 0 0]
+ [0 0 0 0]
+ [0 0 0 0]]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="np.ones(shape(행,열),-dtype-=-float)">
+<a class="anchor" href="#np.ones(shape(%ED%96%89,%EC%97%B4),-dtype-=-float)" aria-hidden="true"><span class="octicon octicon-link"></span></a>np.ones(shape(행,열), dtype = float)<a class="anchor-link" href="#np.ones(shape(%ED%96%89,%EC%97%B4),-dtype-=-float)"> </a>
+</h4>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="n">dtype</span> <span class="o">=</span> <span class="nb">int</span><span class="p">)</span>
+<span class="n">np_print</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+    type : &lt;class 'numpy.ndarray'&gt;
+    shape : (3, 4)
+    ndim : 2
+    dtype : int32
+    array data : 
+ [[1 1 1 1]
+ [1 1 1 1]
+ [1 1 1 1]]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="np.full(shape(행,열),fill_value,dtype)">
+<a class="anchor" href="#np.full(shape(%ED%96%89,%EC%97%B4),fill_value,dtype)" aria-hidden="true"><span class="octicon octicon-link"></span></a>np.full(shape(행,열),fill_value,dtype)<a class="anchor-link" href="#np.full(shape(%ED%96%89,%EC%97%B4),fill_value,dtype)"> </a>
+</h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>지정된 구조의 배열을 생성하고 모든 요소를 fill_value 값으로 초기화</li>
+<li>shape: tuple 자료형으로 행열 구조를 지정</li>
+<li>dtype = 배열의 데이터 타입을 지정, 기본 값 = 들어오는 데이터의 자료형</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="n">fill_value</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">np_print</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+    type : &lt;class 'numpy.ndarray'&gt;
+    shape : (3, 4)
+    ndim : 2
+    dtype : int32
+    array data : 
+ [[5 5 5 5]
+ [5 5 5 5]
+ [5 5 5 5]]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="np.eye(N,M=None,-dtype-=-float)">
+<a class="anchor" href="#np.eye(N,M=None,-dtype-=-float)" aria-hidden="true"><span class="octicon octicon-link"></span></a>np.eye(N,M=None, dtype = float)<a class="anchor-link" href="#np.eye(N,M=None,-dtype-=-float)"> </a>
+</h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>(N,M) 구조의 단위 행렬을 생성</li>
+<li>M: 열 개수를 지정, 기본값 = N</li>
+<li>dtype: 배열의 데이터 타입을 지정, 기본값 = numpy.float64</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">np_print</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+    type : &lt;class 'numpy.ndarray'&gt;
+    shape : (4, 4)
+    ndim : 2
+    dtype : float64
+    array data : 
+ [[1. 0. 0. 0.]
+ [0. 1. 0. 0.]
+ [0. 0. 1. 0.]
+ [0. 0. 0. 1.]]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">np_print</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+    type : &lt;class 'numpy.ndarray'&gt;
+    shape : (5, 3)
+    ndim : 2
+    dtype : float64
+    array data : 
+ [[1. 0. 0.]
+ [0. 1. 0.]
+ [0. 0. 1.]
+ [0. 0. 0.]
+ [0. 0. 0.]]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="np.empty(shape(행,열),dtype=float)">
+<a class="anchor" href="#np.empty(shape(%ED%96%89,%EC%97%B4),dtype=float)" aria-hidden="true"><span class="octicon octicon-link"></span></a>np.empty(shape(행,열),dtype=float)<a class="anchor-link" href="#np.empty(shape(%ED%96%89,%EC%97%B4),dtype=float)"> </a>
+</h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>지정된 구조의 배열을 생성하고 모든 요소에 대한 초기화 과정 없이 직전 메모리에 지정된 값을 사용</li>
+<li>배열을 생성하는데 가장 빠르고 효율적인 방법</li>
+<li>shape: tuple 타입으로 행,열 구조 지정</li>
+<li>dtype: 배열의 데이터 타입을 지정, 기본값 = numpy.float64</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 동일한 shape의 배열을 생성해야 한다.</span>
+<span class="c1"># 7 * 2</span>
+<span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">7</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">np_print</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+    type : &lt;class 'numpy.ndarray'&gt;
+    shape : (7, 2)
+    ndim : 2
+    dtype : float64
+    array data : 
+ [[0. 0.]
+ [0. 0.]
+ [0. 0.]
+ [0. 0.]
+ [0. 0.]
+ [0. 0.]
+ [0. 0.]]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">np_print</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+    type : &lt;class 'numpy.ndarray'&gt;
+    shape : (3, 4)
+    ndim : 2
+    dtype : float64
+    array data : 
+ [[0. 0. 0. 0.]
+ [0. 0. 0. 0.]
+ [0. 0. 0. 0.]]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="like-함수">
+<a class="anchor" href="#like-%ED%95%A8%EC%88%98" aria-hidden="true"><span class="octicon octicon-link"></span></a>like 함수<a class="anchor-link" href="#like-%ED%95%A8%EC%88%98"> </a>
+</h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>전달 받은 배열과 동일한 shjape으로 초기값을 설정하여 새로운 배열을 생성<ul>
+<li>np.zeros_like() : 초기값을 0으로 가지는 배열 생성</li>
+<li>np.ones_like() : 초기값을 1으로 가지는 배열 생성</li>
+<li>np.full_like() : 초기값을 fill_value 값으로 가지는 배열 생성</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="np.ones_like()">
+<a class="anchor" href="#np.ones_like()" aria-hidden="true"><span class="octicon octicon-link"></span></a>np.ones_like()<a class="anchor-link" href="#np.ones_like()"> </a>
+</h4>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span>
+       <span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">]]</span>
+<span class="n">arr1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">np_print</span><span class="p">(</span><span class="n">arr1</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+    type : &lt;class 'numpy.ndarray'&gt;
+    shape : (2, 3)
+    ndim : 2
+    dtype : int32
+    array data : 
+ [[1 2 3]
+ [4 5 6]]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">arr2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">arr1</span><span class="p">)</span>
+<span class="n">np_print</span><span class="p">(</span><span class="n">arr2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+    type : &lt;class 'numpy.ndarray'&gt;
+    shape : (2, 3)
+    ndim : 2
+    dtype : int32
+    array data : 
+ [[1 1 1]
+ [1 1 1]]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="범위와-조건이-있는-데이터를-가지는-1차원-배열-생성">
+<a class="anchor" href="#%EB%B2%94%EC%9C%84%EC%99%80-%EC%A1%B0%EA%B1%B4%EC%9D%B4-%EC%9E%88%EB%8A%94-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%A5%BC-%EA%B0%80%EC%A7%80%EB%8A%94-1%EC%B0%A8%EC%9B%90-%EB%B0%B0%EC%97%B4-%EC%83%9D%EC%84%B1" aria-hidden="true"><span class="octicon octicon-link"></span></a>범위와 조건이 있는 데이터를 가지는 1차원 배열 생성<a class="anchor-link" href="#%EB%B2%94%EC%9C%84%EC%99%80-%EC%A1%B0%EA%B1%B4%EC%9D%B4-%EC%9E%88%EB%8A%94-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%A5%BC-%EA%B0%80%EC%A7%80%EB%8A%94-1%EC%B0%A8%EC%9B%90-%EB%B0%B0%EC%97%B4-%EC%83%9D%EC%84%B1"> </a>
+</h3>
+<pre><code>- np.linspace()
+- np.arange()
+- np.logspace()</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="np.linspace(start,-stop,-num=50,-endpoint=True,-retstep=False,-dtype=None)">
+<a class="anchor" href="#np.linspace(start,-stop,-num=50,-endpoint=True,-retstep=False,-dtype=None)" aria-hidden="true"><span class="octicon octicon-link"></span></a>np.linspace(start, stop, num=50, endpoint=True, retstep=False, dtype=None)<a class="anchor-link" href="#np.linspace(start,-stop,-num=50,-endpoint=True,-retstep=False,-dtype=None)"> </a>
+</h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>시작값(start)부터 마지막값(stop) 사이의 범위에서 균등한 간격으로 일정 개수(num)개의 데이터를 가지는 배열 생성</li>
+<li>num : 데이터 개수, 기본값 = 50</li>
+<li>endpoint : 마지막값에 stop을 포함/제외하는 조건 지정, 기본값 = True(포함)</li>
+<li>retstep : True로 전달하면 (배열, 데이터 사이의 간격)의 데이터를 담은 tuple을 반환</li>
+<li>dtype : 배열의 데이터 타입을 지정, 기본값 = None </li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 0이상 1이하의 범위에서 발생한 숫자 5개를 포함하는 배열</span>
+<span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">num</span> <span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">np_print</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+    type : &lt;class 'numpy.ndarray'&gt;
+    shape : (5,)
+    ndim : 1
+    dtype : float64
+    array data : 
+ [0.   0.25 0.5  0.75 1.  ]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">num</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">endpoint</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+<span class="n">np_print</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+    type : &lt;class 'numpy.ndarray'&gt;
+    shape : (5,)
+    ndim : 1
+    dtype : float64
+    array data : 
+ [0.  0.2 0.4 0.6 0.8]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">num</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">retstep</span> <span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span> <span class="c1"># 슬라이싱 가능</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>(array([0.  , 0.25, 0.5 , 0.75, 1.  ]), 0.25)
+[0.   0.25 0.5  0.75 1.  ]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="np.arange(start=0,-stop,-step=1,--dtype=None)">
+<a class="anchor" href="#np.arange(start=0,-stop,-step=1,--dtype=None)" aria-hidden="true"><span class="octicon octicon-link"></span></a>np.arange(start=0, stop, step=1,  dtype=None)<a class="anchor-link" href="#np.arange(start=0,-stop,-step=1,--dtype=None)"> </a>
+</h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>시작값(start)부터 마지막값(stop) 사이의 범위에서 지정한 간격(step)으로 일정 개수(num)개의 데이터를 가지는 배열 생성</li>
+<li>파이썬 내장함수 range()와 유사</li>
+<li>start : 시작값, 기본값 = 0</li>
+<li>stop : 마지막값으로 범위에 포함되지 않음</li>
+<li>step : 데이터 사이의 간격, 기본값 = 1</li>
+<li>dtype : 배열의 데이터 타입을 지정, 기본값 = None</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[0, 1, 2, 3, 4]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 0이상 5미만의 범위에서 1씩 증가하는 숫자(정수)를 가지는 배열</span>
+<span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">np_print</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+    type : &lt;class 'numpy.ndarray'&gt;
+    shape : (5,)
+    ndim : 1
+    dtype : int32
+    array data : 
+ [0 1 2 3 4]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 0이상 5 미만의 범위에서 0.5씩 증가하는 숫자를 가지는 배열</span>
+<span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">np_print</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+    type : &lt;class 'numpy.ndarray'&gt;
+    shape : (10,)
+    ndim : 1
+    dtype : float64
+    array data : 
+ [0.  0.5 1.  1.5 2.  2.5 3.  3.5 4.  4.5]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># shape와 dimention이 서로 다르다</span>
+<span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">np_print</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+    type : &lt;class 'numpy.ndarray'&gt;
+    shape : (4,)
+    ndim : 1
+    dtype : int32
+    array data : 
+ [1 2 3 4]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">arr2</span> <span class="o">=</span> <span class="n">arr</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">np_print</span><span class="p">(</span><span class="n">arr2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+    type : &lt;class 'numpy.ndarray'&gt;
+    shape : (1, 4)
+    ndim : 2
+    dtype : int32
+    array data : 
+ [[1 2 3 4]]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">arr2</span> <span class="o">=</span> <span class="n">arr</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">np_print</span><span class="p">(</span><span class="n">arr2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+    type : &lt;class 'numpy.ndarray'&gt;
+    shape : (4,)
+    ndim : 1
+    dtype : int32
+    array data : 
+ [1 2 3 4]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="np.logspace(start,-stop,-num-=-50.-endpoint-=-True,-dtype-=-None)">
+<a class="anchor" href="#np.logspace(start,-stop,-num-=-50.-endpoint-=-True,-dtype-=-None)" aria-hidden="true"><span class="octicon octicon-link"></span></a>np.logspace(start, stop, num = 50. endpoint = True, dtype = None)<a class="anchor-link" href="#np.logspace(start,-stop,-num-=-50.-endpoint-=-True,-dtype-=-None)"> </a>
+</h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>시작값(start)부터 마지막값(stop) 사이의 로그 스케일로 지정된 범위에서 균등한 간격으로 일정 개수(num)개의 데이터를 가지는 배열 생성</li>
+<li>num: 데이터 개수, 기본값 = 50</li>
+<li>endpoint: 마지막 값에 stop을 포함/ 제외하는 조건 지정, 기본값 = True(포함)</li>
+<li>dtype: 배열의 데이터 타입을 지정, 기본값 = None</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 0이상 1이하의 범위에서 로그스케일을 적용한 값(50개)를 가지고 배열</span>
+<span class="c1"># 밑수가 10인 로그를 기준으로 만들어 줌</span>
+<span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">np_print</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+    type : &lt;class 'numpy.ndarray'&gt;
+    shape : (50,)
+    ndim : 1
+    dtype : float64
+    array data : 
+ [ 1.          1.04811313  1.09854114  1.1513954   1.20679264  1.26485522
+  1.32571137  1.38949549  1.45634848  1.52641797  1.59985872  1.67683294
+  1.75751062  1.84206997  1.93069773  2.02358965  2.12095089  2.22299648
+  2.32995181  2.44205309  2.55954792  2.6826958   2.8117687   2.9470517
+  3.0888436   3.23745754  3.39322177  3.55648031  3.72759372  3.90693994
+  4.09491506  4.29193426  4.49843267  4.71486636  4.94171336  5.17947468
+  5.42867544  5.68986603  5.96362332  6.25055193  6.55128557  6.86648845
+  7.19685673  7.54312006  7.90604321  8.28642773  8.68511374  9.10298178
+  9.54095476 10.        ]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">np_print</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+    type : &lt;class 'numpy.ndarray'&gt;
+    shape : (4,)
+    ndim : 1
+    dtype : float64
+    array data : 
+ [   1.   10.  100. 1000.]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">40</span><span class="p">)</span>
+<span class="n">np_print</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+    type : &lt;class 'numpy.ndarray'&gt;
+    shape : (40,)
+    ndim : 1
+    dtype : float64
+    array data : 
+ [ 1.          1.06081836  1.12533558  1.19377664  1.26638017  1.34339933
+  1.42510267  1.51177507  1.60371874  1.70125428  1.80472177  1.91448198
+  2.03091762  2.15443469  2.28546386  2.42446202  2.57191381  2.72833338
+  2.89426612  3.07029063  3.25702066  3.45510729  3.66524124  3.88815518
+  4.12462638  4.37547938  4.64158883  4.92388263  5.22334507  5.54102033
+  5.87801607  6.23550734  6.61474064  7.01703829  7.44380301  7.89652287
+  8.3767764   8.88623816  9.42668455 10.        ]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">40</span><span class="p">,</span><span class="n">endpoint</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+<span class="n">np_print</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+    type : &lt;class 'numpy.ndarray'&gt;
+    shape : (40,)
+    ndim : 1
+    dtype : float64
+    array data : 
+ [1.         1.05925373 1.12201845 1.18850223 1.25892541 1.33352143
+ 1.41253754 1.49623566 1.58489319 1.67880402 1.77827941 1.88364909
+ 1.99526231 2.11348904 2.23872114 2.37137371 2.51188643 2.66072506
+ 2.81838293 2.98538262 3.16227766 3.34965439 3.54813389 3.75837404
+ 3.98107171 4.21696503 4.46683592 4.73151259 5.01187234 5.30884444
+ 5.62341325 5.95662144 6.30957344 6.68343918 7.07945784 7.49894209
+ 7.94328235 8.41395142 8.91250938 9.44060876]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="난수(특정한-순서나-규칙을-가지지-않는-무작위의-수)를-데이터로-가지는-배열을-생성">
+<a class="anchor" href="#%EB%82%9C%EC%88%98(%ED%8A%B9%EC%A0%95%ED%95%9C-%EC%88%9C%EC%84%9C%EB%82%98-%EA%B7%9C%EC%B9%99%EC%9D%84-%EA%B0%80%EC%A7%80%EC%A7%80-%EC%95%8A%EB%8A%94-%EB%AC%B4%EC%9E%91%EC%9C%84%EC%9D%98-%EC%88%98)%EB%A5%BC-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%A1%9C-%EA%B0%80%EC%A7%80%EB%8A%94-%EB%B0%B0%EC%97%B4%EC%9D%84-%EC%83%9D%EC%84%B1" aria-hidden="true"><span class="octicon octicon-link"></span></a>난수(특정한 순서나 규칙을 가지지 않는 무작위의 수)를 데이터로 가지는 배열을 생성<a class="anchor-link" href="#%EB%82%9C%EC%88%98(%ED%8A%B9%EC%A0%95%ED%95%9C-%EC%88%9C%EC%84%9C%EB%82%98-%EA%B7%9C%EC%B9%99%EC%9D%84-%EA%B0%80%EC%A7%80%EC%A7%80-%EC%95%8A%EB%8A%94-%EB%AC%B4%EC%9E%91%EC%9C%84%EC%9D%98-%EC%88%98)%EB%A5%BC-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%A1%9C-%EA%B0%80%EC%A7%80%EB%8A%94-%EB%B0%B0%EC%97%B4%EC%9D%84-%EC%83%9D%EC%84%B1"> </a>
+</h3>
+<pre><code>- np.random.normal()
+- np.random.rand()
+- np.random.randn()
+- np.random.randint()
+- np.random.random()</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="분산과-표준편차">
+<a class="anchor" href="#%EB%B6%84%EC%82%B0%EA%B3%BC-%ED%91%9C%EC%A4%80%ED%8E%B8%EC%B0%A8" aria-hidden="true"><span class="octicon octicon-link"></span></a>분산과 표준편차<a class="anchor-link" href="#%EB%B6%84%EC%82%B0%EA%B3%BC-%ED%91%9C%EC%A4%80%ED%8E%B8%EC%B0%A8"> </a>
+</h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<pre><code> 분산: 특정 요소가 평균 값으로부터 얼마나 떨어졌는 지를 나타내는 척도
+ 표준편차: 분산 과정에서 제곱을 하기 때문에 정확한 거리를 구할 수 없으므로 다시 제곱근해 얻어내는 값
+</code></pre>
+<ul>
+<li>어떤 집단간 평균이 같다고 해서 반드시 분포가 같지는 않다.</li>
+<li>평균에서 어떤 요소가 얼마나 멀리 떨어져있는 지를 나타내는 분산값을 구한 다음</li>
+<li>분산에 제곱근을 씌워 표준편차화 시켜야 비로소 분포가 눈에 보인다.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="np.random.normal(loc=0.0,-scale=1.0,-size=None)">
+<a class="anchor" href="#np.random.normal(loc=0.0,-scale=1.0,-size=None)" aria-hidden="true"><span class="octicon octicon-link"></span></a>np.random.normal(loc=0.0, scale=1.0, size=None)<a class="anchor-link" href="#np.random.normal(loc=0.0,-scale=1.0,-size=None)"> </a>
+</h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>정규 분포 확률 밀도에서 표본을 추출하여 데이터로 가지는 배열을 생성</li>
+<li>loc : 정규분포의 평균, 기본값 = 0.0</li>
+<li>scale : 정규분포의 표준편차, 기본값 = 1.0</li>
+<li>size : (행,열,차원)의 배열 구조, 기본값 = single value(배열이 아닌 하나의 값을 반환)</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># 평균 0, 표준편차 1로 설정하고 난수 뽑기</span>
+<span class="n">v</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>-0.4170082269562043</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+</div>
+
+
+
+  </div><!-- from https://github.com/utterance/utterances 
+<script src="https://utteranc.es/client.js"
+        repo="dorae222/dorae22_blog"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script> -->
+
+<div id="disqus_thread"></div>
+<script>
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+    /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://dorae222-blog.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a class="u-url" href="/dorae222/numpy/2022/10/18/DA-Numpy-1.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/dorae222/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/dorae222/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/dorae222/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>HYU BIZ &amp; BIG DATA</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li>
+  <a rel="me" href="dorae222" target="_blank" title="github">
+    <svg class="svg-icon grey">
+      <use xlink:href="/dorae222/assets/minima-social-icons.svg#github"></use>
+    </svg>
+  </a>
+</li>
+</ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

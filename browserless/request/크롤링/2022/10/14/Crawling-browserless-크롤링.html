@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>[Crawling] browserless 크롤링 | Dorae222’s BLOG</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="[Crawling] browserless 크롤링" />
+<meta name="author" content="도형준" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="requests" />
+<meta property="og:description" content="requests" />
+<meta property="og:site_name" content="Dorae222’s BLOG" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-10-14T00:00:00-05:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="[Crawling] browserless 크롤링" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"도형준"},"dateModified":"2022-10-14T00:00:00-05:00","datePublished":"2022-10-14T00:00:00-05:00","description":"requests","headline":"[Crawling] browserless 크롤링","mainEntityOfPage":{"@type":"WebPage","@id":"/dorae222/browserless/request/%ED%81%AC%EB%A1%A4%EB%A7%81/2022/10/14/Crawling-browserless-%ED%81%AC%EB%A1%A4%EB%A7%81.html"},"url":"/dorae222/browserless/request/%ED%81%AC%EB%A1%A4%EB%A7%81/2022/10/14/Crawling-browserless-%ED%81%AC%EB%A1%A4%EB%A7%81.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/dorae222/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="/dorae222/feed.xml" title="Dorae222's BLOG" /><link rel="shortcut icon" type="image/x-icon" href="/dorae222/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/dorae222/">Dorae222&#39;s BLOG</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/dorae222/about/">About Me</a><a class="page-link" href="/dorae222/gitInfo/">gitInfo</a><a class="page-link" href="/dorae222/search/">Search</a><a class="page-link" href="/dorae222/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">[Crawling] browserless 크롤링</h1><p class="page-description">requests</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2022-10-14T00:00:00-05:00" itemprop="datePublished">
+        Oct 14, 2022
+      </time>• 
+          <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+            <span class="p-author h-card" itemprop="name">도형준</span></span>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      3 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="dorae222/categories/#browserless">browserless</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="dorae222/categories/#request">request</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="dorae222/categories/#크롤링">크롤링</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-justify-center">
+          <div class="px-2">
+
+    <a href="https://github.com/dorae222/dorae22_blog/tree/master/_notebooks/2022-10-14-[Crawling] browserless 크롤링.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/dorae222/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/dorae222/dorae22_blog/master?filepath=_notebooks%2F2022-10-14-%5BCrawling%5D+browserless+%ED%81%AC%EB%A1%A4%EB%A7%81.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/dorae222/assets/badges/binder.svg" alt="Open In Binder"/>
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/dorae222/dorae22_blog/blob/master/_notebooks/2022-10-14-[Crawling] browserless 크롤링.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/dorae222/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+          <div class="px-2">
+  <a href="https://deepnote.com/launch?url=https%3A%2F%2Fgithub.com%2Fdorae222%2Fdorae22_blog%2Fblob%2Fmaster%2F_notebooks%2F2022-10-14-%5BCrawling%5D+browserless+%ED%81%AC%EB%A1%A4%EB%A7%81.ipynb" target="_blank">
+      <img class="notebook-badge-image" src="/dorae222/assets/badges/deepnote.svg" alt="Launch in Deepnote"/>
+  </a>
+</div>
+
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#requests">requests </a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#필요한-라이브러리-import">필요한 라이브러리 import </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#알라딘-베스트-셀러-7페이지-크롤링">알라딘 베스트 셀러 7페이지 크롤링 </a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#코드">코드 </a></li>
+<li class="toc-entry toc-h3"><a href="#txt-파일로-정리하기">txt 파일로 정리하기 </a></li>
+<li class="toc-entry toc-h3"><a href="#txt-to-df">txt to df </a></li>
+</ul>
+</li>
+</ul><!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2022-10-14-[Crawling] browserless 크롤링.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="requests">
+<a class="anchor" href="#requests" aria-hidden="true"><span class="octicon octicon-link"></span></a>requests<a class="anchor-link" href="#requests"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>requests는 브라우저 없이 파이썬에서 다이렉트 서버에 http 요청을 넣습니다</li>
+<li>요청을 받은 페이지는 해당 페이지의 소스코드를 파이썬 내부로 전송해줍니다</li>
+<li>단, 버튼 클릭이나 광고 닫기 등의 작업은 애초에 브라우저가 없기 때문에 불가능하거</li>
+<li>오로지 특정 주소로 접속했을 때, 최초에 전송되는 페이지 코드만 가져올 수 있습니다.</li>
+<li>대신 물리 브라우저를 직접 켜지 않고, 명목상으로 요청만 하기 때문에</li>
+<li>속도나 리소스면에서 훨씬 우월합니다</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>1.내가 브라우저로 특정 서버 주소를 쳐서 접속시도를 합니다</li>
+<li>2.서버에 내가 접속한다는 요청이 들어갑니다</li>
+<li>3.서버가 요청에 응답 하면서 response 데이터를 함께 전송합니다</li>
+<li>4.브라우저가 받은 데이터를 해석해서 내 PC에 반영합니다<ul>
+<li>4-1.웹사이트 접속이었으면 소스코드를 받아와서 사람이 볼 수 있도록 자동으로 그려준다(렌더링)</li>
+<li>4-2.게임이면 해당 명령어가 들어가서 게임 상황에 반영됩니다</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="필요한-라이브러리-import">
+<a class="anchor" href="#%ED%95%84%EC%9A%94%ED%95%9C-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC-import" aria-hidden="true"><span class="octicon octicon-link"></span></a>필요한 라이브러리 import<a class="anchor-link" href="#%ED%95%84%EC%9A%94%ED%95%9C-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC-import"> </a>
+</h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">codecs</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 크롬이 아닌 파이썬을 이용함</span>
+<span class="c1"># 요청에 대한 서버의 응답(response)는 req 변수에 저장되었다.</span>
+<span class="n">req</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"https://www.naver.com"</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># req.text를 이용하면 driver.page_source와 동일한 코드를 받아옵니다</span>
+<span class="n">source</span> <span class="o">=</span> <span class="n">req</span><span class="o">.</span><span class="n">text</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">req</span><span class="o">.</span><span class="n">status_code</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>200</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="알라딘-베스트-셀러-7페이지-크롤링">
+<a class="anchor" href="#%EC%95%8C%EB%9D%BC%EB%94%98-%EB%B2%A0%EC%8A%A4%ED%8A%B8-%EC%85%80%EB%9F%AC-7%ED%8E%98%EC%9D%B4%EC%A7%80-%ED%81%AC%EB%A1%A4%EB%A7%81" aria-hidden="true"><span class="octicon octicon-link"></span></a>알라딘 베스트 셀러 7페이지 크롤링<a class="anchor-link" href="#%EC%95%8C%EB%9D%BC%EB%94%98-%EB%B2%A0%EC%8A%A4%ED%8A%B8-%EC%85%80%EB%9F%AC-7%ED%8E%98%EC%9D%B4%EC%A7%80-%ED%81%AC%EB%A1%A4%EB%A7%81"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="코드">
+<a class="anchor" href="#%EC%BD%94%EB%93%9C" aria-hidden="true"><span class="octicon octicon-link"></span></a>코드<a class="anchor-link" href="#%EC%BD%94%EB%93%9C"> </a>
+</h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">req</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"https://www.aladin.co.kr/shop/common/wbest.aspx?BestType=Bestseller&amp;BranchType=1&amp;CID=0&amp;page=7&amp;cnt=1000&amp;SortOrder=1"</span><span class="p">)</span>
+<span class="n">source</span> <span class="o">=</span> <span class="n">req</span><span class="o">.</span><span class="n">text</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">parsed_source</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="s2">"html.parser"</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">aladdin_author_list</span><span class="o">=</span><span class="p">[]</span>
+<span class="n">aladdin_title_list</span><span class="o">=</span><span class="p">[]</span>
+<span class="n">aladdin_price_list</span><span class="o">=</span><span class="p">[]</span>
+
+<span class="n">span_title_list</span> <span class="o">=</span> <span class="n">parsed_source</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s2">"a"</span><span class="p">,</span><span class="n">class_</span><span class="o">=</span><span class="s1">'bo3'</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">title</span> <span class="ow">in</span> <span class="n">span_title_list</span><span class="p">:</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="n">title</span><span class="o">.</span><span class="n">text</span>
+    <span class="n">aladdin_title_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+<span class="c1"># 저자</span>
+<span class="n">author_list</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># 저자가 여러명이라 책 별로 분리하기 위해 새로운 빈 리스트 생성</span>
+<span class="k">for</span> <span class="n">num2</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">parsed_source</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s2">"div"</span><span class="p">,</span><span class="n">class_</span><span class="o">=</span><span class="s1">'ss_book_box'</span><span class="p">))):</span>
+    <span class="n">span_author_list</span> <span class="o">=</span> <span class="n">parsed_source</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s2">"div"</span><span class="p">,</span><span class="n">class_</span><span class="o">=</span><span class="s1">'ss_book_box'</span><span class="p">)[</span><span class="n">num2</span><span class="p">]</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s2">"li"</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s2">"a"</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">num3</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">span_author_list</span><span class="p">)):</span>
+        <span class="n">j</span> <span class="o">=</span> <span class="n">span_author_list</span><span class="p">[</span><span class="n">num3</span><span class="p">]</span>
+        <span class="n">author</span> <span class="o">=</span> <span class="n">j</span><span class="o">.</span><span class="n">text</span>
+        <span class="n">author_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">author</span><span class="p">)</span>
+    <span class="n">aladdin_author_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">author_list</span><span class="p">)</span>
+    <span class="n">author_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1"># 가격</span>
+<span class="k">for</span> <span class="n">num4</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">parsed_source</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s2">"div"</span><span class="p">,</span><span class="n">class_</span><span class="o">=</span><span class="s1">'ss_book_box'</span><span class="p">))):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">span_price_list</span> <span class="o">=</span>  <span class="n">parsed_source</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s2">"div"</span><span class="p">,</span><span class="n">class_</span><span class="o">=</span><span class="s1">'ss_book_box'</span><span class="p">)[</span><span class="n">num4</span><span class="p">]</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s2">"li"</span><span class="p">)[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">"span"</span><span class="p">,</span><span class="n">class_</span><span class="o">=</span><span class="s1">'ss_p2'</span><span class="p">)</span>
+        <span class="n">k</span> <span class="o">=</span> <span class="n">span_price_list</span><span class="o">.</span><span class="n">text</span>
+        <span class="n">aladdin_price_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="n">span_price_list</span> <span class="o">=</span>  <span class="n">parsed_source</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s2">"div"</span><span class="p">,</span><span class="n">class_</span><span class="o">=</span><span class="s1">'ss_book_box'</span><span class="p">)[</span><span class="n">num4</span><span class="p">]</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s2">"li"</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">"span"</span><span class="p">,</span><span class="n">class_</span><span class="o">=</span><span class="s1">'ss_p2'</span><span class="p">)</span>
+        <span class="n">k</span> <span class="o">=</span> <span class="n">span_price_list</span><span class="o">.</span><span class="n">text</span>
+        <span class="n">aladdin_price_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">aladdin_title_list</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">aladdin_title_list</span><span class="p">,</span><span class="s1">'</span><span class="se">\n</span><span class="s1">'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">aladdin_author_list</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">aladdin_author_list</span><span class="p">,</span><span class="s1">'</span><span class="se">\n</span><span class="s1">'</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">aladdin_price_list</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">aladdin_price_list</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>50
+['세상 쉬운 영문법', '어떻게 말해줘야 할까 (60만 부 기념 한정판 리커버)', '브라질에 비가 내리면 스타벅스 주식을 사라', '재수사 2', '뇌, 욕망의 비밀을 풀다', '임신 출산 육아 대백과 (2022~2023년 개정판)', '부동산 경매로 1년 만에 꼬마빌딩주 되다', '사로잡는 얼굴들', '부부 이상, 연인 미만. 1~2 합본판', '그들의 말 혹은 침묵', '데뷔 못 하면 죽는 병 걸림 1부 초판 한정 굿즈박스 세트', '미움받을 용기 (반양장)', '체리새우 : 비밀글입니다', '정의란 무엇인가', '나는 당신이 행복했으면 좋겠습니다', '어디로 가세요 펀자이씨?', '부모의 말', '혼자 공부하는 컴퓨터 구조 + 운영체제', '우리가 빛의 속도로 갈 수 없다면', '당신이 옳다', '2023 선재국어 기출실록 (해설 통합형) 세트 - 전4권', '이게 다 호르몬 때문이야', '지리의 힘', '마지막 몰입', '송사무장의 부동산 경매의 기술', '사랑의 기술', '알고 있다는 착각', '신경 청소 혁명', '영어 감정 표현 사전', '슬로우 미러클 영어 그림책 느리게 100권 읽기의 힘', '토끼전 : 꾀주머니 배 속에 차고 계수나무에 간 달아 놓고', '리틀 라이프 1', '타자들의 생태학', '2023 문동균 한국사 한 권으로 모든 것을 정리하는 빈칸노트', '오늘도 고바야시 서점에 갑니다', '2023 전한길 한국사 3.0 기출문제집 - 전2권', '협력의 유전자', '거꾸로 읽는 세계사', '스파이 패밀리 2', '스파이 패밀리 8', '포켓몬스터 썬&amp;문 포켓몬 전국대도감', '프레임', '법륜 스님의 행복', '나의 히어로 아카데미아 35', '카구야 님은 고백받고 싶어 24', '지극히 사적인 네팔', '2023 심우철 문법 풀이 전략서', '투자에도 순서가 있다', '전쟁과 약, 기나긴 악연의 역사', '사회사상의 역사'] 
+
+50
+[['윤여홍'], ['오은영', '차상미'], ['피터 나바로', '이창식', '윤지호'], ['장강명'], ['한스-게오르크 호이젤', '강영옥', '김신종', '한윤진'], ['삼성출판사 편집부'], ['김상준'], ['이사 레슈코', '김민주'], ['카나마루 유키', '송재희'], ['아니 에르노', '정혜용'], ['백덕수'], ['기시미 이치로', '고가 후미타케', '전경아', '김정운'], ['황영미'], ['마이클 샌델', '김명철', '김선욱'], [], ['엄유진'], ['김종원'], ['강민철'], ['김초엽'], ['정혜신'], ['이선재'], ['마쓰무라 게이코', '이은혜'], ['팀 마샬', '김미선'], [], ['송희창'], [], ['질리언 테트', '문희경'], ['구도 치아키', '김은혜'], ['샘 노리스', '정병선'], ['고광윤'], [], [], [], ['문동균'], ['가와카미 데쓰야', '송지현'], ['전한길'], ['니컬라 라이하니', '김정아', '장이권'], [], [], [], [], ['최인철'], [], ['호리코시 코헤이'], ['아카사카 아카'], [], ['심우철'], ['홍춘욱'], ['백승만'], []] 
+
+50
+['17,820원', '15,750원', '16,200원', '14,400원', '16,200원', '17,550원', '16,200원', '25,200원', '10,800원', '12,600원', '85,500원', '13,410원', '10,350원', '13,500원', '12,420원', '14,400원', '15,120원', '25,200원', '12,600원', '14,220원', '44,100원', '13,500원', '15,300원', '15,120원', '14,400원', '10,800원', '16,020원', '12,600원', '24,300원', '26,820원', '11,700원', '13,320원', '16,200원', '10,800원', '13,500원', '34,200원', '19,800원', '15,750원', '5,400원', '5,400원', '8,550원', '15,300원', '12,600원', '5,400원', '5,400원', '14,670원', '13,500원', '16,200원', '15,300원', '29,700원']
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>저자에서 빈 곳이 생기는 것으로 보아, except 케이스를 더 추가해야 될 것으로 판단 됨</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="txt-파일로-정리하기">
+<a class="anchor" href="#txt-%ED%8C%8C%EC%9D%BC%EB%A1%9C-%EC%A0%95%EB%A6%AC%ED%95%98%EA%B8%B0" aria-hidden="true"><span class="octicon octicon-link"></span></a>txt 파일로 정리하기<a class="anchor-link" href="#txt-%ED%8C%8C%EC%9D%BC%EB%A1%9C-%EC%A0%95%EB%A6%AC%ED%95%98%EA%B8%B0"> </a>
+</h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">"C:/Users/dhj98/playdata/crawler/알라딘순회_result.txt"</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">"w"</span><span class="p">)</span>
+<span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="se">\n</span><span class="s2">"</span><span class="o">%</span><span class="p">(</span><span class="s1">'순위'</span><span class="p">,</span><span class="s1">'제목'</span><span class="p">,</span><span class="s1">'저자'</span><span class="p">,</span><span class="s1">'가격'</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">aladdin_price_list</span><span class="p">)):</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"</span><span class="si">%s</span><span class="s2"> 순위, </span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="se">\n</span><span class="s2">"</span> <span class="o">%</span> <span class="p">((</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span>
+                                                   <span class="n">aladdin_title_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">','</span><span class="p">,</span><span class="s1">'/'</span><span class="p">),</span>
+                                                   <span class="nb">str</span><span class="p">(</span><span class="n">aladdin_author_list</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">','</span><span class="p">,</span><span class="s1">'/'</span><span class="p">),</span>
+                                                   <span class="n">aladdin_price_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">','</span><span class="p">,</span> <span class="s1">''</span><span class="p">)))</span>
+<span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="txt-to-df">
+<a class="anchor" href="#txt-to-df" aria-hidden="true"><span class="octicon octicon-link"></span></a>txt to df<a class="anchor-link" href="#txt-to-df"> </a>
+</h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"C:/Users/dhj98/playdata/crawler/알라딘_requests_result.txt"</span><span class="p">,</span><span class="n">encoding</span><span class="o">=</span><span class="s1">'cp949'</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>순위</th>
+      <th>제목</th>
+      <th>저자</th>
+      <th>가격</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1 순위</td>
+      <td>세상 쉬운 영문법</td>
+      <td>['윤여홍']</td>
+      <td>17820원</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2 순위</td>
+      <td>어떻게 말해줘야 할까 (60만 부 기념 한정판 리커버)</td>
+      <td>['오은영'/ '차상미']</td>
+      <td>15750원</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3 순위</td>
+      <td>브라질에 비가 내리면 스타벅스 주식을 사라</td>
+      <td>['피터 나바로'/ '이창식'/ '윤지호']</td>
+      <td>16200원</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4 순위</td>
+      <td>재수사 2</td>
+      <td>['장강명']</td>
+      <td>14400원</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5 순위</td>
+      <td>뇌/ 욕망의 비밀을 풀다</td>
+      <td>['한스-게오르크 호이젤'/ '강영옥'/ '김신종'/ '한윤진']</td>
+      <td>16200원</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+</div>
+
+
+
+  </div><!-- from https://github.com/utterance/utterances 
+<script src="https://utteranc.es/client.js"
+        repo="dorae222/dorae22_blog"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script> -->
+
+<div id="disqus_thread"></div>
+<script>
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+    /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://dorae222-blog.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a class="u-url" href="/dorae222/browserless/request/%ED%81%AC%EB%A1%A4%EB%A7%81/2022/10/14/Crawling-browserless-%ED%81%AC%EB%A1%A4%EB%A7%81.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/dorae222/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/dorae222/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/dorae222/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>HYU BIZ &amp; BIG DATA</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li>
+  <a rel="me" href="dorae222" target="_blank" title="github">
+    <svg class="svg-icon grey">
+      <use xlink:href="/dorae222/assets/minima-social-icons.svg#github"></use>
+    </svg>
+  </a>
+</li>
+</ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

@@ -1,0 +1,4476 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>[DA] 타이타닉_결측치 | Dorae222’s BLOG</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="[DA] 타이타닉_결측치" />
+<meta name="author" content="도형준" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="타이타닉 데이터셋 전처리하기" />
+<meta property="og:description" content="타이타닉 데이터셋 전처리하기" />
+<meta property="og:site_name" content="Dorae222’s BLOG" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-11-02T00:00:00-05:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="[DA] 타이타닉_결측치" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"도형준"},"dateModified":"2022-11-02T00:00:00-05:00","datePublished":"2022-11-02T00:00:00-05:00","description":"타이타닉 데이터셋 전처리하기","headline":"[DA] 타이타닉_결측치","mainEntityOfPage":{"@type":"WebPage","@id":"/dorae222/%ED%83%80%EC%9D%B4%ED%83%80%EB%8B%89%20%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%85%8B/2022/11/02/DA-%ED%83%80%EC%9D%B4%ED%83%80%EB%8B%89_%EC%A0%84%EC%B2%98%EB%A6%AC.html"},"url":"/dorae222/%ED%83%80%EC%9D%B4%ED%83%80%EB%8B%89%20%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%85%8B/2022/11/02/DA-%ED%83%80%EC%9D%B4%ED%83%80%EB%8B%89_%EC%A0%84%EC%B2%98%EB%A6%AC.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/dorae222/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="/dorae222/feed.xml" title="Dorae222's BLOG" /><link rel="shortcut icon" type="image/x-icon" href="/dorae222/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/dorae222/">Dorae222&#39;s BLOG</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/dorae222/about/">About Me</a><a class="page-link" href="/dorae222/gitInfo/">gitInfo</a><a class="page-link" href="/dorae222/search/">Search</a><a class="page-link" href="/dorae222/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">[DA] 타이타닉_결측치</h1><p class="page-description">타이타닉 데이터셋 전처리하기</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2022-11-02T00:00:00-05:00" itemprop="datePublished">
+        Nov 2, 2022
+      </time>• 
+          <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+            <span class="p-author h-card" itemprop="name">도형준</span></span>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      13 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="dorae222/categories/#타이타닉 데이터셋">타이타닉 데이터셋</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-justify-center">
+          <div class="px-2">
+
+    <a href="https://github.com/dorae222/dorae22_blog/tree/master/_notebooks/2022-11-02-[DA] 타이타닉_전처리.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/dorae222/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/dorae222/dorae22_blog/master?filepath=_notebooks%2F2022-11-02-%5BDA%5D+%ED%83%80%EC%9D%B4%ED%83%80%EB%8B%89_%EC%A0%84%EC%B2%98%EB%A6%AC.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/dorae222/assets/badges/binder.svg" alt="Open In Binder"/>
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/dorae222/dorae22_blog/blob/master/_notebooks/2022-11-02-[DA] 타이타닉_전처리.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/dorae222/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+          <div class="px-2">
+  <a href="https://deepnote.com/launch?url=https%3A%2F%2Fgithub.com%2Fdorae222%2Fdorae22_blog%2Fblob%2Fmaster%2F_notebooks%2F2022-11-02-%5BDA%5D+%ED%83%80%EC%9D%B4%ED%83%80%EB%8B%89_%EC%A0%84%EC%B2%98%EB%A6%AC.ipynb" target="_blank">
+      <img class="notebook-badge-image" src="/dorae222/assets/badges/deepnote.svg" alt="Launch in Deepnote"/>
+  </a>
+</div>
+
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h1"><a href="#Titanic-Data---Part1">Titanic Data - Part1 </a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#<컬럼-체크>">&lt;컬럼 체크&gt; </a></li>
+<li class="toc-entry toc-h2"><a href="#<map()/apply()>">&lt;map()/apply()&gt; </a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#남자를-0,-여자를-1로-가지는-sex_num-컬럼-추가">남자를 0, 여자를 1로 가지는 sex_num 컬럼 추가 </a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#map()">map() </a></li>
+<li class="toc-entry toc-h4"><a href="#apply()">apply() </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h3"><a href="#이름-길이-값을-저장하는-name_length-컬럼-추가">이름 길이 값을 저장하는 name_length 컬럼 추가 </a></li>
+<li class="toc-entry toc-h3"><a href="#번외)-컬럼간-상관관계">번외) 컬럼간 상관관계 </a></li>
+<li class="toc-entry toc-h3"><a href="#fare-데이터를-소수점-첫-번째-자리에서-반올림한-실수형으로-표기-변경한-후,-새로운-컬럼으로-추가(fare_ceil)">fare 데이터를 소수점 첫 번째 자리에서 반올림한 실수형으로 표기 변경한 후, 새로운 컬럼으로 추가(fare_ceil) </a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#Titanic-Data---Part2">Titanic Data - Part2 </a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#<데이터셋-개요>">&lt;데이터셋 개요&gt; </a></li>
+<li class="toc-entry toc-h2"><a href="#<데이터-적재>">&lt;데이터 적재&gt; </a></li>
+<li class="toc-entry toc-h2"><a href="#<결측치-확인>">&lt;결측치 확인&gt; </a></li>
+<li class="toc-entry toc-h2"><a href="#<불필요한-변수-제거>">&lt;불필요한 변수 제거&gt; </a></li>
+<li class="toc-entry toc-h2"><a href="#<-DF-to-CSV>">&lt; DF to CSV&gt; </a></li>
+<li class="toc-entry toc-h2"><a href="#<Canbin-데이터를-활용하여-유도변수-생성>">&lt;Canbin 데이터를 활용하여 유도변수 생성&gt; </a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#NaN">NaN </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#<Name-데이터를-활용하여-유도변수-생성>">&lt;Name 데이터를 활용하여 유도변수 생성&gt; </a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#split-활용">split 활용 </a></li>
+<li class="toc-entry toc-h3"><a href="#정규식-활용하기">정규식 활용하기 </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#<범주-재설정>">&lt;범주 재설정&gt; </a></li>
+<li class="toc-entry toc-h2"><a href="#<결측치-처리>">&lt;결측치 처리&gt; </a></li>
+<li class="toc-entry toc-h2"><a href="#<Age-데이터를-범주형-데이터로-변경>">&lt;Age 데이터를 범주형 데이터로 변경&gt; </a></li>
+<li class="toc-entry toc-h2"><a href="#<연령대별-생존-비율>">&lt;연령대별 생존 비율&gt; </a></li>
+<li class="toc-entry toc-h2"><a href="#<성별-생존자,-탑승표-등급별-생존자-분석>">&lt;성별 생존자, 탑승표 등급별 생존자 분석&gt; </a></li>
+</ul>
+</li>
+</ul><!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2022-11-02-[DA] 타이타닉_전처리.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'text_prep.csv'</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>PassengerId</th>
+      <th>Survived</th>
+      <th>Pclass</th>
+      <th>Name</th>
+      <th>Sex</th>
+      <th>Age</th>
+      <th>SibSp</th>
+      <th>Parch</th>
+      <th>Ticket</th>
+      <th>Fare</th>
+      <th>Cabin</th>
+      <th>Embarked</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>886</th>
+      <td>887</td>
+      <td>0</td>
+      <td>2</td>
+      <td>Montvila, Rev. Juozas</td>
+      <td>male</td>
+      <td>27.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>211536</td>
+      <td>13.00</td>
+      <td>NaN</td>
+      <td>S</td>
+    </tr>
+    <tr>
+      <th>887</th>
+      <td>888</td>
+      <td>1</td>
+      <td>1</td>
+      <td>Graham, Miss. Margaret Edith</td>
+      <td>female</td>
+      <td>19.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>112053</td>
+      <td>30.00</td>
+      <td>B42</td>
+      <td>S</td>
+    </tr>
+    <tr>
+      <th>888</th>
+      <td>889</td>
+      <td>0</td>
+      <td>3</td>
+      <td>Johnston, Miss. Catherine Helen "Carrie"</td>
+      <td>female</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>2</td>
+      <td>W./C. 6607</td>
+      <td>23.45</td>
+      <td>NaN</td>
+      <td>S</td>
+    </tr>
+    <tr>
+      <th>889</th>
+      <td>890</td>
+      <td>1</td>
+      <td>1</td>
+      <td>Behr, Mr. Karl Howell</td>
+      <td>male</td>
+      <td>26.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>111369</td>
+      <td>30.00</td>
+      <td>C148</td>
+      <td>C</td>
+    </tr>
+    <tr>
+      <th>890</th>
+      <td>891</td>
+      <td>0</td>
+      <td>3</td>
+      <td>Dooley, Mr. Patrick</td>
+      <td>male</td>
+      <td>32.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>370376</td>
+      <td>7.75</td>
+      <td>NaN</td>
+      <td>Q</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Titanic-Data---Part1">
+<a class="anchor" href="#Titanic-Data---Part1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Titanic Data - Part1<a class="anchor-link" href="#Titanic-Data---Part1"> </a>
+</h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="&lt;컬럼-체크&gt;">
+<a class="anchor" href="#&lt;%EC%BB%AC%EB%9F%BC-%EC%B2%B4%ED%81%AC&gt;" aria-hidden="true"><span class="octicon octicon-link"></span></a>&lt;컬럼 체크&gt;<a class="anchor-link" href="#&lt;%EC%BB%AC%EB%9F%BC-%EC%B2%B4%ED%81%AC&gt;"> </a>
+</h2>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">columns</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>Index(['PassengerId', 'Survived', 'Pclass', 'Name', 'Sex', 'Age', 'SibSp',
+       'Parch', 'Ticket', 'Fare', 'Cabin', 'Embarked'],
+      dtype='object')</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="nb">str</span><span class="o">.</span><span class="n">upper</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>Index(['PASSENGERID', 'SURVIVED', 'PCLASS', 'NAME', 'SEX', 'AGE', 'SIBSP',
+       'PARCH', 'TICKET', 'FARE', 'CABIN', 'EMBARKED'],
+      dtype='object')</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#data.columns = data.columns.map(str.upper)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="nb">str</span><span class="o">.</span><span class="n">upper</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>PASSENGERID</th>
+      <th>SURVIVED</th>
+      <th>PCLASS</th>
+      <th>NAME</th>
+      <th>SEX</th>
+      <th>AGE</th>
+      <th>SIBSP</th>
+      <th>PARCH</th>
+      <th>TICKET</th>
+      <th>FARE</th>
+      <th>CABIN</th>
+      <th>EMBARKED</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>0</td>
+      <td>3</td>
+      <td>Braund, Mr. Owen Harris</td>
+      <td>male</td>
+      <td>22.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>A/5 21171</td>
+      <td>7.2500</td>
+      <td>NaN</td>
+      <td>S</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>1</td>
+      <td>1</td>
+      <td>Cumings, Mrs. John Bradley (Florence Briggs Th...</td>
+      <td>female</td>
+      <td>38.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>PC 17599</td>
+      <td>71.2833</td>
+      <td>C85</td>
+      <td>C</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>1</td>
+      <td>3</td>
+      <td>Heikkinen, Miss. Laina</td>
+      <td>female</td>
+      <td>26.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>STON/O2. 3101282</td>
+      <td>7.9250</td>
+      <td>NaN</td>
+      <td>S</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>1</td>
+      <td>1</td>
+      <td>Futrelle, Mrs. Jacques Heath (Lily May Peel)</td>
+      <td>female</td>
+      <td>35.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>113803</td>
+      <td>53.1000</td>
+      <td>C123</td>
+      <td>S</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>0</td>
+      <td>3</td>
+      <td>Allen, Mr. William Henry</td>
+      <td>male</td>
+      <td>35.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>373450</td>
+      <td>8.0500</td>
+      <td>NaN</td>
+      <td>S</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>886</th>
+      <td>887</td>
+      <td>0</td>
+      <td>2</td>
+      <td>Montvila, Rev. Juozas</td>
+      <td>male</td>
+      <td>27.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>211536</td>
+      <td>13.0000</td>
+      <td>NaN</td>
+      <td>S</td>
+    </tr>
+    <tr>
+      <th>887</th>
+      <td>888</td>
+      <td>1</td>
+      <td>1</td>
+      <td>Graham, Miss. Margaret Edith</td>
+      <td>female</td>
+      <td>19.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>112053</td>
+      <td>30.0000</td>
+      <td>B42</td>
+      <td>S</td>
+    </tr>
+    <tr>
+      <th>888</th>
+      <td>889</td>
+      <td>0</td>
+      <td>3</td>
+      <td>Johnston, Miss. Catherine Helen "Carrie"</td>
+      <td>female</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>2</td>
+      <td>W./C. 6607</td>
+      <td>23.4500</td>
+      <td>NaN</td>
+      <td>S</td>
+    </tr>
+    <tr>
+      <th>889</th>
+      <td>890</td>
+      <td>1</td>
+      <td>1</td>
+      <td>Behr, Mr. Karl Howell</td>
+      <td>male</td>
+      <td>26.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>111369</td>
+      <td>30.0000</td>
+      <td>C148</td>
+      <td>C</td>
+    </tr>
+    <tr>
+      <th>890</th>
+      <td>891</td>
+      <td>0</td>
+      <td>3</td>
+      <td>Dooley, Mr. Patrick</td>
+      <td>male</td>
+      <td>32.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>370376</td>
+      <td>7.7500</td>
+      <td>NaN</td>
+      <td>Q</td>
+    </tr>
+  </tbody>
+</table>
+<p>891 rows × 12 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="&lt;map()/apply()&gt;">
+<a class="anchor" href="#&lt;map()/apply()&gt;" aria-hidden="true"><span class="octicon octicon-link"></span></a>&lt;map()/apply()&gt;<a class="anchor-link" href="#&lt;map()/apply()&gt;"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>DF/Series 데이터 타입에 대해서 함수 적용(동일한 작업을 반복)<ul>
+<li>각 컬럼</li>
+<li>각 로우</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="남자를-0,-여자를-1로-가지는-sex_num-컬럼-추가">
+<a class="anchor" href="#%EB%82%A8%EC%9E%90%EB%A5%BC-0,-%EC%97%AC%EC%9E%90%EB%A5%BC-1%EB%A1%9C-%EA%B0%80%EC%A7%80%EB%8A%94-sex_num-%EC%BB%AC%EB%9F%BC-%EC%B6%94%EA%B0%80" aria-hidden="true"><span class="octicon octicon-link"></span></a>남자를 0, 여자를 1로 가지는 sex_num 컬럼 추가<a class="anchor-link" href="#%EB%82%A8%EC%9E%90%EB%A5%BC-0,-%EC%97%AC%EC%9E%90%EB%A5%BC-1%EB%A1%9C-%EA%B0%80%EC%A7%80%EB%8A%94-sex_num-%EC%BB%AC%EB%9F%BC-%EC%B6%94%EA%B0%80"> </a>
+</h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="map()">
+<a class="anchor" href="#map()" aria-hidden="true"><span class="octicon octicon-link"></span></a>map()<a class="anchor-link" href="#map()"> </a>
+</h4>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s1">'sex_num'</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">'Sex'</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="s1">'male'</span><span class="p">:</span><span class="s1">'M'</span><span class="p">,</span><span class="s1">'female'</span><span class="p">:</span><span class="s1">'F'</span><span class="p">})</span>
+<span class="n">data</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>PassengerId</th>
+      <th>Survived</th>
+      <th>Pclass</th>
+      <th>Name</th>
+      <th>Sex</th>
+      <th>Age</th>
+      <th>SibSp</th>
+      <th>Parch</th>
+      <th>Ticket</th>
+      <th>Fare</th>
+      <th>Cabin</th>
+      <th>Embarked</th>
+      <th>sex_num</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>886</th>
+      <td>887</td>
+      <td>0</td>
+      <td>2</td>
+      <td>Montvila, Rev. Juozas</td>
+      <td>male</td>
+      <td>27.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>211536</td>
+      <td>13.00</td>
+      <td>NaN</td>
+      <td>S</td>
+      <td>M</td>
+    </tr>
+    <tr>
+      <th>887</th>
+      <td>888</td>
+      <td>1</td>
+      <td>1</td>
+      <td>Graham, Miss. Margaret Edith</td>
+      <td>female</td>
+      <td>19.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>112053</td>
+      <td>30.00</td>
+      <td>B42</td>
+      <td>S</td>
+      <td>F</td>
+    </tr>
+    <tr>
+      <th>888</th>
+      <td>889</td>
+      <td>0</td>
+      <td>3</td>
+      <td>Johnston, Miss. Catherine Helen "Carrie"</td>
+      <td>female</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>2</td>
+      <td>W./C. 6607</td>
+      <td>23.45</td>
+      <td>NaN</td>
+      <td>S</td>
+      <td>F</td>
+    </tr>
+    <tr>
+      <th>889</th>
+      <td>890</td>
+      <td>1</td>
+      <td>1</td>
+      <td>Behr, Mr. Karl Howell</td>
+      <td>male</td>
+      <td>26.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>111369</td>
+      <td>30.00</td>
+      <td>C148</td>
+      <td>C</td>
+      <td>M</td>
+    </tr>
+    <tr>
+      <th>890</th>
+      <td>891</td>
+      <td>0</td>
+      <td>3</td>
+      <td>Dooley, Mr. Patrick</td>
+      <td>male</td>
+      <td>32.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>370376</td>
+      <td>7.75</td>
+      <td>NaN</td>
+      <td>Q</td>
+      <td>M</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="apply()">
+<a class="anchor" href="#apply()" aria-hidden="true"><span class="octicon octicon-link"></span></a>apply()<a class="anchor-link" href="#apply()"> </a>
+</h4>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">change_str_to_num</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="s1">'male'</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">1</span>
+    
+<span class="n">data</span><span class="p">[</span><span class="s1">'sex_num'</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">'Sex'</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">change_str_to_num</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>PassengerId</th>
+      <th>Survived</th>
+      <th>Pclass</th>
+      <th>Name</th>
+      <th>Sex</th>
+      <th>Age</th>
+      <th>SibSp</th>
+      <th>Parch</th>
+      <th>Ticket</th>
+      <th>Fare</th>
+      <th>Cabin</th>
+      <th>Embarked</th>
+      <th>sex_num</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>886</th>
+      <td>887</td>
+      <td>0</td>
+      <td>2</td>
+      <td>Montvila, Rev. Juozas</td>
+      <td>male</td>
+      <td>27.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>211536</td>
+      <td>13.00</td>
+      <td>NaN</td>
+      <td>S</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>887</th>
+      <td>888</td>
+      <td>1</td>
+      <td>1</td>
+      <td>Graham, Miss. Margaret Edith</td>
+      <td>female</td>
+      <td>19.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>112053</td>
+      <td>30.00</td>
+      <td>B42</td>
+      <td>S</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>888</th>
+      <td>889</td>
+      <td>0</td>
+      <td>3</td>
+      <td>Johnston, Miss. Catherine Helen "Carrie"</td>
+      <td>female</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>2</td>
+      <td>W./C. 6607</td>
+      <td>23.45</td>
+      <td>NaN</td>
+      <td>S</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>889</th>
+      <td>890</td>
+      <td>1</td>
+      <td>1</td>
+      <td>Behr, Mr. Karl Howell</td>
+      <td>male</td>
+      <td>26.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>111369</td>
+      <td>30.00</td>
+      <td>C148</td>
+      <td>C</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>890</th>
+      <td>891</td>
+      <td>0</td>
+      <td>3</td>
+      <td>Dooley, Mr. Patrick</td>
+      <td>male</td>
+      <td>32.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>370376</td>
+      <td>7.75</td>
+      <td>NaN</td>
+      <td>Q</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="이름-길이-값을-저장하는-name_length-컬럼-추가">
+<a class="anchor" href="#%EC%9D%B4%EB%A6%84-%EA%B8%B8%EC%9D%B4-%EA%B0%92%EC%9D%84-%EC%A0%80%EC%9E%A5%ED%95%98%EB%8A%94-name_length-%EC%BB%AC%EB%9F%BC-%EC%B6%94%EA%B0%80" aria-hidden="true"><span class="octicon octicon-link"></span></a>이름 길이 값을 저장하는 name_length 컬럼 추가<a class="anchor-link" href="#%EC%9D%B4%EB%A6%84-%EA%B8%B8%EC%9D%B4-%EA%B0%92%EC%9D%84-%EC%A0%80%EC%9E%A5%ED%95%98%EB%8A%94-name_length-%EC%BB%AC%EB%9F%BC-%EC%B6%94%EA%B0%80"> </a>
+</h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s1">'name_length'</span><span class="p">]</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s1">'Name'</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="nb">len</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>PassengerId</th>
+      <th>Survived</th>
+      <th>Pclass</th>
+      <th>Name</th>
+      <th>Sex</th>
+      <th>Age</th>
+      <th>SibSp</th>
+      <th>Parch</th>
+      <th>Ticket</th>
+      <th>Fare</th>
+      <th>Cabin</th>
+      <th>Embarked</th>
+      <th>sex_num</th>
+      <th>name_length</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>886</th>
+      <td>887</td>
+      <td>0</td>
+      <td>2</td>
+      <td>Montvila, Rev. Juozas</td>
+      <td>male</td>
+      <td>27.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>211536</td>
+      <td>13.00</td>
+      <td>NaN</td>
+      <td>S</td>
+      <td>0</td>
+      <td>21</td>
+    </tr>
+    <tr>
+      <th>887</th>
+      <td>888</td>
+      <td>1</td>
+      <td>1</td>
+      <td>Graham, Miss. Margaret Edith</td>
+      <td>female</td>
+      <td>19.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>112053</td>
+      <td>30.00</td>
+      <td>B42</td>
+      <td>S</td>
+      <td>1</td>
+      <td>28</td>
+    </tr>
+    <tr>
+      <th>888</th>
+      <td>889</td>
+      <td>0</td>
+      <td>3</td>
+      <td>Johnston, Miss. Catherine Helen "Carrie"</td>
+      <td>female</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>2</td>
+      <td>W./C. 6607</td>
+      <td>23.45</td>
+      <td>NaN</td>
+      <td>S</td>
+      <td>1</td>
+      <td>40</td>
+    </tr>
+    <tr>
+      <th>889</th>
+      <td>890</td>
+      <td>1</td>
+      <td>1</td>
+      <td>Behr, Mr. Karl Howell</td>
+      <td>male</td>
+      <td>26.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>111369</td>
+      <td>30.00</td>
+      <td>C148</td>
+      <td>C</td>
+      <td>0</td>
+      <td>21</td>
+    </tr>
+    <tr>
+      <th>890</th>
+      <td>891</td>
+      <td>0</td>
+      <td>3</td>
+      <td>Dooley, Mr. Patrick</td>
+      <td>male</td>
+      <td>32.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>370376</td>
+      <td>7.75</td>
+      <td>NaN</td>
+      <td>Q</td>
+      <td>0</td>
+      <td>19</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="번외)-컬럼간-상관관계">
+<a class="anchor" href="#%EB%B2%88%EC%99%B8)-%EC%BB%AC%EB%9F%BC%EA%B0%84-%EC%83%81%EA%B4%80%EA%B4%80%EA%B3%84" aria-hidden="true"><span class="octicon octicon-link"></span></a>번외) 컬럼간 상관관계<a class="anchor-link" href="#%EB%B2%88%EC%99%B8)-%EC%BB%AC%EB%9F%BC%EA%B0%84-%EC%83%81%EA%B4%80%EA%B4%80%EA%B3%84"> </a>
+</h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 상관계수를 구하면 컬럼간 관계 유추 가능</span>
+<span class="n">data</span><span class="p">[[</span><span class="s1">'Survived'</span><span class="p">,</span><span class="s1">'sex_num'</span><span class="p">]]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Survived</th>
+      <th>sex_num</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Survived</th>
+      <td>1.000000</td>
+      <td>0.543351</td>
+    </tr>
+    <tr>
+      <th>sex_num</th>
+      <td>0.543351</td>
+      <td>1.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span><span class="p">[[</span><span class="s1">'Survived'</span><span class="p">,</span><span class="s1">'name_length'</span><span class="p">]]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Survived</th>
+      <th>name_length</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Survived</th>
+      <td>1.00000</td>
+      <td>0.33235</td>
+    </tr>
+    <tr>
+      <th>name_length</th>
+      <td>0.33235</td>
+      <td>1.00000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="fare-데이터를-소수점-첫-번째-자리에서-반올림한-실수형으로-표기-변경한-후,-새로운-컬럼으로-추가(fare_ceil)">
+<a class="anchor" href="#fare-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%A5%BC-%EC%86%8C%EC%88%98%EC%A0%90-%EC%B2%AB-%EB%B2%88%EC%A7%B8-%EC%9E%90%EB%A6%AC%EC%97%90%EC%84%9C-%EB%B0%98%EC%98%AC%EB%A6%BC%ED%95%9C-%EC%8B%A4%EC%88%98%ED%98%95%EC%9C%BC%EB%A1%9C-%ED%91%9C%EA%B8%B0-%EB%B3%80%EA%B2%BD%ED%95%9C-%ED%9B%84,-%EC%83%88%EB%A1%9C%EC%9A%B4-%EC%BB%AC%EB%9F%BC%EC%9C%BC%EB%A1%9C-%EC%B6%94%EA%B0%80(fare_ceil)" aria-hidden="true"><span class="octicon octicon-link"></span></a>fare 데이터를 소수점 첫 번째 자리에서 반올림한 실수형으로 표기 변경한 후, 새로운 컬럼으로 추가(fare_ceil)<a class="anchor-link" href="#fare-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%A5%BC-%EC%86%8C%EC%88%98%EC%A0%90-%EC%B2%AB-%EB%B2%88%EC%A7%B8-%EC%9E%90%EB%A6%AC%EC%97%90%EC%84%9C-%EB%B0%98%EC%98%AC%EB%A6%BC%ED%95%9C-%EC%8B%A4%EC%88%98%ED%98%95%EC%9C%BC%EB%A1%9C-%ED%91%9C%EA%B8%B0-%EB%B3%80%EA%B2%BD%ED%95%9C-%ED%9B%84,-%EC%83%88%EB%A1%9C%EC%9A%B4-%EC%BB%AC%EB%9F%BC%EC%9C%BC%EB%A1%9C-%EC%B6%94%EA%B0%80(fare_ceil)"> </a>
+</h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>파이썬 내장함수: round()</li>
+<li>numpy함수: np.ceil()</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s1">'fare_ceil'</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">'Fare'</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">'float'</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">()</span>
+<span class="n">data</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>PassengerId</th>
+      <th>Survived</th>
+      <th>Pclass</th>
+      <th>Name</th>
+      <th>Sex</th>
+      <th>Age</th>
+      <th>SibSp</th>
+      <th>Parch</th>
+      <th>Ticket</th>
+      <th>Fare</th>
+      <th>Cabin</th>
+      <th>Embarked</th>
+      <th>sex_num</th>
+      <th>name_length</th>
+      <th>fare_ceil</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>886</th>
+      <td>887</td>
+      <td>0</td>
+      <td>2</td>
+      <td>Montvila, Rev. Juozas</td>
+      <td>male</td>
+      <td>27.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>211536</td>
+      <td>13.00</td>
+      <td>NaN</td>
+      <td>S</td>
+      <td>0</td>
+      <td>21</td>
+      <td>13.0</td>
+    </tr>
+    <tr>
+      <th>887</th>
+      <td>888</td>
+      <td>1</td>
+      <td>1</td>
+      <td>Graham, Miss. Margaret Edith</td>
+      <td>female</td>
+      <td>19.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>112053</td>
+      <td>30.00</td>
+      <td>B42</td>
+      <td>S</td>
+      <td>1</td>
+      <td>28</td>
+      <td>30.0</td>
+    </tr>
+    <tr>
+      <th>888</th>
+      <td>889</td>
+      <td>0</td>
+      <td>3</td>
+      <td>Johnston, Miss. Catherine Helen "Carrie"</td>
+      <td>female</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>2</td>
+      <td>W./C. 6607</td>
+      <td>23.45</td>
+      <td>NaN</td>
+      <td>S</td>
+      <td>1</td>
+      <td>40</td>
+      <td>23.0</td>
+    </tr>
+    <tr>
+      <th>889</th>
+      <td>890</td>
+      <td>1</td>
+      <td>1</td>
+      <td>Behr, Mr. Karl Howell</td>
+      <td>male</td>
+      <td>26.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>111369</td>
+      <td>30.00</td>
+      <td>C148</td>
+      <td>C</td>
+      <td>0</td>
+      <td>21</td>
+      <td>30.0</td>
+    </tr>
+    <tr>
+      <th>890</th>
+      <td>891</td>
+      <td>0</td>
+      <td>3</td>
+      <td>Dooley, Mr. Patrick</td>
+      <td>male</td>
+      <td>32.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>370376</td>
+      <td>7.75</td>
+      <td>NaN</td>
+      <td>Q</td>
+      <td>0</td>
+      <td>19</td>
+      <td>8.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span><span class="p">[[</span><span class="s1">'Survived'</span><span class="p">,</span><span class="s1">'fare_ceil'</span><span class="p">]]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Survived</th>
+      <th>fare_ceil</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Survived</th>
+      <td>1.000000</td>
+      <td>0.257088</td>
+    </tr>
+    <tr>
+      <th>fare_ceil</th>
+      <td>0.257088</td>
+      <td>1.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 특정값보다 큰 정수 중 최소 값으로 적용</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">'Fare'</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0       8.0
+1      72.0
+2       8.0
+3      54.0
+4       9.0
+       ... 
+886    13.0
+887    30.0
+888    24.0
+889    30.0
+890     8.0
+Name: Fare, Length: 891, dtype: float64</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span><span class="p">[[</span><span class="s1">'Survived'</span><span class="p">,</span><span class="s1">'Age'</span><span class="p">]]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Survived</th>
+      <th>Age</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Survived</th>
+      <td>1.000000</td>
+      <td>-0.077221</td>
+    </tr>
+    <tr>
+      <th>Age</th>
+      <td>-0.077221</td>
+      <td>1.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 청년~노인까지 끊어서 보면 다를까?</span>
+<span class="n">data</span><span class="p">[[</span><span class="s1">'Survived'</span><span class="p">,</span><span class="s1">'Age'</span><span class="p">]][</span><span class="n">data</span><span class="p">[</span><span class="s1">'Age'</span><span class="p">]</span><span class="o">&lt;=</span><span class="mi">20</span><span class="p">]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Survived</th>
+      <th>Age</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Survived</th>
+      <td>1.000000</td>
+      <td>-0.272035</td>
+    </tr>
+    <tr>
+      <th>Age</th>
+      <td>-0.272035</td>
+      <td>1.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span><span class="p">[[</span><span class="s1">'Survived'</span><span class="p">,</span><span class="s1">'Age'</span><span class="p">]][</span><span class="n">data</span><span class="p">[</span><span class="s1">'Age'</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">20</span><span class="p">]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Survived</th>
+      <th>Age</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Survived</th>
+      <td>1.000000</td>
+      <td>-0.006005</td>
+    </tr>
+    <tr>
+      <th>Age</th>
+      <td>-0.006005</td>
+      <td>1.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Titanic-Data---Part2">
+<a class="anchor" href="#Titanic-Data---Part2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Titanic Data - Part2<a class="anchor-link" href="#Titanic-Data---Part2"> </a>
+</h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="&lt;데이터셋-개요&gt;">
+<a class="anchor" href="#&lt;%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%85%8B-%EA%B0%9C%EC%9A%94&gt;" aria-hidden="true"><span class="octicon octicon-link"></span></a>&lt;데이터셋 개요&gt;<a class="anchor-link" href="#&lt;%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%85%8B-%EA%B0%9C%EC%9A%94&gt;"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Survived: 생존 여부<ul>
+<li>0 = No</li>
+<li>1 = Yes</li>
+</ul>
+</li>
+<li>pclass: 티켓 등급<ul>
+<li>1 = 1st</li>
+<li>2 = 2nd</li>
+<li>3 = 3rd</li>
+</ul>
+</li>
+<li>Sex: 성별</li>
+<li>Age: 나이</li>
+<li>Sibsp: 함께 탑승한 형제자매, 배우자의 수</li>
+<li>Parch: 함께 탑승한 부모, 자식의 수</li>
+<li>Ticket: 티켓 번호</li>
+<li>Name : 이름, 사회적등급</li>
+<li>Fare: 운임</li>
+<li>Cabin: 객실 번호</li>
+<li>Embarked: 탑승 항구<ul>
+<li>C = Cherbourg</li>
+<li>Q = Queenstown</li>
+<li>S = Southampton</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="&lt;데이터-적재&gt;">
+<a class="anchor" href="#&lt;%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%A0%81%EC%9E%AC&gt;" aria-hidden="true"><span class="octicon octicon-link"></span></a>&lt;데이터 적재&gt;<a class="anchor-link" href="#&lt;%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%A0%81%EC%9E%AC&gt;"> </a>
+</h2>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'train.csv'</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>PassengerId</th>
+      <th>Survived</th>
+      <th>Pclass</th>
+      <th>Name</th>
+      <th>Sex</th>
+      <th>Age</th>
+      <th>SibSp</th>
+      <th>Parch</th>
+      <th>Ticket</th>
+      <th>Fare</th>
+      <th>Cabin</th>
+      <th>Embarked</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>886</th>
+      <td>887</td>
+      <td>0</td>
+      <td>2</td>
+      <td>Montvila, Rev. Juozas</td>
+      <td>male</td>
+      <td>27.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>211536</td>
+      <td>13.00</td>
+      <td>NaN</td>
+      <td>S</td>
+    </tr>
+    <tr>
+      <th>887</th>
+      <td>888</td>
+      <td>1</td>
+      <td>1</td>
+      <td>Graham, Miss. Margaret Edith</td>
+      <td>female</td>
+      <td>19.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>112053</td>
+      <td>30.00</td>
+      <td>B42</td>
+      <td>S</td>
+    </tr>
+    <tr>
+      <th>888</th>
+      <td>889</td>
+      <td>0</td>
+      <td>3</td>
+      <td>Johnston, Miss. Catherine Helen "Carrie"</td>
+      <td>female</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>2</td>
+      <td>W./C. 6607</td>
+      <td>23.45</td>
+      <td>NaN</td>
+      <td>S</td>
+    </tr>
+    <tr>
+      <th>889</th>
+      <td>890</td>
+      <td>1</td>
+      <td>1</td>
+      <td>Behr, Mr. Karl Howell</td>
+      <td>male</td>
+      <td>26.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>111369</td>
+      <td>30.00</td>
+      <td>C148</td>
+      <td>C</td>
+    </tr>
+    <tr>
+      <th>890</th>
+      <td>891</td>
+      <td>0</td>
+      <td>3</td>
+      <td>Dooley, Mr. Patrick</td>
+      <td>male</td>
+      <td>32.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>370376</td>
+      <td>7.75</td>
+      <td>NaN</td>
+      <td>Q</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="nb">str</span><span class="o">.</span><span class="n">lower</span><span class="p">)</span>
+<span class="c1"># data.rename(columns=str.lower)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>Index(['passengerid', 'survived', 'pclass', 'name', 'sex', 'age', 'sibsp',
+       'parch', 'ticket', 'fare', 'cabin', 'embarked'],
+      dtype='object')</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="&lt;결측치-확인&gt;">
+<a class="anchor" href="#&lt;%EA%B2%B0%EC%B8%A1%EC%B9%98-%ED%99%95%EC%9D%B8&gt;" aria-hidden="true"><span class="octicon octicon-link"></span></a>&lt;결측치 확인&gt;<a class="anchor-link" href="#&lt;%EA%B2%B0%EC%B8%A1%EC%B9%98-%ED%99%95%EC%9D%B8&gt;"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>컬럼별 갯수</li>
+<li>데이터셋의 크기가 작은 경우는 결측치가 있는 레코드를 삭제하지 않는다<ul>
+<li>대체하는 방식으로 전처리</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(891, 12)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>PassengerId      0
+Survived         0
+Pclass           0
+Name             0
+Sex              0
+Age            177
+SibSp            0
+Parch            0
+Ticket           0
+Fare             0
+Cabin          687
+Embarked         2
+dtype: int64</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 결측치 /891 * 100 = 비율</span>
+<span class="n">data</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">/</span><span class="mi">891</span> <span class="o">*</span> <span class="mi">100</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>PassengerId     0.000000
+Survived        0.000000
+Pclass          0.000000
+Name            0.000000
+Sex             0.000000
+Age            19.865320
+SibSp           0.000000
+Parch           0.000000
+Ticket          0.000000
+Fare            0.000000
+Cabin          77.104377
+Embarked        0.224467
+dtype: float64</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="&lt;불필요한-변수-제거&gt;">
+<a class="anchor" href="#&lt;%EB%B6%88%ED%95%84%EC%9A%94%ED%95%9C-%EB%B3%80%EC%88%98-%EC%A0%9C%EA%B1%B0&gt;" aria-hidden="true"><span class="octicon octicon-link"></span></a>&lt;불필요한 변수 제거&gt;<a class="anchor-link" href="#&lt;%EB%B6%88%ED%95%84%EC%9A%94%ED%95%9C-%EB%B3%80%EC%88%98-%EC%A0%9C%EA%B1%B0&gt;"> </a>
+</h2>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">del</span> <span class="n">data</span><span class="p">[</span><span class="s1">'Ticket'</span><span class="p">]</span>
+<span class="c1"># data.drop('Ticket',axis=1,inplace=True)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="s1">'Ticket'</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">columns</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>True</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="&lt;-DF-to-CSV&gt;">
+<a class="anchor" href="#&lt;-DF-to-CSV&gt;" aria-hidden="true"><span class="octicon octicon-link"></span></a>&lt; DF to CSV&gt;<a class="anchor-link" href="#&lt;-DF-to-CSV&gt;"> </a>
+</h2>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># ticket_deleted_titanic.csv</span>
+<span class="c1"># 단, 그냥 to_csv를 할 경우는 자동으로 csv에 로우명을 매겨주기 때문에</span>
+<span class="c1"># 추후 불러올때 Untitled:0이 형성 됨</span>
+<span class="c1"># 이를 방지하기 위해 index = False</span>
+<span class="n">data</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">'ticket_deleted_titanic.csv'</span><span class="p">,</span><span class="n">encoding</span><span class="o">=</span><span class="s1">'cp949'</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="&lt;Canbin-데이터를-활용하여-유도변수-생성&gt;">
+<a class="anchor" href="#&lt;Canbin-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%98%EC%97%AC-%EC%9C%A0%EB%8F%84%EB%B3%80%EC%88%98-%EC%83%9D%EC%84%B1&gt;" aria-hidden="true"><span class="octicon octicon-link"></span></a>&lt;Canbin 데이터를 활용하여 유도변수 생성&gt;<a class="anchor-link" href="#&lt;Canbin-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%98%EC%97%AC-%EC%9C%A0%EB%8F%84%EB%B3%80%EC%88%98-%EC%83%9D%EC%84%B1&gt;"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>개별 객실 번호는 의미가 없음(123, 456 ...)</li>
+<li>cabin 데이터의 첫 글자가 deck(구역)을 의미</li>
+<li>유도변수 : deck컬럼 추가</li>
+<li>deck 컬럼에 추가될 자료 : A, B, C, D, E, F, G, T, unknown</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>cabin 컬럼의 각 값에 적용할 처리<ul>
+<li>1)<ul>
+<li>값의 첫 번째 문자가 deck list에 있으면 해당 deck을 반환</li>
+<li>없으면(NaN) deck list의 unknown 반환</li>
+</ul>
+</li>
+<li>2)<ul>
+<li>첫 번째 문자 반환</li>
+<li>없으면 다른 것 반환</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="NaN">
+<a class="anchor" href="#NaN" aria-hidden="true"><span class="octicon octicon-link"></span></a>NaN<a class="anchor-link" href="#NaN"> </a>
+</h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>
+<ol>
+<li>type = float</li>
+</ol>
+</li>
+<li>
+<ol>
+<li>다른 값으로 대체해서 처리</li>
+</ol>
+</li>
+<li>
+<ol>
+<li>str으로 변경</li>
+</ol>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">deck_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'A'</span><span class="p">,</span> <span class="s1">'B'</span><span class="p">,</span> <span class="s1">'C'</span><span class="p">,</span> <span class="s1">'D'</span><span class="p">,</span> <span class="s1">'E'</span><span class="p">,</span> <span class="s1">'F'</span><span class="p">,</span> <span class="s1">'G'</span><span class="p">,</span> <span class="s1">'T'</span><span class="p">,</span> <span class="s1">'unknown'</span><span class="p">]</span>
+<span class="n">sample</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'C123'</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="s1">'D201'</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="s1">'F999'</span><span class="p">]</span>
+<span class="c1"># result = ['C', 'unknown', 'D', 'unknown', 'F']</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">NaN</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>float</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">cabin_to_deck</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="n">deck_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'A'</span><span class="p">,</span> <span class="s1">'B'</span><span class="p">,</span> <span class="s1">'C'</span><span class="p">,</span> <span class="s1">'D'</span><span class="p">,</span> <span class="s1">'E'</span><span class="p">,</span> <span class="s1">'F'</span><span class="p">,</span> <span class="s1">'G'</span><span class="p">,</span> <span class="s1">'T'</span><span class="p">,</span> <span class="s1">'unknown'</span><span class="p">]</span>
+    <span class="c1"># NaN인지 검사</span>
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="o">==</span><span class="nb">type</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">'unknown'</span>
+    <span class="c1"># NaN가 아니면 덱 종류만 리턴</span>
+    <span class="k">elif</span> <span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="n">deck_list</span><span class="p">:</span>
+    <span class="c1"># 덱 리스트에 분류된 덱이 맞는지 체크</span>
+        <span class="k">return</span> <span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">'unknown'</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s1">'deck'</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">'Cabin'</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">cabin_to_deck</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>PassengerId</th>
+      <th>Survived</th>
+      <th>Pclass</th>
+      <th>Name</th>
+      <th>Sex</th>
+      <th>Age</th>
+      <th>SibSp</th>
+      <th>Parch</th>
+      <th>Fare</th>
+      <th>Cabin</th>
+      <th>Embarked</th>
+      <th>deck</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>0</td>
+      <td>3</td>
+      <td>Braund, Mr. Owen Harris</td>
+      <td>male</td>
+      <td>22.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>7.2500</td>
+      <td>NaN</td>
+      <td>S</td>
+      <td>unknown</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>1</td>
+      <td>1</td>
+      <td>Cumings, Mrs. John Bradley (Florence Briggs Th...</td>
+      <td>female</td>
+      <td>38.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>71.2833</td>
+      <td>C85</td>
+      <td>C</td>
+      <td>C</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>1</td>
+      <td>3</td>
+      <td>Heikkinen, Miss. Laina</td>
+      <td>female</td>
+      <td>26.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>7.9250</td>
+      <td>NaN</td>
+      <td>S</td>
+      <td>unknown</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>1</td>
+      <td>1</td>
+      <td>Futrelle, Mrs. Jacques Heath (Lily May Peel)</td>
+      <td>female</td>
+      <td>35.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>53.1000</td>
+      <td>C123</td>
+      <td>S</td>
+      <td>C</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>0</td>
+      <td>3</td>
+      <td>Allen, Mr. William Henry</td>
+      <td>male</td>
+      <td>35.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>8.0500</td>
+      <td>NaN</td>
+      <td>S</td>
+      <td>unknown</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s1">'deck'</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>unknown    687
+C           59
+B           47
+D           33
+E           32
+A           15
+F           13
+G            4
+T            1
+Name: deck, dtype: int64</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s1">'Cabin'</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>687</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="&lt;Name-데이터를-활용하여-유도변수-생성&gt;">
+<a class="anchor" href="#&lt;Name-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%98%EC%97%AC-%EC%9C%A0%EB%8F%84%EB%B3%80%EC%88%98-%EC%83%9D%EC%84%B1&gt;" aria-hidden="true"><span class="octicon octicon-link"></span></a>&lt;Name 데이터를 활용하여 유도변수 생성&gt;<a class="anchor-link" href="#&lt;Name-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%98%EC%97%AC-%EC%9C%A0%EB%8F%84%EB%B3%80%EC%88%98-%EC%83%9D%EC%84%B1&gt;"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>개별 이름은 모델 예측에 유의미한 변수가 아니다.</li>
+<li>대표 특성을 찾을 수 있는 범주 데이터를 추출할 수 있다.</li>
+<li>Mr, Ms, Miss, Master ...</li>
+<li>추출 하여 title 컬럼으로 추가</li>
+<li>첫번째 방법. split() 두번 사용하여 처리</li>
+<li>두번째 방법. 정규식을 사용하여 처리<ul>
+<li>ver1<ul>
+<li>정규식 패턴 생성에 사용할 문자열 : Sir, Mr, Don, Major, Capt, Jonkheer, Rev, Col, Dr, Mrs, Countess, Dona, Mme, Ms, Miss, Mlle, Master</li>
+<li>정규식 사용 순서 : 원본 문자열에서 split 결과의 1번 인덱스 값</li>
+</ul>
+</li>
+<li>ver2<ul>
+<li>정규식 패턴 : [a-zA-Z]+.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="split-활용">
+<a class="anchor" href="#split-%ED%99%9C%EC%9A%A9" aria-hidden="true"><span class="octicon octicon-link"></span></a>split 활용<a class="anchor-link" href="#split-%ED%99%9C%EC%9A%A9"> </a>
+</h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 새로운 컬럼인 splited_name 컬럼에 저장</span>
+<span class="k">def</span> <span class="nf">name_spilt</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="n">value</span><span class="o">=</span><span class="n">value</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">','</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'.'</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">value</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s1">'splited_name'</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">'Name'</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">name_spilt</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>PassengerId</th>
+      <th>Survived</th>
+      <th>Pclass</th>
+      <th>Name</th>
+      <th>Sex</th>
+      <th>Age</th>
+      <th>SibSp</th>
+      <th>Parch</th>
+      <th>Fare</th>
+      <th>Cabin</th>
+      <th>Embarked</th>
+      <th>deck</th>
+      <th>splited_name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>886</th>
+      <td>887</td>
+      <td>0</td>
+      <td>2</td>
+      <td>Montvila, Rev. Juozas</td>
+      <td>male</td>
+      <td>27.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>13.00</td>
+      <td>NaN</td>
+      <td>S</td>
+      <td>unknown</td>
+      <td>Rev</td>
+    </tr>
+    <tr>
+      <th>887</th>
+      <td>888</td>
+      <td>1</td>
+      <td>1</td>
+      <td>Graham, Miss. Margaret Edith</td>
+      <td>female</td>
+      <td>19.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>30.00</td>
+      <td>B42</td>
+      <td>S</td>
+      <td>B</td>
+      <td>Miss</td>
+    </tr>
+    <tr>
+      <th>888</th>
+      <td>889</td>
+      <td>0</td>
+      <td>3</td>
+      <td>Johnston, Miss. Catherine Helen "Carrie"</td>
+      <td>female</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>2</td>
+      <td>23.45</td>
+      <td>NaN</td>
+      <td>S</td>
+      <td>unknown</td>
+      <td>Miss</td>
+    </tr>
+    <tr>
+      <th>889</th>
+      <td>890</td>
+      <td>1</td>
+      <td>1</td>
+      <td>Behr, Mr. Karl Howell</td>
+      <td>male</td>
+      <td>26.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>30.00</td>
+      <td>C148</td>
+      <td>C</td>
+      <td>C</td>
+      <td>Mr</td>
+    </tr>
+    <tr>
+      <th>890</th>
+      <td>891</td>
+      <td>0</td>
+      <td>3</td>
+      <td>Dooley, Mr. Patrick</td>
+      <td>male</td>
+      <td>32.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>7.75</td>
+      <td>NaN</td>
+      <td>Q</td>
+      <td>unknown</td>
+      <td>Mr</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s1">'splited_name'</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre> Mr              517
+ Miss            182
+ Mrs             125
+ Master           40
+ Dr                7
+ Rev               6
+ Mlle              2
+ Major             2
+ Col               2
+ the Countess      1
+ Capt              1
+ Ms                1
+ Sir               1
+ Lady              1
+ Mme               1
+ Don               1
+ Jonkheer          1
+Name: splited_name, dtype: int64</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s1">'splited_name'</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([' Mr', ' Mrs', ' Miss', ' Master', ' Don', ' Rev', ' Dr', ' Mme',
+       ' Ms', ' Major', ' Lady', ' Sir', ' Mlle', ' Col', ' Capt',
+       ' the Countess', ' Jonkheer'], dtype=object)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="정규식-활용하기">
+<a class="anchor" href="#%EC%A0%95%EA%B7%9C%EC%8B%9D-%ED%99%9C%EC%9A%A9%ED%95%98%EA%B8%B0" aria-hidden="true"><span class="octicon octicon-link"></span></a>정규식 활용하기<a class="anchor-link" href="#%EC%A0%95%EA%B7%9C%EC%8B%9D-%ED%99%9C%EC%9A%A9%ED%95%98%EA%B8%B0"> </a>
+</h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># regular expression(정규 표현식)</span>
+<span class="kn">import</span> <span class="nn">re</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 이를 위해서 반드시 먼저 import re 가 실행되어 있어야 합니다.</span>
+<span class="c1"># 단어 리스트를 가지고 정규식 패턴 적용</span>
+<span class="k">def</span> <span class="nf">get_title</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="c1"># 둘 이상의 단어를 타겟으로 잡을때는 |(쉬프트 + 역슬래시)를 사용합니다.</span>
+    <span class="n">pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">'Sir|Mrs|Don|Major|Capt|Jonkheer|Rev|Col|Dr|Mr|</span><span class="se">\</span>
+<span class="s1">        Countess|Dona|Mme|Ms|Miss|Mlle|Master'</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">I</span><span class="p">)</span>
+    <span class="c1"># 정규식변수.search(타겟) =&gt; 타겟에서 패턴에 해당하는 자료가 있는지 조사</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">pattern</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">result</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">group</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">str</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">get_title</span><span class="p">(</span><span class="s2">"the Capt, man"</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>'capt'</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s1">'title'</span><span class="p">]</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s1">'Name'</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">get_title</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># expand =False를 주지 않으면 DF형으로 나옴</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">'Name'</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="s1">'([a-zA-Z]+)\.'</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0        Mr
+1       Mrs
+2      Miss
+3       Mrs
+4        Mr
+       ... 
+886     Rev
+887    Miss
+888    Miss
+889      Mr
+890      Mr
+Name: Name, Length: 891, dtype: object</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s1">'title'</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>mr          493
+miss        177
+mrs         123
+master       39
+dr           16
+col          12
+ms            8
+rev           6
+don           4
+mme           4
+sir           2
+major         2
+mlle          2
+capt          1
+jonkheer      1
+Name: title, dtype: int64</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="&lt;범주-재설정&gt;">
+<a class="anchor" href="#&lt;%EB%B2%94%EC%A3%BC-%EC%9E%AC%EC%84%A4%EC%A0%95&gt;" aria-hidden="true"><span class="octicon octicon-link"></span></a>&lt;범주 재설정&gt;<a class="anchor-link" href="#&lt;%EB%B2%94%EC%A3%BC-%EC%9E%AC%EC%84%A4%EC%A0%95&gt;"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>capt - Officer</li>
+<li>col - Officer</li>
+<li>major - Officer</li>
+<li>dr - Officer</li>
+<li>jonkheer - Royalty</li>
+<li>rev - Officer</li>
+<li>countess - Royalty</li>
+<li>dona - Royalty</li>
+<li>lady - Royalty</li>
+<li>don - Royalty</li>
+<li>sir - Officer</li>
+<li>mr - Mr</li>
+<li>mme - Mrs</li>
+<li>ms - Mrs</li>
+<li>mrs - Mrs</li>
+<li>miss - Miss</li>
+<li>mlle - Miss</li>
+<li>master - Master</li>
+<li>nan - Mr(최빈값)</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">title_map</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"capt"</span><span class="p">:</span><span class="s2">"Officer"</span><span class="p">,</span>
+    <span class="s2">"col"</span><span class="p">:</span><span class="s2">"Officer"</span><span class="p">,</span>
+    <span class="s2">"major"</span><span class="p">:</span><span class="s2">"Officer"</span><span class="p">,</span>
+    <span class="s2">"dr"</span><span class="p">:</span><span class="s2">"Officer"</span><span class="p">,</span>
+    <span class="s2">"jonkheer"</span><span class="p">:</span><span class="s2">"Royalty"</span><span class="p">,</span>
+    <span class="s2">"rev"</span><span class="p">:</span><span class="s2">"Officer"</span><span class="p">,</span>
+    <span class="s2">"countess"</span><span class="p">:</span><span class="s2">"Royalty"</span><span class="p">,</span>
+    <span class="s2">"dona"</span><span class="p">:</span><span class="s2">"Royalty"</span><span class="p">,</span>
+    <span class="s2">"lady"</span><span class="p">:</span><span class="s2">"Royalty"</span><span class="p">,</span>
+    <span class="s2">"don"</span><span class="p">:</span><span class="s2">"Royalty"</span><span class="p">,</span>
+    <span class="s1">'sir'</span> <span class="p">:</span> <span class="s1">'Officer'</span><span class="p">,</span>
+    <span class="s2">"mr"</span><span class="p">:</span><span class="s2">"Mr"</span><span class="p">,</span>
+    <span class="s2">"mme"</span><span class="p">:</span><span class="s2">"Mrs"</span><span class="p">,</span>
+    <span class="s2">"ms"</span><span class="p">:</span><span class="s2">"Mrs"</span><span class="p">,</span>
+    <span class="s2">"mrs"</span><span class="p">:</span><span class="s2">"Mrs"</span><span class="p">,</span>
+    <span class="s2">"miss"</span><span class="p">:</span><span class="s2">"Miss"</span><span class="p">,</span>
+    <span class="s2">"mlle"</span><span class="p">:</span><span class="s2">"Miss"</span><span class="p">,</span>
+    <span class="s2">"master"</span><span class="p">:</span><span class="s2">"Master"</span><span class="p">,</span>
+    <span class="s2">"nan"</span><span class="p">:</span><span class="s2">"Mr"</span>
+<span class="p">}</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s1">'title'</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">'title'</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">title_map</span><span class="p">)</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">'title'</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0           Mr
+1          Mrs
+2         Miss
+3          Mrs
+4           Mr
+        ...   
+886    Officer
+887       Miss
+888       Miss
+889         Mr
+890         Mr
+Name: title, Length: 891, dtype: object</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="&lt;결측치-처리&gt;">
+<a class="anchor" href="#&lt;%EA%B2%B0%EC%B8%A1%EC%B9%98-%EC%B2%98%EB%A6%AC&gt;" aria-hidden="true"><span class="octicon octicon-link"></span></a>&lt;결측치 처리&gt;<a class="anchor-link" href="#&lt;%EA%B2%B0%EC%B8%A1%EC%B9%98-%EC%B2%98%EB%A6%AC&gt;"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>미성년(Master, Miss)</li>
+<li>title 별 평균으로 age 결측치 대체</li>
+<li>transform</li>
+<li>(참고)사용자정의함수 : 매개변수 3개(타이틀별평균, 데이터, 타이틀리스트)</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s1">'Age'</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>177</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># df['col'].mean()</span>
+<span class="c1"># df['col'].apply(lambda x:mean(x))</span>
+<span class="c1"># df['col'].apply(함수)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># groupby를 이용해 'title'컬럼별 나이 평균 구하기</span>
+<span class="n">data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">'title'</span><span class="p">)[[</span><span class="s1">'Age'</span><span class="p">]]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Age</th>
+    </tr>
+    <tr>
+      <th>title</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Master</th>
+      <td>4.362000</td>
+    </tr>
+    <tr>
+      <th>Miss</th>
+      <td>21.555556</td>
+    </tr>
+    <tr>
+      <th>Mr</th>
+      <td>32.346457</td>
+    </tr>
+    <tr>
+      <th>Mrs</th>
+      <td>35.659292</td>
+    </tr>
+    <tr>
+      <th>Officer</th>
+      <td>37.742857</td>
+    </tr>
+    <tr>
+      <th>Royalty</th>
+      <td>48.200000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># title 컬럼을 기준으로 묶은 자료들의 'Age'컬럼 평균치로</span>
+<span class="c1"># 원래 'Age'에 있던 결측치를 대신하기 위해 fillna를 사용</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">'Age'</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">'title'</span><span class="p">)[</span><span class="s1">'Age'</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="s1">'mean'</span><span class="p">),</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">'Age'</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="&lt;Age-데이터를-범주형-데이터로-변경&gt;">
+<a class="anchor" href="#&lt;Age-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%A5%BC-%EB%B2%94%EC%A3%BC%ED%98%95-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%A1%9C-%EB%B3%80%EA%B2%BD&gt;" aria-hidden="true"><span class="octicon octicon-link"></span></a>&lt;Age 데이터를 범주형 데이터로 변경&gt;<a class="anchor-link" href="#&lt;Age-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%A5%BC-%EB%B2%94%EC%A3%BC%ED%98%95-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%A1%9C-%EB%B3%80%EA%B2%BD&gt;"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>나이 숫자값 자체로는 의미가 적다.</li>
+<li>연령대로 구분하는 것이 더 의미가 있는 구분값</li>
+<li>구간<ul>
+<li>~ 20</li>
+<li>20 ~ 40</li>
+<li>40 ~ 60</li>
+<li>60 ~</li>
+</ul>
+</li>
+<li>개수 : 4개</li>
+<li>(참고)pd.cut / np.digitize</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">age_class</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">value</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">'under20'</span>
+    <span class="k">elif</span> <span class="n">value</span> <span class="o">&lt;</span> <span class="mi">40</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">'20-40'</span>
+    <span class="k">elif</span> <span class="n">value</span> <span class="o">&lt;</span><span class="mi">60</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">'40-60'</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">'over 60'</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s1">'age_class'</span><span class="p">]</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s1">'Age'</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">age_class</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>PassengerId</th>
+      <th>Survived</th>
+      <th>Pclass</th>
+      <th>Name</th>
+      <th>Sex</th>
+      <th>Age</th>
+      <th>SibSp</th>
+      <th>Parch</th>
+      <th>Fare</th>
+      <th>Cabin</th>
+      <th>Embarked</th>
+      <th>deck</th>
+      <th>splited_name</th>
+      <th>title</th>
+      <th>age_class</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>0</td>
+      <td>3</td>
+      <td>Braund, Mr. Owen Harris</td>
+      <td>male</td>
+      <td>22.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>7.2500</td>
+      <td>NaN</td>
+      <td>S</td>
+      <td>unknown</td>
+      <td>Mr</td>
+      <td>Mr</td>
+      <td>20-40</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>1</td>
+      <td>1</td>
+      <td>Cumings, Mrs. John Bradley (Florence Briggs Th...</td>
+      <td>female</td>
+      <td>38.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>71.2833</td>
+      <td>C85</td>
+      <td>C</td>
+      <td>C</td>
+      <td>Mrs</td>
+      <td>Mrs</td>
+      <td>20-40</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>1</td>
+      <td>3</td>
+      <td>Heikkinen, Miss. Laina</td>
+      <td>female</td>
+      <td>26.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>7.9250</td>
+      <td>NaN</td>
+      <td>S</td>
+      <td>unknown</td>
+      <td>Miss</td>
+      <td>Miss</td>
+      <td>20-40</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>1</td>
+      <td>1</td>
+      <td>Futrelle, Mrs. Jacques Heath (Lily May Peel)</td>
+      <td>female</td>
+      <td>35.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>53.1000</td>
+      <td>C123</td>
+      <td>S</td>
+      <td>C</td>
+      <td>Mrs</td>
+      <td>Mrs</td>
+      <td>20-40</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>0</td>
+      <td>3</td>
+      <td>Allen, Mr. William Henry</td>
+      <td>male</td>
+      <td>35.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>8.0500</td>
+      <td>NaN</td>
+      <td>S</td>
+      <td>unknown</td>
+      <td>Mr</td>
+      <td>Mr</td>
+      <td>20-40</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="&lt;연령대별-생존-비율&gt;">
+<a class="anchor" href="#&lt;%EC%97%B0%EB%A0%B9%EB%8C%80%EB%B3%84-%EC%83%9D%EC%A1%B4-%EB%B9%84%EC%9C%A8&gt;" aria-hidden="true"><span class="octicon octicon-link"></span></a>&lt;연령대별 생존 비율&gt;<a class="anchor-link" href="#&lt;%EC%97%B0%EB%A0%B9%EB%8C%80%EB%B3%84-%EC%83%9D%EC%A1%B4-%EB%B9%84%EC%9C%A8&gt;"> </a>
+</h2>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s1">'age_class'</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>20-40      560
+under20    168
+40-60      137
+over 60     26
+Name: age_class, dtype: int64</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">'age_class'</span><span class="p">,</span><span class="s1">'Survived'</span><span class="p">])[[</span><span class="s1">'Survived'</span><span class="p">]]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>Survived</th>
+    </tr>
+    <tr>
+      <th>age_class</th>
+      <th>Survived</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="2" valign="top">20-40</th>
+      <th>0</th>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>200</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">40-60</th>
+      <th>0</th>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>54</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">over 60</th>
+      <th>0</th>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>7</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">under20</th>
+      <th>0</th>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>81</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">age_classed_data</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">'age_class'</span><span class="p">,</span><span class="s1">'Survived'</span><span class="p">,</span><span class="s1">'Sex'</span><span class="p">])[[</span><span class="s1">'Survived'</span><span class="p">]]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">age_classed_data</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th></th>
+      <th>Survived</th>
+    </tr>
+    <tr>
+      <th>age_class</th>
+      <th>Survived</th>
+      <th>Sex</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="4" valign="top">20-40</th>
+      <th rowspan="2" valign="top">0</th>
+      <th>female</th>
+      <td>47</td>
+    </tr>
+    <tr>
+      <th>male</th>
+      <td>313</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">1</th>
+      <th>female</th>
+      <td>138</td>
+    </tr>
+    <tr>
+      <th>male</th>
+      <td>62</td>
+    </tr>
+    <tr>
+      <th rowspan="4" valign="top">40-60</th>
+      <th rowspan="2" valign="top">0</th>
+      <th>female</th>
+      <td>12</td>
+    </tr>
+    <tr>
+      <th>male</th>
+      <td>71</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">1</th>
+      <th>female</th>
+      <td>38</td>
+    </tr>
+    <tr>
+      <th>male</th>
+      <td>16</td>
+    </tr>
+    <tr>
+      <th rowspan="3" valign="top">over 60</th>
+      <th>0</th>
+      <th>male</th>
+      <td>19</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">1</th>
+      <th>female</th>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>male</th>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th rowspan="4" valign="top">under20</th>
+      <th rowspan="2" valign="top">0</th>
+      <th>female</th>
+      <td>22</td>
+    </tr>
+    <tr>
+      <th>male</th>
+      <td>65</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">1</th>
+      <th>female</th>
+      <td>53</td>
+    </tr>
+    <tr>
+      <th>male</th>
+      <td>28</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># DF에 바로 .plot)(), hist() 등을 사용하면 바로 그려줌</span>
+<span class="c1"># survived를 x축에, 나이 정보르 y축에 컬럼으로 두기 위해 unstack()실행</span>
+<span class="n">age_classed_data</span><span class="o">.</span><span class="n">unstack</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+
+    .dataframe thead tr:last-of-type th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+      <th colspan="4" halign="left">Survived</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>age_class</th>
+      <th>20-40</th>
+      <th>40-60</th>
+      <th>over 60</th>
+      <th>under20</th>
+    </tr>
+    <tr>
+      <th>Survived</th>
+      <th>Sex</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="2" valign="top">0</th>
+      <th>female</th>
+      <td>47.0</td>
+      <td>12.0</td>
+      <td>NaN</td>
+      <td>22.0</td>
+    </tr>
+    <tr>
+      <th>male</th>
+      <td>313.0</td>
+      <td>71.0</td>
+      <td>19.0</td>
+      <td>65.0</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">1</th>
+      <th>female</th>
+      <td>138.0</td>
+      <td>38.0</td>
+      <td>4.0</td>
+      <td>53.0</td>
+    </tr>
+    <tr>
+      <th>male</th>
+      <td>62.0</td>
+      <td>16.0</td>
+      <td>3.0</td>
+      <td>28.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">age_classed_data</span><span class="o">.</span><span class="n">unstack</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">'bar'</span><span class="p">,</span><span class="n">stacked</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&lt;AxesSubplot:xlabel='Survived,Sex'&gt;</pre>
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAXcAAAEzCAYAAADKCUOEAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsTAAALEwEAmpwYAAApXklEQVR4nO3de3xU9bX//9eCcBFRC4IcJGJQbiExBOSq/hSNXPRQUJQQRQFRvGFR8YY/22qtPKCKd7FWjygtHAGpCFUqIF7xCGjEghAgtKAEkJuiUgUhru8fM0wTyGUSJkxm+34+Hjwy85k9e6/ZfLLymc/ee21zd0REJFhqxDsAERGJPSV3EZEAUnIXEQkgJXcRkQBSchcRCaCkeAcA0KhRI09JSYl3GCIiCSU3N3eHuzcu6bVqkdxTUlL4+OOP4x2GiEhCMbPPS3tN0zIiIgGk5C4iEkBK7iIiAVQt5txFBPbt20dBQQF79uyJdyhSzdStW5fk5GRq1aoV9XuU3EWqiYKCAo455hhSUlIws3iHI9WEu7Nz504KCgpo0aJF1O/TtIxINbFnzx6OP/54JXYpxsw4/vjjK/yNTsldpBpRYpeSVKZfKLmLiASQkruISADpgKpEJa9tarxDiErq6rx4h5BwzIzRo0fz8MMPAzBhwgR2797NfffdF9/AYqxHjx5MmDCBTp06xTuUI0Ijd5GfuTp16vDKK6+wY8eOeIciMaTkLvIzl5SUxLXXXsujjz56yGuff/45WVlZZGRkkJWVxRdffAHAsGHDGDVqFGeccQannHIKM2fOjLznoYceonPnzmRkZHDvvfeWuM0bbriBTp06kZaWVmyZuXPn0rZtW8466yxGjRpF3759Afj3v//N8OHD6dy5Mx06dGD27Nmlfp7CwkJuv/12TjvtNDIyMnjyySej3v6YMWNo164dGRkZ3H777QC8/PLLpKen0759e84+++yydmW1omkZEWHkyJFkZGRw5513Fmu/6aabGDJkCEOHDmXSpEmMGjWKV199FYAtW7awaNEiVq9eTb9+/bj00kuZP38++fn5LF26FHenX79+vPfee4ckxbFjx9KwYUMKCwvJyspi+fLltG7dmuuuu4733nuPFi1acNlllxVb/rzzzmPSpEns2rWLLl26cP7553P00Ucf8lmeffZZ1q9fz7Jly0hKSuKrr746ZJmStp+cnMysWbNYvXo1ZsauXbsAuP/++5k3bx7NmjWLtCUCjdxFhGOPPZYhQ4bwxBNPFGv/8MMPufzyywG48sorWbRoUeS1iy66iBo1atCuXTu2bt0KwPz585k/fz4dOnSgY8eOrF69mvz8/EO2N2PGDDp27EiHDh1YuXIlq1atYvXq1ZxyyimRC3WKJvf58+czfvx4MjMz6dGjB3v27Il8izjYm2++yfXXX09SUmjs2rBhw6i2f+yxx1K3bl2uueYaXnnlFerVqwfAmWeeybBhw3juuecoLCyMep/Gm0buIgLALbfcQseOHbnqqqtKXabo+dZ16tSJPHb3yM+7776b6667rtR1rF+/ngkTJvDRRx/RoEEDhg0bxp49eyLrKIm789e//pU2bdqU+zncvczzwkvbflJSEkuXLmXhwoVMmzaNp556irfeeotnnnmGJUuW8Prrr5OZmcmnn37K8ccfX24c8aaRu4gAoRFudnY2zz//fKTtjDPOYNq0aQBMnTqVs846q8x19O7dm0mTJrF7924ANm3axLZt2wDIyspi06ZNfPvttxx99NEcd9xxbN26lb///e8AtG3bln/9619s2LABgOnTpxdb75NPPhn5A7Bs2bJSY+jVqxfPPPMM+/fvBzhkWqa07e/evZtvvvmGCy+8kMcee4xPP/0UgH/+85907dqV+++/n0aNGrFx48Yy90F1oZG7iETcdtttPPXUU5HnTzzxBMOHD+ehhx6icePGvPDCC2W+v1evXuTl5dG9e3cA6tevz5QpU2jUqBHr1q2jYcOGNGvWjA4dOpCWlsYpp5zCmWeeCcBRRx3F008/TZ8+fWjUqBFdunSJrPc3v/kNt9xyCxkZGbg7KSkpvPbaayXGcM0117B27VoyMjKoVasWI0aM4Kabboq83r59+xK3/91339G/f//It4gDB5jvuOMO8vPzcXeysrJo3759JfbskWdlfRU6Ujp16uS6E1P1pvPcq15eXh6pqYmxnyvqs88+Y9KkSTzyyCNlLrd7927q16+PuzNy5EhatWrFrbfeeoSirN5K6h9mluvuJZ64r2kZEaly6enp5SZ2gOeee47MzEzS0tL45ptvypy7l7JpWkZEqo1bb7016pH6vHnzuOuuu4q1tWjRglmzZlVFaAlHyV1EElLv3r3p3bt3vMOotjQtIyISQEruIiIBpOQuIhJAmnMX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%0A">
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">barplot_data</span><span class="o">=</span><span class="n">age_classed_data</span><span class="o">.</span><span class="n">unstack</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">barplot_data</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">names</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>FrozenList([None, 'age_class'])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">barplot_data</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">""</span><span class="p">,</span><span class="s2">""</span><span class="p">]</span>
+<span class="n">barplot_data</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">names</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>FrozenList(['', ''])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">barplot_data</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">'bar'</span><span class="p">,</span><span class="n">stacked</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&lt;AxesSubplot:xlabel='Survived,Sex'&gt;</pre>
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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izPPPJNzzjmHv/zlL0C4LX/vBQabWSkwOPo97r4amAWsAV4CbnD38sMtVEQaVqgtf1988UXat29P3759465bk/379/PJJ5+wePFifvnLX5Kfn4+7h9Py191fJ3JVDO6+E6j23lp3n0TkyhoRSROhtvx9++23mTt3LvPmzWP37t3885//5Morr2Tq1KkJtfydN28eGRkZsfr69+9PkyZN2LFjh1r+ikg9HOFLF0Nt+Tt58mQmT54MwOuvv84DDzzA1KlTgcRb/l5yySW8+uqrnHvuuaxbt469e/c2+pa/CndJyKoNH6a6BDkCKlr+nn/++Wzbto0JEyawZ88eAPr3739Iy99OnTqRk5PD559/XuM2R40axRlnnMEzzzxT6zq33npr7FLLipa/N910E59++in79+/nlltuITs7m6effprx48fTunVrLrzwXzfA19TytzaFhYXk5+fz+9//ns6dO/Pcc89Vu9748eMZP348OTk5tGjRgqKiIsysSsvfZs2aqeXvwdTyNw0k+4aahpLGN+qo5e/hUcvfqnTkLiIxavmbPGr5KyKNilr+Joda/oqISNIp3EVEAqRwFxEJkObcRRqprxd9PanbWzU2qIbIEoeO3EUkJuSWvw3N3bnjjjvo3r07WVlZPPbYY7HlN910E127diU3N5fly5cDkV4+Z599dq3dMw+HjtxFJKZyy9/p06fHWv42adKEsrKyKq0F4tm/f3+NN/Bcd911ySo5JSr6ylRuRPbMM8+wadMmPvjgA5o0aRJrQvbnP/+Z0tJSSktLWbJkCd/73vdYsmQJLVq0IC8vj5kzZzJ69Oik16gjdxGJCbXl70MPPUROTg45OTk88sgjANx2221V+q3fddddPPjggwD88pe/5IwzziA3N5c777wzVltWVhbXX389ffr0qdJTBiJtgX/2s5/F9lfltsBjxozBzBgwYAC7du2K/SyXXHJJlRYKyaRwFxEg3Ja/xcXFPP300yxZsoTFixfzu9/9jhUrVlBQUBDrWAkwa9YsRo4cyfz58yktLWXp0qW8++67FBcX8+abbwKwdu1axowZw4oVKzjllFOqvM9f//pXZs6cSb9+/Rg6dCilpaVA7W2Bc3JyYu2Dk03hLiJAuC1/Fy1axKWXXsrRRx9NmzZtGDFiBG+99Ra9e/dm27ZtbNmyhffee4+2bdvSuXNn5s+fz/z58+nduzd9+vThgw8+iAX1KaecwoABA6p9nz179tCqVSuWLVvGhAkTYjeD1dYWuGnTprRo0YLPPvss7s9RV5pzFxEg3Ja/tfXPuvzyy3n++ef56KOPKCgoiK1/++23893vfrfKuhs3bqz1nENGRgaXXXYZAJdeeilXXXVVbHltbYErfikkm8JdpJE60pcuhtry9+yzz2bcuHEUFhbi7syePTvWGK2goIAJEyawY8cO3njjDQAuvPBCfvrTnzJ69GjatGnD5s2bad68edz9V9EWePz48bzxxht0794diLQVfvzxxykoKGDJkiUce+yxsU9/2rlzJ+3atUto+3WlcBeRmBBb/vbp04dx48bFTtxec8019O7dG4Ds7Gw+++wzTj755FjgXnDBBZSUlDBw4EAgcvJ46tSpcRupFRYWMnr0aB5++GHatGnDf/7nfwJw0UUXMW/ePLp27Urr1q2r9Ip/7bXXuOiii2rdbn2p5a8kRi1/G5xa/h6extbyNxEjRoxg8uTJ9OjRI+66avkrIvWmlr9Hzt69e7nkkksSCvb6ULiLSBVq+XtktGjRgjFjxjTY9nUppIhIgBTuIiIBUriLiARIc+4ijVTJacm9cibrg5Kkbk8aNx25i0iMWv5W79xzz6Wul2vfeuutnHbaaeTm5nLppZdWaaA2efJkunbtSo8ePXj55Zdjy88//3w++eSTpNSscBeRmMotf2fOnBlr+btq1Spmz55dpfdMPLX1Kb/uuusa9EqRVCsvL2fw4MG8//77rFy5ku7duzN58mQA1qxZw4wZM1i9ejUvvfQS119/PeXl5UCkV07lTpWHQ+EuIjEhtvw9+Oj+gQce4K677gIiR+S33XYb/fv3p3v37rz11ltA5C+YgoICcnNzGTVqFF9++WXs9fPnz2fgwIH06dOHkSNHxu7OzczM5O677+Yb3/gGzz33HBdccEHsjtkBAwZQVlYGRFoAFxQU0LJlS7p06ULXrl1ZunQpEGlVMH369Lg/UyIU7iIChNvyN579+/ezdOlSHnnkEX7+858Dkd7srVu3ZuXKldxxxx0UFxcDkc6Z99xzD6+88grLly+nX79+PPTQQ7FttWrVikWLFsWakFV46qmnGDp0KFB7C+C2bduyZ88edu7cedg/l8JdRIBwW/7GM2LECAD69u3Lxo0bAXjzzTe58sorAcjNzY39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%0A">
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="&lt;성별-생존자,-탑승표-등급별-생존자-분석&gt;">
+<a class="anchor" href="#&lt;%EC%84%B1%EB%B3%84-%EC%83%9D%EC%A1%B4%EC%9E%90,-%ED%83%91%EC%8A%B9%ED%91%9C-%EB%93%B1%EA%B8%89%EB%B3%84-%EC%83%9D%EC%A1%B4%EC%9E%90-%EB%B6%84%EC%84%9D&gt;" aria-hidden="true"><span class="octicon octicon-link"></span></a>&lt;성별 생존자, 탑승표 등급별 생존자 분석&gt;<a class="anchor-link" href="#&lt;%EC%84%B1%EB%B3%84-%EC%83%9D%EC%A1%B4%EC%9E%90,-%ED%83%91%EC%8A%B9%ED%91%9C-%EB%93%B1%EA%B8%89%EB%B3%84-%EC%83%9D%EC%A1%B4%EC%9E%90-%EB%B6%84%EC%84%9D&gt;"> </a>
+</h2>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 1. 생존자와 사망자를 탑승표로 분류해서 가공</span>
+<span class="c1"># 2. 차트로 그리기</span>
+<span class="n">pclass_survived</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">'Pclass'</span><span class="p">,</span><span class="s1">'Survived'</span><span class="p">])[[</span><span class="s1">'Survived'</span><span class="p">]]</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">pclass_survived</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>Survived</th>
+    </tr>
+    <tr>
+      <th>Pclass</th>
+      <th>Survived</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="2" valign="top">1</th>
+      <th>0</th>
+      <td>80</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>136</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">2</th>
+      <th>0</th>
+      <td>97</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>87</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">3</th>
+      <th>0</th>
+      <td>372</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>119</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># y축엔 탑승표 종류(col에 pclass가 와야함)</span>
+<span class="n">pclass_survived</span><span class="o">.</span><span class="n">unstack</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">'bar'</span><span class="p">,</span><span class="n">stacked</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&lt;AxesSubplot:xlabel='Survived'&gt;</pre>
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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%0A">
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+</div>
+
+
+
+  </div><!-- from https://github.com/utterance/utterances 
+<script src="https://utteranc.es/client.js"
+        repo="dorae222/dorae22_blog"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script> -->
+
+<div id="disqus_thread"></div>
+<script>
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+    /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://dorae222-blog.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a class="u-url" href="/dorae222/%ED%83%80%EC%9D%B4%ED%83%80%EB%8B%89%20%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%85%8B/2022/11/02/DA-%ED%83%80%EC%9D%B4%ED%83%80%EB%8B%89_%EC%A0%84%EC%B2%98%EB%A6%AC.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/dorae222/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/dorae222/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/dorae222/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>HYU BIZ &amp; BIG DATA</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li>
+  <a rel="me" href="dorae222" target="_blank" title="github">
+    <svg class="svg-icon grey">
+      <use xlink:href="/dorae222/assets/minima-social-icons.svg#github"></use>
+    </svg>
+  </a>
+</li>
+</ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
