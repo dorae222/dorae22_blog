@@ -43,7 +43,6 @@ jobs:
         run: |
           rm -rf _site
           sudo chmod -R 777 .
-
       - name: Jekyll build
         uses: docker://fastai/fastpages-jekyll
         with:
@@ -55,7 +54,6 @@ jobs:
         run: |
           sudo chmod -R 777 _site/
           cp CNAME _site/ 2>/dev/null || :
-
       - name: Deploy
         if: github.event_name == 'push'
         uses: peaceiris/actions-gh-pages@v3
