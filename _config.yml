@@ -2,14 +2,14 @@ title: Dorae222's BLOG
 description: HYU BIZ & BIG DATA
 github_username: dorae222
 # you can comment the below line out if your repo name is not different than your baseurl
-github_repo: "dorae222"
+github_repo: "dorae22_blog"
 
-baseurl: "https://dorae222.github.io/" 
+baseurl: "/dorae22_blog" 
 
 # Github and twitter are optional:
 minima:
   social_links:
-    - { platform: github, user_url: "dorae222" }
+    github: dorae222
 
 # Set this to true to get LaTeX math equation support
 use_math: 
