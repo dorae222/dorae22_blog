@@ -4,12 +4,12 @@ github_username: dorae222
 # you can comment the below line out if your repo name is not different than your baseurl
 github_repo: "dorae22_blog"
 
-baseurl: "dorae22_blog" 
+baseurl: "https://dorae222.github.io" 
 
 # Github and twitter are optional:
 minima:
   social_links:
-    - { platform: github, user_url: "https://github.com/dorae222" }
+    - { platform: github, user_url: "dorae222" }
 
 # Set this to true to get LaTeX math equation support
 use_math: 
