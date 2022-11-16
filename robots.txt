@@ -1,1 +1,1 @@
-Sitemap: /dorae222/sitemap.xml
+Sitemap: /https://dorae222.github.io/sitemap.xml
