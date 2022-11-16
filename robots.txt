@@ -1,1 +1,1 @@
-Sitemap: /https://dorae222.github.io/sitemap.xml
+Sitemap: /dorae22_blog/sitemap.xml
