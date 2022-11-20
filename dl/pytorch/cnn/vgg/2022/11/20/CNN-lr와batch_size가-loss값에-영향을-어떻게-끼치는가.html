@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>[CNN] lr와batch_size가 loss값에 영향을 어떻게 끼치는가 | Dorae222’s BLOG</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="[CNN] lr와batch_size가 loss값에 영향을 어떻게 끼치는가" />
+<meta name="author" content="도형준" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="이미지 분류하기 &amp; 전이학습" />
+<meta property="og:description" content="이미지 분류하기 &amp; 전이학습" />
+<meta property="og:site_name" content="Dorae222’s BLOG" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-11-20T00:00:00-06:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="[CNN] lr와batch_size가 loss값에 영향을 어떻게 끼치는가" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"도형준"},"dateModified":"2022-11-20T00:00:00-06:00","datePublished":"2022-11-20T00:00:00-06:00","description":"이미지 분류하기 &amp; 전이학습","headline":"[CNN] lr와batch_size가 loss값에 영향을 어떻게 끼치는가","mainEntityOfPage":{"@type":"WebPage","@id":"/dorae22_blog/dl/pytorch/cnn/vgg/2022/11/20/CNN-lr%EC%99%80batch_size%EA%B0%80-loss%EA%B0%92%EC%97%90-%EC%98%81%ED%96%A5%EC%9D%84-%EC%96%B4%EB%96%BB%EA%B2%8C-%EB%81%BC%EC%B9%98%EB%8A%94%EA%B0%80.html"},"url":"/dorae22_blog/dl/pytorch/cnn/vgg/2022/11/20/CNN-lr%EC%99%80batch_size%EA%B0%80-loss%EA%B0%92%EC%97%90-%EC%98%81%ED%96%A5%EC%9D%84-%EC%96%B4%EB%96%BB%EA%B2%8C-%EB%81%BC%EC%B9%98%EB%8A%94%EA%B0%80.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/dorae22_blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="/dorae22_blog/feed.xml" title="Dorae222's BLOG" /><link rel="shortcut icon" type="image/x-icon" href="/dorae22_blog/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/dorae22_blog/">Dorae222&#39;s BLOG</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/dorae22_blog/about/">About Me</a><a class="page-link" href="/dorae22_blog/gitInfo/">gitInfo</a><a class="page-link" href="/dorae22_blog/search/">Search</a><a class="page-link" href="/dorae22_blog/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">[CNN] lr와batch_size가 loss값에 영향을 어떻게 끼치는가</h1><p class="page-description">이미지 분류하기 & 전이학습</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2022-11-20T00:00:00-06:00" itemprop="datePublished">
+        Nov 20, 2022
+      </time>• 
+          <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+            <span class="p-author h-card" itemprop="name">도형준</span></span>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      14 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/dorae22_blog/categories/#DL">DL</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/dorae22_blog/categories/#Pytorch">Pytorch</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/dorae22_blog/categories/#CNN">CNN</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/dorae22_blog/categories/#VGG">VGG</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-justify-center">
+          <div class="px-2">
+
+    <a href="https://github.com/dorae222/dorae22_blog/tree/master/_notebooks/2022-11-20-[CNN] lr와batch_size가 loss값에 영향을 어떻게 끼치는가.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/dorae22_blog/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/dorae222/dorae22_blog/master?filepath=_notebooks%2F2022-11-20-%5BCNN%5D+lr%EC%99%80batch_size%EA%B0%80+loss%EA%B0%92%EC%97%90+%EC%98%81%ED%96%A5%EC%9D%84+%EC%96%B4%EB%96%BB%EA%B2%8C+%EB%81%BC%EC%B9%98%EB%8A%94%EA%B0%80.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/dorae22_blog/assets/badges/binder.svg" alt="Open In Binder"/>
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/dorae222/dorae22_blog/blob/master/_notebooks/2022-11-20-[CNN] lr와batch_size가 loss값에 영향을 어떻게 끼치는가.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/dorae22_blog/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+          <div class="px-2">
+  <a href="https://deepnote.com/launch?url=https%3A%2F%2Fgithub.com%2Fdorae222%2Fdorae22_blog%2Fblob%2Fmaster%2F_notebooks%2F2022-11-20-%5BCNN%5D+lr%EC%99%80batch_size%EA%B0%80+loss%EA%B0%92%EC%97%90+%EC%98%81%ED%96%A5%EC%9D%84+%EC%96%B4%EB%96%BB%EA%B2%8C+%EB%81%BC%EC%B9%98%EB%8A%94%EA%B0%80.ipynb" target="_blank">
+      <img class="notebook-badge-image" src="/dorae22_blog/assets/badges/deepnote.svg" alt="Launch in Deepnote"/>
+  </a>
+</div>
+
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h1"><a href="#lr-&-batch_size가-loss에-영향을-어떻게-미칠까">lr &amp; batch_size가 loss에 영향을 어떻게 미칠까 </a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#의문이-생긴-계기">의문이 생긴 계기 </a></li>
+<li class="toc-entry toc-h2"><a href="#모델-정의">모델 정의 </a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#CNN-모델">CNN 모델 </a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul><!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2022-11-20-[CNN] lr와batch_size가 loss값에 영향을 어떻게 끼치는가.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="lr-&amp;-batch_size가-loss에-영향을-어떻게-미칠까">
+<a class="anchor" href="#lr-&amp;-batch_size%EA%B0%80-loss%EC%97%90-%EC%98%81%ED%96%A5%EC%9D%84-%EC%96%B4%EB%96%BB%EA%B2%8C-%EB%AF%B8%EC%B9%A0%EA%B9%8C" aria-hidden="true"><span class="octicon octicon-link"></span></a>lr &amp; batch_size가 loss에 영향을 어떻게 미칠까<a class="anchor-link" href="#lr-&amp;-batch_size%EA%B0%80-loss%EC%97%90-%EC%98%81%ED%96%A5%EC%9D%84-%EC%96%B4%EB%96%BB%EA%B2%8C-%EB%AF%B8%EC%B9%A0%EA%B9%8C"> </a>
+</h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="https://user-images.githubusercontent.com/105966480/202898524-61913841-c682-4674-b741-09697e506e1e.png" alt="colab_gpu">|<img src="https://user-images.githubusercontent.com/105966480/202898527-5bca2baa-2074-4d26-9d3e-4514ca2a921b.png" alt="local_gpu">
+--- | --- |</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="의문이-생긴-계기">
+<a class="anchor" href="#%EC%9D%98%EB%AC%B8%EC%9D%B4-%EC%83%9D%EA%B8%B4-%EA%B3%84%EA%B8%B0" aria-hidden="true"><span class="octicon octicon-link"></span></a>의문이 생긴 계기<a class="anchor-link" href="#%EC%9D%98%EB%AC%B8%EC%9D%B4-%EC%83%9D%EA%B8%B4-%EA%B3%84%EA%B8%B0"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>코랩과 로컬에서 같은 파라미터를 가진 모델을 학습을 시켰는데, loss 값이 다르게 나왔다.</li>
+<li>로컬에서의 loss 값을 봤을 때, 최적화가 제대로 이루어지지 않고 있음을 알 수 있다.</li>
+<li>이 때, gpu의 성능 차이인지 로컬 환경을 잘못 세팅해서인지 의문점이 들었다.</li>
+<li>사실 아직까지 이 부분에 대해서 제대로 결론을 내리지는 못했다.</li>
+<li>하지만 이 파트의 의문점을 해소하려고 하는 과정에서, 배치 사이즈가 loss값의 수렴도에 큰 영향을 주게 된다는 것을 알게 되었다.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="https://user-images.githubusercontent.com/105966480/202898743-d467f838-1e91-4766-94b6-fbd72068cf5f.png" alt="image"></p>
+<ul>
+<li>참조 논문 링크: <a href="https://www.sciencedirect.com/science/article/pii/S2405959519303455#fig2">https://www.sciencedirect.com/science/article/pii/S2405959519303455#fig2</a>
+</li>
+<li>결과는 이 노트북 끝의 결과를 보면, 논문을 참고하여 최적은 파라미터들을 제공해주었을 때 성능이 향상되었음을 확인해 볼 수 있다.</li>
+</ul>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="kn">from</span> <span class="nn">torchvision.datasets.cifar</span> <span class="kn">import</span> <span class="n">CIFAR10</span> <span class="c1"># 10가지 클래스를 가지는 이미지 데이터셋 ex. 자동차, 동물 등</span>
+<span class="kn">from</span> <span class="nn">torchvision.transforms</span> <span class="kn">import</span> <span class="n">ToTensor</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">torchvision.transforms</span> <span class="k">as</span> <span class="nn">T</span>
+
+<span class="kn">from</span> <span class="nn">torchvision.transforms</span> <span class="kn">import</span> <span class="n">Compose</span>
+<span class="kn">from</span> <span class="nn">torchvision.transforms</span> <span class="kn">import</span> <span class="n">RandomHorizontalFlip</span><span class="p">,</span> <span class="n">RandomCrop</span>
+
+<span class="kn">from</span> <span class="nn">torchvision.transforms</span> <span class="kn">import</span> <span class="n">Normalize</span>
+<span class="c1"># 기본 블록 정의</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+
+<span class="kn">from</span> <span class="nn">torch.utils.data.dataloader</span> <span class="kn">import</span> <span class="n">DataLoader</span>
+<span class="kn">from</span> <span class="nn">torch.optim.adam</span> <span class="kn">import</span> <span class="n">Adam</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="모델-정의">
+<a class="anchor" href="#%EB%AA%A8%EB%8D%B8-%EC%A0%95%EC%9D%98" aria-hidden="true"><span class="octicon octicon-link"></span></a>모델 정의<a class="anchor-link" href="#%EB%AA%A8%EB%8D%B8-%EC%A0%95%EC%9D%98"> </a>
+</h2>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 같은 포맷을 받아서 -&gt; 그 안에 활용</span>
+<span class="k">class</span> <span class="nc">BasicBlock</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="c1"># 기본 블록 구성하는 기본 정의</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_channels</span><span class="p">,</span> <span class="n">out_channels</span><span class="p">,</span> <span class="n">hidden_dim</span><span class="p">):</span>
+        <span class="c1"># nn.Module</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BasicBlock</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="c1"># 합성곱 층</span>
+        <span class="c1"># in_channels : 입력 채널 수</span>
+        <span class="c1"># kernel_size : 커널의 크기</span>
+        <span class="c1"># padding : 이미지 외곽을 둘러쌀 0의 개수</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="n">in_channels</span><span class="p">,</span> <span class="n">hidden_dim</span><span class="p">,</span>
+                               <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="n">hidden_dim</span><span class="p">,</span> <span class="n">out_channels</span><span class="p">,</span>
+                               <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">relu</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">()</span>
+
+        <span class="c1"># 커널의 이동 거리 stride</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pool</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">MaxPool2d</span><span class="p">(</span><span class="n">kernel_size</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    
+    <span class="c1"># 순전파 정의</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv1</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># 합성곱1을 지나고</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># 활성화함수를 지나고</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv2</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># 합성곱2를 지나고</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># 활성화함수</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pool</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># 맥스풀링을 지난걸</span>
+        <span class="k">return</span> <span class="n">x</span> <span class="c1"># 리턴</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="CNN-모델">
+<a class="anchor" href="#CNN-%EB%AA%A8%EB%8D%B8" aria-hidden="true"><span class="octicon octicon-link"></span></a>CNN 모델<a class="anchor-link" href="#CNN-%EB%AA%A8%EB%8D%B8"> </a>
+</h3>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">CNN</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_classes</span><span class="p">):</span> <span class="c1"># 클래스 개수</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">CNN</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="c1"># 합성곱 기본 블록 정의</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">block1</span> <span class="o">=</span> <span class="n">BasicBlock</span><span class="p">(</span><span class="n">in_channels</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">out_channels</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">hidden_dim</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">block2</span> <span class="o">=</span> <span class="n">BasicBlock</span><span class="p">(</span><span class="n">in_channels</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">out_channels</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">hidden_dim</span><span class="o">=</span><span class="mi">64</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">block3</span> <span class="o">=</span> <span class="n">BasicBlock</span><span class="p">(</span><span class="n">in_channels</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">out_channels</span><span class="o">=</span><span class="mi">256</span><span class="p">,</span> <span class="n">hidden_dim</span><span class="o">=</span><span class="mi">128</span><span class="p">)</span>
+
+        <span class="c1"># 분류기</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">4096</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">2048</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fc2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">2048</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">256</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fc3</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">256</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="n">num_classes</span><span class="p">)</span>
+
+        <span class="c1"># 분류기의 활성화 함수</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">relu</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">block1</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">block2</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">block3</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># 출력 모양 (-1, 256, 4, 4)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">start_dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc2</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc3</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">x</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">transforms</span> <span class="o">=</span> <span class="n">Compose</span><span class="p">([</span>
+    <span class="n">RandomCrop</span><span class="p">((</span><span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">),</span> <span class="n">padding</span><span class="o">=</span><span class="mi">4</span><span class="p">),</span> <span class="c1"># 랜덤 크롭핑</span>
+    <span class="n">RandomHorizontalFlip</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="mf">0.5</span><span class="p">),</span> <span class="c1"># 1/2 확률로 y축 뒤집기</span>
+    <span class="n">ToTensor</span><span class="p">(),</span> <span class="c1"># 텐서 변환</span>
+    <span class="n">Normalize</span><span class="p">(</span><span class="n">mean</span><span class="o">=</span><span class="p">(</span><span class="mf">0.4914</span><span class="p">,</span> <span class="mf">0.4822</span><span class="p">,</span> <span class="mf">0.4465</span><span class="p">),</span> <span class="n">std</span><span class="o">=</span><span class="p">(</span><span class="mf">0.247</span><span class="p">,</span> <span class="mf">0.243</span><span class="p">,</span> <span class="mf">0.261</span><span class="p">))</span>
+<span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">training_data</span> <span class="o">=</span> <span class="n">CIFAR10</span><span class="p">(</span>
+    <span class="n">root</span><span class="o">=</span><span class="s2">"./"</span><span class="p">,</span> 
+    <span class="n">train</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
+    <span class="n">download</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
+    <span class="n">transform</span><span class="o">=</span><span class="n">transforms</span><span class="p">)</span>
+
+<span class="n">test_data</span> <span class="o">=</span> <span class="n">CIFAR10</span><span class="p">(</span>
+    <span class="n">root</span><span class="o">=</span><span class="s2">"./"</span><span class="p">,</span> 
+    <span class="n">train</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> 
+    <span class="n">download</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
+    <span class="n">transform</span><span class="o">=</span><span class="n">transforms</span><span class="p">)</span>
+
+<span class="c1"># 데이터로더 정의(batch_size)</span>
+<span class="n">train_loader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">training_data</span><span class="p">,</span><span class="n">batch_size</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">),</span><span class="n">shuffle</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">test_loader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span><span class="n">batch_size</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">),</span><span class="n">shuffle</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># device = cpu or gpu(cuda)</span>
+<span class="n">device</span> <span class="o">=</span> <span class="s1">'cuda'</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s1">'cpu'</span>
+
+<span class="c1"># CNN 모델 정의 (&lt;= CNN 클래스 불러오기(객체 선언))</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">CNN</span><span class="p">(</span><span class="n">num_classes</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="c1"># 모델을 device로</span>
+<span class="n">model</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Files already downloaded and verified
+Files already downloaded and verified
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>CNN(
+  (block1): BasicBlock(
+    (conv1): Conv2d(3, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (conv2): Conv2d(16, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (relu): ReLU()
+    (pool): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (block2): BasicBlock(
+    (conv1): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (conv2): Conv2d(64, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (relu): ReLU()
+    (pool): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (block3): BasicBlock(
+    (conv1): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (conv2): Conv2d(128, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (relu): ReLU()
+    (pool): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (fc1): Linear(in_features=4096, out_features=2048, bias=True)
+  (fc2): Linear(in_features=2048, out_features=256, bias=True)
+  (fc3): Linear(in_features=256, out_features=10, bias=True)
+  (relu): ReLU()
+)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">tqdm.notebook</span> <span class="kn">import</span> <span class="n">tqdm</span>
+<span class="n">lr</span> <span class="o">=</span> <span class="mf">0.0001</span> <span class="c1"># 학습률 정의</span>
+
+<span class="c1"># 최적화 기법 정의 (adam)</span>
+<span class="n">optim</span> <span class="o">=</span> <span class="n">Adam</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="n">lr</span><span class="p">)</span>
+
+<span class="c1"># 학습 루프 정의</span>
+<span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">)):</span>
+    <span class="k">for</span> <span class="n">data</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">train_loader</span><span class="p">:</span> <span class="c1"># 데이터 호출</span>
+        <span class="n">optim</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span> <span class="c1"># 기울기 초기화</span>
+        <span class="n">preds</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">))</span>
+        <span class="c1"># 분류 문제 (회귀 문제면 MSE)</span>
+        <span class="n">loss</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">()(</span><span class="n">preds</span><span class="p">,</span> <span class="n">label</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">))</span>
+        <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span> <span class="c1"># 오차 역전파</span>
+        <span class="n">optim</span><span class="o">.</span><span class="n">step</span><span class="p">()</span> <span class="c1"># 최적화</span>
+    
+    <span class="k">if</span> <span class="n">epoch</span><span class="o">==</span><span class="mi">0</span> <span class="ow">or</span> <span class="n">epoch</span><span class="o">%</span><span class="k">10</span>==9:
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"epoch</span><span class="si">{</span><span class="n">epoch</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2"> loss:</span><span class="si">{</span><span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">state_dict</span><span class="p">(),</span> <span class="s2">"CIFAR.pth"</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>epoch1 loss:2.219067096710205
+epoch10 loss:0.730250358581543
+epoch20 loss:0.7352678179740906
+epoch30 loss:0.4655658006668091
+epoch40 loss:0.29243195056915283
+epoch50 loss:0.15692786872386932
+epoch60 loss:0.1570410132408142
+epoch70 loss:0.025545910000801086
+epoch80 loss:0.0008887342410162091
+epoch90 loss:0.3047877252101898
+epoch100 loss:0.38577550649642944
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">'CIFAR.pth'</span><span class="p">,</span> <span class="n">map_location</span><span class="o">=</span><span class="n">device</span><span class="p">))</span>
+<span class="n">num_corr</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+    <span class="k">for</span> <span class="n">data</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">test_loader</span><span class="p">:</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">))</span>
+        <span class="n">preds</span> <span class="o">=</span> <span class="n">output</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="mi">1</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">corr</span> <span class="o">=</span> <span class="n">preds</span><span class="o">.</span><span class="n">eq</span><span class="p">(</span><span class="n">label</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+        <span class="n">num_corr</span> <span class="o">+=</span> <span class="n">corr</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Accuracy : </span><span class="si">{</span><span class="n">num_corr</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">test_data</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Accuracy : 0.0011
+Accuracy : 0.0026
+Accuracy : 0.0039
+Accuracy : 0.0051
+Accuracy : 0.0065
+Accuracy : 0.0076
+Accuracy : 0.0089
+Accuracy : 0.0101
+Accuracy : 0.0113
+Accuracy : 0.0126
+Accuracy : 0.014
+Accuracy : 0.0152
+Accuracy : 0.0164
+Accuracy : 0.018
+Accuracy : 0.0191
+Accuracy : 0.0201
+Accuracy : 0.0212
+Accuracy : 0.0224
+Accuracy : 0.0239
+Accuracy : 0.0249
+Accuracy : 0.026
+Accuracy : 0.0275
+Accuracy : 0.0286
+Accuracy : 0.0298
+Accuracy : 0.0309
+Accuracy : 0.0322
+Accuracy : 0.0334
+Accuracy : 0.0346
+Accuracy : 0.0358
+Accuracy : 0.0371
+Accuracy : 0.0382
+Accuracy : 0.0398
+Accuracy : 0.041
+Accuracy : 0.0423
+Accuracy : 0.0437
+Accuracy : 0.0449
+Accuracy : 0.0465
+Accuracy : 0.0477
+Accuracy : 0.0491
+Accuracy : 0.0506
+Accuracy : 0.0518
+Accuracy : 0.0528
+Accuracy : 0.0536
+Accuracy : 0.0552
+Accuracy : 0.0566
+Accuracy : 0.0577
+Accuracy : 0.0586
+Accuracy : 0.0599
+Accuracy : 0.0611
+Accuracy : 0.0622
+Accuracy : 0.0633
+Accuracy : 0.0645
+Accuracy : 0.0656
+Accuracy : 0.0669
+Accuracy : 0.0682
+Accuracy : 0.0693
+Accuracy : 0.0705
+Accuracy : 0.0718
+Accuracy : 0.0732
+Accuracy : 0.0744
+Accuracy : 0.0753
+Accuracy : 0.0765
+Accuracy : 0.0775
+Accuracy : 0.0785
+Accuracy : 0.0799
+Accuracy : 0.0808
+Accuracy : 0.0819
+Accuracy : 0.0834
+Accuracy : 0.0845
+Accuracy : 0.086
+Accuracy : 0.0871
+Accuracy : 0.0881
+Accuracy : 0.0894
+Accuracy : 0.0907
+Accuracy : 0.0919
+Accuracy : 0.0931
+Accuracy : 0.0942
+Accuracy : 0.0951
+Accuracy : 0.0964
+Accuracy : 0.0974
+Accuracy : 0.0988
+Accuracy : 0.0999
+Accuracy : 0.1012
+Accuracy : 0.1023
+Accuracy : 0.1037
+Accuracy : 0.105
+Accuracy : 0.1064
+Accuracy : 0.1075
+Accuracy : 0.1085
+Accuracy : 0.1099
+Accuracy : 0.1111
+Accuracy : 0.1122
+Accuracy : 0.1136
+Accuracy : 0.1144
+Accuracy : 0.1154
+Accuracy : 0.1168
+Accuracy : 0.118
+Accuracy : 0.1195
+Accuracy : 0.1207
+Accuracy : 0.1221
+Accuracy : 0.1232
+Accuracy : 0.1244
+Accuracy : 0.1256
+Accuracy : 0.127
+Accuracy : 0.1283
+Accuracy : 0.1294
+Accuracy : 0.1307
+Accuracy : 0.1318
+Accuracy : 0.1328
+Accuracy : 0.1341
+Accuracy : 0.1351
+Accuracy : 0.1359
+Accuracy : 0.1372
+Accuracy : 0.1383
+Accuracy : 0.1396
+Accuracy : 0.1408
+Accuracy : 0.142
+Accuracy : 0.1431
+Accuracy : 0.1446
+Accuracy : 0.1458
+Accuracy : 0.1465
+Accuracy : 0.1477
+Accuracy : 0.149
+Accuracy : 0.1503
+Accuracy : 0.1516
+Accuracy : 0.1528
+Accuracy : 0.1542
+Accuracy : 0.1552
+Accuracy : 0.1565
+Accuracy : 0.1579
+Accuracy : 0.1591
+Accuracy : 0.1602
+Accuracy : 0.1613
+Accuracy : 0.1627
+Accuracy : 0.1641
+Accuracy : 0.165
+Accuracy : 0.1662
+Accuracy : 0.1676
+Accuracy : 0.1689
+Accuracy : 0.1701
+Accuracy : 0.1715
+Accuracy : 0.1727
+Accuracy : 0.1741
+Accuracy : 0.1753
+Accuracy : 0.1766
+Accuracy : 0.1778
+Accuracy : 0.179
+Accuracy : 0.1804
+Accuracy : 0.1816
+Accuracy : 0.1827
+Accuracy : 0.1841
+Accuracy : 0.1854
+Accuracy : 0.1867
+Accuracy : 0.1878
+Accuracy : 0.1891
+Accuracy : 0.1904
+Accuracy : 0.1916
+Accuracy : 0.1926
+Accuracy : 0.1934
+Accuracy : 0.195
+Accuracy : 0.1964
+Accuracy : 0.1978
+Accuracy : 0.199
+Accuracy : 0.2004
+Accuracy : 0.2016
+Accuracy : 0.2026
+Accuracy : 0.2038
+Accuracy : 0.2051
+Accuracy : 0.2062
+Accuracy : 0.2074
+Accuracy : 0.209
+Accuracy : 0.2104
+Accuracy : 0.2115
+Accuracy : 0.2127
+Accuracy : 0.2139
+Accuracy : 0.215
+Accuracy : 0.2165
+Accuracy : 0.2175
+Accuracy : 0.2188
+Accuracy : 0.2202
+Accuracy : 0.2216
+Accuracy : 0.2229
+Accuracy : 0.2241
+Accuracy : 0.2252
+Accuracy : 0.2263
+Accuracy : 0.2278
+Accuracy : 0.2289
+Accuracy : 0.2303
+Accuracy : 0.2315
+Accuracy : 0.2324
+Accuracy : 0.2337
+Accuracy : 0.2348
+Accuracy : 0.2356
+Accuracy : 0.237
+Accuracy : 0.2381
+Accuracy : 0.2396
+Accuracy : 0.2408
+Accuracy : 0.2418
+Accuracy : 0.2431
+Accuracy : 0.2444
+Accuracy : 0.2456
+Accuracy : 0.2471
+Accuracy : 0.2481
+Accuracy : 0.2493
+Accuracy : 0.2506
+Accuracy : 0.252
+Accuracy : 0.2532
+Accuracy : 0.2545
+Accuracy : 0.2557
+Accuracy : 0.2567
+Accuracy : 0.2579
+Accuracy : 0.2593
+Accuracy : 0.2605
+Accuracy : 0.2618
+Accuracy : 0.2632
+Accuracy : 0.2643
+Accuracy : 0.2653
+Accuracy : 0.2668
+Accuracy : 0.2678
+Accuracy : 0.2692
+Accuracy : 0.2702
+Accuracy : 0.2715
+Accuracy : 0.2725
+Accuracy : 0.2737
+Accuracy : 0.275
+Accuracy : 0.276
+Accuracy : 0.2771
+Accuracy : 0.2782
+Accuracy : 0.2793
+Accuracy : 0.2807
+Accuracy : 0.282
+Accuracy : 0.283
+Accuracy : 0.2842
+Accuracy : 0.2854
+Accuracy : 0.2867
+Accuracy : 0.2878
+Accuracy : 0.2892
+Accuracy : 0.2905
+Accuracy : 0.2916
+Accuracy : 0.2926
+Accuracy : 0.294
+Accuracy : 0.2952
+Accuracy : 0.2965
+Accuracy : 0.2976
+Accuracy : 0.299
+Accuracy : 0.3
+Accuracy : 0.3012
+Accuracy : 0.3025
+Accuracy : 0.3037
+Accuracy : 0.3049
+Accuracy : 0.3059
+Accuracy : 0.307
+Accuracy : 0.3082
+Accuracy : 0.3094
+Accuracy : 0.3107
+Accuracy : 0.312
+Accuracy : 0.3132
+Accuracy : 0.3146
+Accuracy : 0.3154
+Accuracy : 0.3167
+Accuracy : 0.3179
+Accuracy : 0.3193
+Accuracy : 0.3202
+Accuracy : 0.3214
+Accuracy : 0.3227
+Accuracy : 0.3238
+Accuracy : 0.3252
+Accuracy : 0.3259
+Accuracy : 0.3272
+Accuracy : 0.3283
+Accuracy : 0.3296
+Accuracy : 0.331
+Accuracy : 0.3324
+Accuracy : 0.3336
+Accuracy : 0.3349
+Accuracy : 0.336
+Accuracy : 0.337
+Accuracy : 0.3381
+Accuracy : 0.3396
+Accuracy : 0.3406
+Accuracy : 0.3421
+Accuracy : 0.3435
+Accuracy : 0.3449
+Accuracy : 0.346
+Accuracy : 0.347
+Accuracy : 0.3482
+Accuracy : 0.3497
+Accuracy : 0.3508
+Accuracy : 0.3517
+Accuracy : 0.3527
+Accuracy : 0.354
+Accuracy : 0.3552
+Accuracy : 0.3564
+Accuracy : 0.3578
+Accuracy : 0.3591
+Accuracy : 0.3604
+Accuracy : 0.3614
+Accuracy : 0.3621
+Accuracy : 0.3635
+Accuracy : 0.3646
+Accuracy : 0.366
+Accuracy : 0.367
+Accuracy : 0.3683
+Accuracy : 0.3692
+Accuracy : 0.3704
+Accuracy : 0.3714
+Accuracy : 0.3726
+Accuracy : 0.3737
+Accuracy : 0.375
+Accuracy : 0.3761
+Accuracy : 0.3769
+Accuracy : 0.378
+Accuracy : 0.3791
+Accuracy : 0.3805
+Accuracy : 0.3819
+Accuracy : 0.3831
+Accuracy : 0.3842
+Accuracy : 0.3854
+Accuracy : 0.3866
+Accuracy : 0.3879
+Accuracy : 0.3889
+Accuracy : 0.3901
+Accuracy : 0.3914
+Accuracy : 0.3927
+Accuracy : 0.3941
+Accuracy : 0.3951
+Accuracy : 0.3961
+Accuracy : 0.3969
+Accuracy : 0.3984
+Accuracy : 0.3994
+Accuracy : 0.4005
+Accuracy : 0.4019
+Accuracy : 0.4032
+Accuracy : 0.4046
+Accuracy : 0.4056
+Accuracy : 0.4068
+Accuracy : 0.4079
+Accuracy : 0.4088
+Accuracy : 0.4099
+Accuracy : 0.4111
+Accuracy : 0.4122
+Accuracy : 0.4133
+Accuracy : 0.4144
+Accuracy : 0.4159
+Accuracy : 0.4171
+Accuracy : 0.4185
+Accuracy : 0.4199
+Accuracy : 0.4209
+Accuracy : 0.4223
+Accuracy : 0.4236
+Accuracy : 0.4246
+Accuracy : 0.4259
+Accuracy : 0.4271
+Accuracy : 0.4283
+Accuracy : 0.4296
+Accuracy : 0.4309
+Accuracy : 0.4322
+Accuracy : 0.4331
+Accuracy : 0.4343
+Accuracy : 0.4358
+Accuracy : 0.4373
+Accuracy : 0.4387
+Accuracy : 0.4398
+Accuracy : 0.4412
+Accuracy : 0.4425
+Accuracy : 0.4439
+Accuracy : 0.4451
+Accuracy : 0.4462
+Accuracy : 0.4472
+Accuracy : 0.4481
+Accuracy : 0.4494
+Accuracy : 0.4509
+Accuracy : 0.4522
+Accuracy : 0.4535
+Accuracy : 0.4547
+Accuracy : 0.4559
+Accuracy : 0.4575
+Accuracy : 0.4588
+Accuracy : 0.4601
+Accuracy : 0.4613
+Accuracy : 0.4624
+Accuracy : 0.4636
+Accuracy : 0.4649
+Accuracy : 0.4661
+Accuracy : 0.4671
+Accuracy : 0.4682
+Accuracy : 0.4693
+Accuracy : 0.4705
+Accuracy : 0.4717
+Accuracy : 0.473
+Accuracy : 0.474
+Accuracy : 0.4755
+Accuracy : 0.4768
+Accuracy : 0.4781
+Accuracy : 0.4796
+Accuracy : 0.481
+Accuracy : 0.4824
+Accuracy : 0.4838
+Accuracy : 0.4848
+Accuracy : 0.486
+Accuracy : 0.4872
+Accuracy : 0.4881
+Accuracy : 0.4892
+Accuracy : 0.4905
+Accuracy : 0.4916
+Accuracy : 0.4928
+Accuracy : 0.4942
+Accuracy : 0.4957
+Accuracy : 0.497
+Accuracy : 0.4981
+Accuracy : 0.4994
+Accuracy : 0.5004
+Accuracy : 0.5018
+Accuracy : 0.5034
+Accuracy : 0.5047
+Accuracy : 0.5059
+Accuracy : 0.5072
+Accuracy : 0.5085
+Accuracy : 0.5097
+Accuracy : 0.5109
+Accuracy : 0.5121
+Accuracy : 0.5133
+Accuracy : 0.5146
+Accuracy : 0.5158
+Accuracy : 0.517
+Accuracy : 0.5182
+Accuracy : 0.5194
+Accuracy : 0.5202
+Accuracy : 0.5213
+Accuracy : 0.5226
+Accuracy : 0.5241
+Accuracy : 0.5255
+Accuracy : 0.5264
+Accuracy : 0.5276
+Accuracy : 0.529
+Accuracy : 0.5302
+Accuracy : 0.5312
+Accuracy : 0.5319
+Accuracy : 0.5329
+Accuracy : 0.5342
+Accuracy : 0.5353
+Accuracy : 0.5364
+Accuracy : 0.5378
+Accuracy : 0.5389
+Accuracy : 0.54
+Accuracy : 0.5412
+Accuracy : 0.5425
+Accuracy : 0.5438
+Accuracy : 0.5449
+Accuracy : 0.5463
+Accuracy : 0.5474
+Accuracy : 0.5486
+Accuracy : 0.5498
+Accuracy : 0.5513
+Accuracy : 0.5525
+Accuracy : 0.5537
+Accuracy : 0.5549
+Accuracy : 0.5561
+Accuracy : 0.5575
+Accuracy : 0.5588
+Accuracy : 0.56
+Accuracy : 0.5612
+Accuracy : 0.5622
+Accuracy : 0.5634
+Accuracy : 0.5649
+Accuracy : 0.5659
+Accuracy : 0.5673
+Accuracy : 0.5682
+Accuracy : 0.5697
+Accuracy : 0.5708
+Accuracy : 0.572
+Accuracy : 0.5734
+Accuracy : 0.5747
+Accuracy : 0.5758
+Accuracy : 0.5768
+Accuracy : 0.5779
+Accuracy : 0.579
+Accuracy : 0.5802
+Accuracy : 0.5815
+Accuracy : 0.5829
+Accuracy : 0.5843
+Accuracy : 0.5856
+Accuracy : 0.587
+Accuracy : 0.5881
+Accuracy : 0.5893
+Accuracy : 0.5906
+Accuracy : 0.5919
+Accuracy : 0.5931
+Accuracy : 0.5944
+Accuracy : 0.5955
+Accuracy : 0.5965
+Accuracy : 0.5978
+Accuracy : 0.599
+Accuracy : 0.5998
+Accuracy : 0.6009
+Accuracy : 0.6024
+Accuracy : 0.6033
+Accuracy : 0.6041
+Accuracy : 0.6053
+Accuracy : 0.6066
+Accuracy : 0.6079
+Accuracy : 0.6092
+Accuracy : 0.6102
+Accuracy : 0.6114
+Accuracy : 0.6126
+Accuracy : 0.6138
+Accuracy : 0.6148
+Accuracy : 0.6162
+Accuracy : 0.6174
+Accuracy : 0.6186
+Accuracy : 0.6198
+Accuracy : 0.6212
+Accuracy : 0.6224
+Accuracy : 0.6234
+Accuracy : 0.6246
+Accuracy : 0.6259
+Accuracy : 0.627
+Accuracy : 0.6283
+Accuracy : 0.6294
+Accuracy : 0.6306
+Accuracy : 0.6317
+Accuracy : 0.633
+Accuracy : 0.634
+Accuracy : 0.6353
+Accuracy : 0.6361
+Accuracy : 0.6374
+Accuracy : 0.6388
+Accuracy : 0.6401
+Accuracy : 0.6411
+Accuracy : 0.6425
+Accuracy : 0.6431
+Accuracy : 0.6441
+Accuracy : 0.6451
+Accuracy : 0.6465
+Accuracy : 0.6476
+Accuracy : 0.6489
+Accuracy : 0.6499
+Accuracy : 0.6508
+Accuracy : 0.6521
+Accuracy : 0.6533
+Accuracy : 0.6543
+Accuracy : 0.6556
+Accuracy : 0.657
+Accuracy : 0.6584
+Accuracy : 0.6598
+Accuracy : 0.6611
+Accuracy : 0.6622
+Accuracy : 0.6632
+Accuracy : 0.6645
+Accuracy : 0.6659
+Accuracy : 0.6669
+Accuracy : 0.6682
+Accuracy : 0.6696
+Accuracy : 0.6708
+Accuracy : 0.6722
+Accuracy : 0.6737
+Accuracy : 0.6751
+Accuracy : 0.6766
+Accuracy : 0.6777
+Accuracy : 0.6788
+Accuracy : 0.6803
+Accuracy : 0.6817
+Accuracy : 0.683
+Accuracy : 0.6845
+Accuracy : 0.686
+Accuracy : 0.6873
+Accuracy : 0.6884
+Accuracy : 0.6896
+Accuracy : 0.691
+Accuracy : 0.6923
+Accuracy : 0.6936
+Accuracy : 0.6949
+Accuracy : 0.6964
+Accuracy : 0.6975
+Accuracy : 0.6989
+Accuracy : 0.7004
+Accuracy : 0.7012
+Accuracy : 0.7024
+Accuracy : 0.7036
+Accuracy : 0.7048
+Accuracy : 0.706
+Accuracy : 0.7073
+Accuracy : 0.7087
+Accuracy : 0.7098
+Accuracy : 0.7108
+Accuracy : 0.7118
+Accuracy : 0.7129
+Accuracy : 0.7143
+Accuracy : 0.7157
+Accuracy : 0.7168
+Accuracy : 0.718
+Accuracy : 0.7192
+Accuracy : 0.7207
+Accuracy : 0.7218
+Accuracy : 0.723
+Accuracy : 0.724
+Accuracy : 0.7254
+Accuracy : 0.7267
+Accuracy : 0.7281
+Accuracy : 0.729
+Accuracy : 0.7302
+Accuracy : 0.7313
+Accuracy : 0.7324
+Accuracy : 0.7336
+Accuracy : 0.735
+Accuracy : 0.7364
+Accuracy : 0.7375
+Accuracy : 0.739
+Accuracy : 0.7402
+Accuracy : 0.7415
+Accuracy : 0.7428
+Accuracy : 0.744
+Accuracy : 0.745
+Accuracy : 0.7459
+Accuracy : 0.7472
+Accuracy : 0.7485
+Accuracy : 0.7498
+Accuracy : 0.7511
+Accuracy : 0.7522
+Accuracy : 0.7532
+Accuracy : 0.7545
+Accuracy : 0.7559
+Accuracy : 0.757
+Accuracy : 0.7582
+Accuracy : 0.7595
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>loss값은 크게 낮아졌으나, 정확도는 크게 오르지 않음.</li>
+<li>epoch 횟수를 늘린다면, 성능이 올라갈 것이라고 예상함.</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+
+<script type="application/vnd.jupyter.widget-state+json">
+{"0050b9b588044280909dbf95b2771108": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "DescriptionStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "description_width": ""}}, "1a32f0425b614889a61dff6acc386c95": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "ProgressStyleModel", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "ProgressStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "bar_color": null, "description_width": ""}}, "24ce1bd97dbd46e3a562d7c26b5383a2": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "265c9e9f4a1548fda7a7695bd1a57671": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "2a54198054d34b0fbe06609fc854838c": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "2cbf5391cb8548b2a6420960a4045305": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HTMLView", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_efc313fc15b74639a0376a6e52019816", "placeholder": "\u200b", "style": "IPY_MODEL_0050b9b588044280909dbf95b2771108", "value": " 170498071/170498071 [00:03&lt;00:00, 49689618.32it/s]"}}, "2d14925b9c6f4b55a18e0de1f550cc67": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "FloatProgressModel", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "FloatProgressModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "ProgressView", "bar_style": "success", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_550ae80be6d14af8ab783cdb55a72d3e", "max": 553433881, "min": 0, "orientation": "horizontal", "style": "IPY_MODEL_8ebb51d47116402e8e20f202e237c9dd", "value": 553433881}}, "514c10f2febc4fb4a6b3e0de27d3898a": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HBoxModel", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HBoxModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HBoxView", "box_style": "", "children": ["IPY_MODEL_f79333451f8c4aad97075994a5169d22", "IPY_MODEL_2d14925b9c6f4b55a18e0de1f550cc67", "IPY_MODEL_543a9f6cd0a149c28fe34f7e280baead"], "layout": "IPY_MODEL_265c9e9f4a1548fda7a7695bd1a57671"}}, "5427c3a0d2c14ee89901b22a3d57e53e": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "DescriptionStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "description_width": ""}}, "543a9f6cd0a149c28fe34f7e280baead": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HTMLView", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_d1b1835a4d3449958893f48d7cc8487b", "placeholder": "\u200b", "style": "IPY_MODEL_f64e51b9f594462dae5c2af2e87d2d0b", "value": " 528M/528M [00:02&lt;00:00, 233MB/s]"}}, "550ae80be6d14af8ab783cdb55a72d3e": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "8ebb51d47116402e8e20f202e237c9dd": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "ProgressStyleModel", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "ProgressStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "bar_color": null, "description_width": ""}}, "926574377e794bab953117e8315367d9": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "FloatProgressModel", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "FloatProgressModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "ProgressView", "bar_style": "success", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_24ce1bd97dbd46e3a562d7c26b5383a2", "max": 170498071, "min": 0, "orientation": "horizontal", "style": "IPY_MODEL_1a32f0425b614889a61dff6acc386c95", "value": 170498071}}, "99eadc1a8c0c48a2b08d7aea09ca6a9f": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "DescriptionStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "description_width": ""}}, "c823bd0b2fba4029b1e0f842d826d056": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "d1b1835a4d3449958893f48d7cc8487b": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "dccaac9bc3bf48e2902bcb15e032afee": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HBoxModel", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HBoxModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HBoxView", "box_style": "", "children": ["IPY_MODEL_f146167bcb5f48bebf9f9abd55d78e43", "IPY_MODEL_926574377e794bab953117e8315367d9", "IPY_MODEL_2cbf5391cb8548b2a6420960a4045305"], "layout": "IPY_MODEL_c823bd0b2fba4029b1e0f842d826d056"}}, "e8149360a8d543edb2f660b4954cf26d": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "efc313fc15b74639a0376a6e52019816": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.2.0", "model_name": "LayoutModel", "state": {"_model_module": "@jupyter-widgets/base", "_model_module_version": "1.2.0", "_model_name": "LayoutModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "LayoutView", "align_content": null, "align_items": null, "align_self": null, "border": null, "bottom": null, "display": null, "flex": null, "flex_flow": null, "grid_area": null, "grid_auto_columns": null, "grid_auto_flow": null, "grid_auto_rows": null, "grid_column": null, "grid_gap": null, "grid_row": null, "grid_template_areas": null, "grid_template_columns": null, "grid_template_rows": null, "height": null, "justify_content": null, "justify_items": null, "left": null, "margin": null, "max_height": null, "max_width": null, "min_height": null, "min_width": null, "object_fit": null, "object_position": null, "order": null, "overflow": null, "overflow_x": null, "overflow_y": null, "padding": null, "right": null, "top": null, "visibility": null, "width": null}}, "f146167bcb5f48bebf9f9abd55d78e43": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HTMLView", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_2a54198054d34b0fbe06609fc854838c", "placeholder": "\u200b", "style": "IPY_MODEL_5427c3a0d2c14ee89901b22a3d57e53e", "value": "100%"}}, "f64e51b9f594462dae5c2af2e87d2d0b": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "DescriptionStyleModel", "state": {"_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "DescriptionStyleModel", "_view_count": null, "_view_module": "@jupyter-widgets/base", "_view_module_version": "1.2.0", "_view_name": "StyleView", "description_width": ""}}, "f79333451f8c4aad97075994a5169d22": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.5.0", "model_name": "HTMLModel", "state": {"_dom_classes": [], "_model_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_model_name": "HTMLModel", "_view_count": null, "_view_module": "@jupyter-widgets/controls", "_view_module_version": "1.5.0", "_view_name": "HTMLView", "description": "", "description_tooltip": null, "layout": "IPY_MODEL_e8149360a8d543edb2f660b4954cf26d", "placeholder": "\u200b", "style": "IPY_MODEL_99eadc1a8c0c48a2b08d7aea09ca6a9f", "value": "100%"}}}
+</script>
+
+
+
+  </div><!-- from https://github.com/utterance/utterances 
+<script src="https://utteranc.es/client.js"
+        repo="dorae222/dorae22_blog"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script> -->
+
+<div id="disqus_thread"></div>
+<script>
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+    /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://dorae222-blog.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a class="u-url" href="/dorae22_blog/dl/pytorch/cnn/vgg/2022/11/20/CNN-lr%EC%99%80batch_size%EA%B0%80-loss%EA%B0%92%EC%97%90-%EC%98%81%ED%96%A5%EC%9D%84-%EC%96%B4%EB%96%BB%EA%B2%8C-%EB%81%BC%EC%B9%98%EB%8A%94%EA%B0%80.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/dorae22_blog/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/dorae22_blog/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/dorae22_blog/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>HYU BIZ &amp; BIG DATA</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li>
+  <a rel="me" href="https://github.com/dorae222" target="_blank" title="github">
+    <svg class="svg-icon grey">
+      <use xlink:href="/dorae22_blog/assets/minima-social-icons.svg#github"></use>
+    </svg>
+  </a>
+</li>
+</ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
