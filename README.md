@@ -5,7 +5,7 @@
 
 > LINK: https://dorae222.github.io/dorae22_blog/
 
-[2022.11.17] CI Failing Issue 해결 완료 => 브랜치 관리 필요 => 발생원인은 현재 파악 불가<br>
+[2022.11.17] CI Failing Issue 해결 완료 => 브랜치 관리 필요<br>
 
 [Need to be modified]
 - css 수정 필요
